@@ -7,9 +7,29 @@
 
 #pragma once
 
-#include <frc/commands/CommandGroup.h>
+#include <frc/commands/Command.h>
+#include "RobotMap.h"
+#include "Robot.h"
 
-class AutoDriveRotation : public frc::CommandGroup {
- public:
-  AutoDriveRotation();
+enum DriveMotorEncoder {
+		FrontLeft,
+		FrontRight,
+		RearLeft,
+		RearRight
+	};
+
+class AutoDriveRotation : public frc::Command {
+public:
+	AutoDriveRotation(double rotation, double driveX, double driveY, double driveZ, DriveMotorEncoder encoder);
+	void Initialize() override;
+	void Execute() override;
+	bool IsFinished() override;
+	void End() override;
+	void Interrupted() override;
+
+private:
+	double startPos, targetPos;
+	double x, y, z;
+	DriveMotorEncoder encoderSource;
+	double GetEncoderValue();
 };

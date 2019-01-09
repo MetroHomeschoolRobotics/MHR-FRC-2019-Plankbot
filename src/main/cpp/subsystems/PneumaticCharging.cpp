@@ -7,8 +7,8 @@
 
 #include "subsystems/PneumaticCharging.h"
 
-PneumaticCharging::PneumaticCharging() : Subsystem("Pneumatic Charging") {
-	pneumoCharger = RobotMap::pneumoCharger;
+PneumaticCharging::PneumaticCharging(frc::Compressor* compressor) : Subsystem("Pneumatic Charging") {
+	pneumoCharger = compressor;
 }
 
 void PneumaticCharging::InitDefaultCommand() {
@@ -17,15 +17,15 @@ void PneumaticCharging::InitDefaultCommand() {
 }
 
 void PneumaticCharging::Charge() {
-	pneumoCharger.get()->SetClosedLoopControl(true);
+	pneumoCharger->SetClosedLoopControl(true);
 }
 
 void PneumaticCharging::StopCharging() {
-	pneumoCharger.get()->SetClosedLoopControl(false);
+	pneumoCharger->SetClosedLoopControl(false);
 }
 
 bool PneumaticCharging::ChargeComplete() {
-	return pneumoCharger.get()->GetPressureSwitchValue();
+	return pneumoCharger->GetPressureSwitchValue();
 }
 // Put methods for controlling this subsystem
 // here. Call these from Commands.

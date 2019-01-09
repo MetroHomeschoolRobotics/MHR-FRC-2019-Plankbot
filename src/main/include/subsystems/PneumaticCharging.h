@@ -15,9 +15,9 @@ class PneumaticCharging : public frc::Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	std::shared_ptr<frc::Compressor> pneumoCharger;
+	frc::Compressor* pneumoCharger;
 public:
-	PneumaticCharging();
+	PneumaticCharging(frc::Compressor* compressor);
 	void InitDefaultCommand() override;
 	void Charge();
 	void StopCharging();

@@ -14,6 +14,7 @@ class OI {
 private:
 
 	//Create Private Objects
+	std::shared_ptr<frc::Command> _driveCommand;
 	std::shared_ptr<frc::Joystick> driveJoystick;
 	std::shared_ptr<frc::Joystick> manipulatorJoystick;
 	std::shared_ptr<frc::JoystickButton> switchDriveButton;
@@ -45,12 +46,6 @@ public:
 	void SetupDashboard();
 
 	//Create Private Inputs
-	std::shared_ptr<frc::Joystick> getDriveJoystick();
-	std::shared_ptr<frc::Joystick> getManipulatorJoystick();
-	std::shared_ptr<frc::JoystickButton> getSwitchDriveButton();
-	std::shared_ptr<frc::JoystickButton> getOverrideButton();
-	std::shared_ptr<frc::JoystickButton> getManipOverrideButton();
+	frc::Command* DriveCommand();
 	frc::SendableChooser<frc::Command*> *getAutoChooser();
-	std::shared_ptr<frc::JoystickButton> getClampInButton();
-	std::shared_ptr<frc::JoystickButton> getClampOutButton();
 };

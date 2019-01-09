@@ -20,7 +20,7 @@ private:
 public:
 	double threshold = 0.1;
 
-	MechDrive();
+	MechDrive(Positioning* positioning);
 	void InitDefaultCommand() override;
 	void Periodic() override;
 	void Move(double x, double y, double z) override;

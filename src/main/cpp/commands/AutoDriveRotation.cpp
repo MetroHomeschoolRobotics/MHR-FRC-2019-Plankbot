@@ -7,21 +7,56 @@
 
 #include "commands/AutoDriveRotation.h"
 
-AutoDriveRotation::AutoDriveRotation() {
-  // Add Commands here:
-  // e.g. AddSequential(new Command1());
-  //      AddSequential(new Command2());
-  // these will run in order.
+AutoDriveRotation::AutoDriveRotation(double rotation, double driveX, double driveY, double driveZ, DriveMotorEncoder encoder) {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+	Requires(Robot::MainDrive());
+	startPos = 0;
+	targetPos = rotation;
+	x = driveX;
+	y = driveY;
+	z = driveZ;
+	encoderSource = encoder;
+}
 
-  // To run multiple commands at the same time,
-  // use AddParallel()
-  // e.g. AddParallel(new Command1());
-  //      AddSequential(new Command2());
-  // Command1 and Command2 will run in parallel.
+double AutoDriveRotation::GetEncoderValue() {
+	switch(encoderSource){
+		case FrontLeft: return  Robot::PositioningSystem()->GetFrontLeftDistance();
+		case FrontRight: return  Robot::PositioningSystem()->GetFrontRightDistance();
+		case RearLeft: return  Robot::PositioningSystem()->GetRearLeftDistance();
+		case RearRight: return  Robot::PositioningSystem()->GetRearRightDistance();
+	}
+	return 0;
+}
 
-  // A command group will require all of the subsystems that each member
-  // would require.
-  // e.g. if Command1 requires chassis, and Command2 requires arm,
-  // a CommandGroup containing them would require both the chassis and the
-  // arm.
+// Called just before this Command runs the first time
+void AutoDriveRotation::Initialize() {
+	startPos = GetEncoderValue();
+	frc::SmartDashboard::PutNumber("Auto Drive Rotation Start", startPos);
+	Robot::MainDrive()->Move(x, y, z);
+}
+
+// Called repeatedly when this Command is scheduled to run
+void AutoDriveRotation::Execute() {
+
+}
+
+// Make this return true when this Command no longer needs to run execute()
+bool AutoDriveRotation::IsFinished() {
+	if (targetPos > 0) {
+		return (GetEncoderValue() - startPos) > targetPos;
+	} else {
+		return (GetEncoderValue() - startPos) < -targetPos;
+	}
+}
+
+// Called once after isFinished returns true
+void AutoDriveRotation::End() {
+	Robot::MainDrive()->Move(0, 0, 0);
+}
+
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void AutoDriveRotation::Interrupted() {
+	End();
 }

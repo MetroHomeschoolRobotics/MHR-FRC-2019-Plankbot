@@ -1,6 +1,5 @@
 #include "RobotMap.h"
 
-std::shared_ptr<frc::MecanumDrive> RobotMap::mainDrive;
 std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveFrontLeft;
 std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveFrontRight;
 std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveRearRight;
@@ -32,6 +31,10 @@ int RobotMap::UltrasonicAnalogPort = 0;
 
 void RobotMap::init() {
 
+	cs::UsbCamera cam0 = frc::CameraServer::GetInstance()->StartAutomaticCapture();
+	cam0.SetFPS(30);
+	cam0.SetResolution(640,480);
+
     tankDriveFrontLeft.reset(new WPI_TalonSRX(0));
     
     tankDriveFrontRight.reset(new WPI_TalonSRX(2));
@@ -44,7 +47,6 @@ void RobotMap::init() {
     frc::SpeedController *rLeft = tankDriveRearLeft.get();
     frc::SpeedController *fRight = tankDriveFrontRight.get();
     frc::SpeedController *rRight = tankDriveRearRight.get();
-    mainDrive.reset(new frc::MecanumDrive(*fLeft, *rLeft, *rRight, *fRight));
     
     liftMotor.reset(new WPI_TalonSRX(4));
     leftBoxIntake.reset(new frc::Spark(0));
@@ -78,3 +80,4 @@ void RobotMap::init() {
 
     pneumoCharger.reset(new frc::Compressor());
 }
+

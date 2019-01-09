@@ -32,7 +32,6 @@
 class RobotMap {
 
 public:
-	static std::shared_ptr<frc::MecanumDrive> mainDrive;
 	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontLeft;
 	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontRight;
 	static std::shared_ptr<WPI_TalonSRX> tankDriveRearRight;

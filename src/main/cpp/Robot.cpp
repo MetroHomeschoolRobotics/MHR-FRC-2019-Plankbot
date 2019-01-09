@@ -18,6 +18,8 @@
 OI Robot::m_oi;
 
 std::shared_ptr<DriveSystem> Robot::m_mainDrive;
+std::shared_ptr<Positioning> Robot::m_positioningSystem;
+std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
 
 void Robot::RobotInit() {
   m_leftAutoCommand = new AutoLeft();
@@ -31,6 +33,9 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
   m_mainDrive.reset(new TankDrive());
+
+  m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
+  m_positioningSystem.reset(new Positioning());
 }
 
 /**
@@ -77,6 +82,9 @@ void Robot::AutonomousInit() {
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Start();
   }
+
+  
+  m_oi.DriveCommand()->Cancel();
 }
 
 void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
@@ -90,6 +98,8 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
+
+  m_oi.DriveCommand()->Start();
 }
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
@@ -99,6 +109,16 @@ void Robot::TestPeriodic() {}
 DriveSystem* Robot::MainDrive() {
   return m_mainDrive.get();
 }
+
+
+PneumaticCharging* Robot::PneumaticCompressor(){
+    return m_pneumaticCompressor.get();
+}
+Positioning* Robot::PositioningSystem(){
+    return m_positioningSystem.get();
+}
+
+
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

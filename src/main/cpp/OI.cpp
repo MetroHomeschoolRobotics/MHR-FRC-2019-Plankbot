@@ -11,7 +11,8 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 
 #include "Commands/AutoLeft.h"
-/* #include "Commands/Drive.h"
+#include "Commands/Drive.h"
+/*
 #include "Commands/Lift.h"
 #include "Commands/SwitchDrive.h"
 #include "Commands/Grab.h"
@@ -30,7 +31,9 @@ OI::OI() {
 	//Instantiate the Joystick
     driveJoystick.reset(new frc::Joystick(0));
     manipulatorJoystick.reset(new frc::Joystick(1));
-    
+
+    _driveCommand.reset(new Drive(driveJoystick.get(), manipulatorJoystick.get()));
+
     //SwitchDrive Button
    /*  switchDriveButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
     switchDriveButton->ToggleWhenPressed(new SwitchDrive());
@@ -82,7 +85,8 @@ OI::OI() {
     frc::JoystickButton *manipArmPreset2 = new frc::JoystickButton(manipulatorJoystick.get(), 8);
     manipArmPreset2->WhenPressed(new ArmPreset(8000));
 
- */    autoChooser = new frc::SendableChooser<frc::Command*>();
+ */
+    autoChooser = new frc::SendableChooser<frc::Command*>();
 }
 
 void OI::SetupDashboard() {
@@ -103,26 +107,6 @@ frc::SendableChooser<frc::Command*> *OI::getAutoChooser() {
 	return autoChooser;
 }
 
-std::shared_ptr<frc::Joystick> OI::getDriveJoystick() {
-	return driveJoystick;
-}
-
-std::shared_ptr<frc::Joystick> OI::getManipulatorJoystick() {
-	return manipulatorJoystick;
-}
-
-std::shared_ptr<frc::JoystickButton> OI::getOverrideButton() {
-	return overrideButton;
-}
-
-std::shared_ptr<frc::JoystickButton> OI::getManipOverrideButton(){
-	return manipOverrideButton;
-}
-
-std::shared_ptr<frc::JoystickButton> OI::getClampInButton() {
-	return clampInButton;
-}
-
-std::shared_ptr<frc::JoystickButton> OI::getClampOutButton() {
-	return clampOutButton;
+frc::Command* OI::DriveCommand() {
+	return _driveCommand.get();
 }

@@ -5,15 +5,13 @@
 std::shared_ptr<Positioning> positioning;
 std::shared_ptr<frc::MecanumDrive> driveTrain;
 
-MechDrive::MechDrive() : DriveSystem("MechDrive") {
+MechDrive::MechDrive(Positioning* positioning) : DriveSystem("MechDrive") {
 
 	frontLeft = RobotMap::tankDriveFrontLeft;
     frontRight = RobotMap::tankDriveFrontRight;
     rearRight = RobotMap::tankDriveRearRight;
     rearLeft = RobotMap::tankDriveRearLeft;
-    //positioning = Robot::positioning;
-    driveTrain = RobotMap::mainDrive;
-    driveTrain.get()->SetSafetyEnabled(false);
+    positioning = positioning;
 }
 
 void MechDrive::InitDefaultCommand() {
