@@ -24,6 +24,9 @@ void TankDrive::Move(double x, double y, double z){
 	if(fabs(y) < threshold) {
 		y = 0;
 	}
+	x = -x;
+	y = -y;
+
 	frontLeft->Set((y-x));
 	rearLeft->Set((y-x));
 	frontRight->Set((-y-x));

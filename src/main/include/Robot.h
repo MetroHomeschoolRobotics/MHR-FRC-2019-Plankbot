@@ -20,7 +20,7 @@
 class Robot : public frc::TimedRobot {
  public:
   //static ExampleSubsystem m_subsystem;
-  static OI m_oi;
+  static std::unique_ptr<OI> m_oi;
   static DriveSystem* MainDrive();
 	static Positioning* PositioningSystem();
 	static PneumaticCharging* PneumaticCompressor();

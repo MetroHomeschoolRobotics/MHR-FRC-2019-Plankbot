@@ -15,13 +15,15 @@
 #include "subsystems/TankDrive.h"
 #include "subsystems/Positioning.h"
 
-OI Robot::m_oi;
+ std::unique_ptr<OI> Robot::m_oi;
 
 std::shared_ptr<DriveSystem> Robot::m_mainDrive;
 std::shared_ptr<Positioning> Robot::m_positioningSystem;
 std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
 
 void Robot::RobotInit() {
+  RobotMap::init();
+
   m_leftAutoCommand = new AutoLeft();
   m_centerAutoCommand = new AutoCenter();
   m_rightAutoCommand = new AutoRight();
@@ -34,8 +36,11 @@ void Robot::RobotInit() {
 
   m_mainDrive.reset(new TankDrive());
 
-  m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
-  m_positioningSystem.reset(new Positioning());
+    //Instantiate OI
+	m_oi.reset(new OI());
+	m_oi.get()->SetupDashboard();
+  //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
+  //m_positioningSystem.reset(new Positioning());
 }
 
 /**
@@ -84,7 +89,7 @@ void Robot::AutonomousInit() {
   }
 
   
-  m_oi.DriveCommand()->Cancel();
+  m_oi.get()->DriveCommand()->Cancel();
 }
 
 void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
@@ -99,7 +104,7 @@ void Robot::TeleopInit() {
     m_autonomousCommand = nullptr;
   }
 
-  m_oi.DriveCommand()->Start();
+  m_oi.get()->DriveCommand()->Start();
 }
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
