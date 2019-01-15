@@ -29,6 +29,7 @@ private:
 
 public:
 	Positioning();
+	void UpdateDashboard();
 	void InitDefaultCommand();
 	double GetDistance();
 	double GetAngle();

@@ -41,8 +41,9 @@ void Robot::RobotInit() {
 	m_oi.reset(new OI());
 	m_oi.get()->SetupDashboard();
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
-  //m_positioningSystem.reset(new Positioning());
+  m_positioningSystem.reset(new Positioning());
 }
+
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -108,7 +109,11 @@ void Robot::TeleopInit() {
   m_oi.get()->DriveCommand()->Start();
 }
 
-void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::TeleopPeriodic() { 
+  frc::Scheduler::GetInstance()->Run();
+  m_positioningSystem->UpdateDashboard(); 
+  
+}
 
 void Robot::TestPeriodic() {}
 

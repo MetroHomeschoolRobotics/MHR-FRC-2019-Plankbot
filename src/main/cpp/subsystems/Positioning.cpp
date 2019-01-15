@@ -14,6 +14,16 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	rearRight = RobotMap::tankDriveRearRight;
 }
 
+void Positioning::UpdateDashboard(){
+	frc::SmartDashboard::PutNumber("Front Left", GetFrontLeftDistance());
+	frc::SmartDashboard::PutNumber("Front Right", GetFrontRightDistance());
+	frc::SmartDashboard::PutNumber("Rear Left", GetRearLeftDistance());
+	frc::SmartDashboard::PutNumber("Rear Right", GetRearRightDistance());
+	
+
+}
+
+
 void Positioning::InitDefaultCommand() {
 }
 
@@ -39,9 +49,11 @@ double Positioning::GetAngle() {
 	//return gyro.get()->GetAngle();
 }
 
+/*
 double Positioning::GetArmRotation() {
 	return RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
 }
+*/
 
 double Positioning::GetFrontLeftDistance() {
 	// encoder runs in reverse
