@@ -7,7 +7,7 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	ultrasonicSensor = RobotMap::ultrasonicDistanceSensor;
 	gyro = RobotMap::gyro;
 	gyro.get()->Reset();
-	//navGyro = RobotMap::navGyro;
+	navGyro = RobotMap::navGyro;
 	frontLeft = RobotMap::tankDriveFrontLeft;
 	frontRight = RobotMap::tankDriveFrontRight;
 	rearLeft = RobotMap::tankDriveRearLeft;
@@ -19,8 +19,7 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Front Right", GetFrontRightDistance());
 	frc::SmartDashboard::PutNumber("Rear Left", GetRearLeftDistance());
 	frc::SmartDashboard::PutNumber("Rear Right", GetRearRightDistance());
-	
-
+	frc::SmartDashboard::PutNumber("Gyro", GetGyroRotation());
 }
 
 
@@ -43,9 +42,9 @@ double Positioning::GetDistance() {
 	//return distanceSensor.get()->GetDistance();
 }
 
-double Positioning::GetAngle() {
-	return 0;
-	//return navGyro.get()->GetAngle();
+double Positioning::GetGyroRotation() {
+	//return 0;
+	return navGyro.get()->GetAngle();
 	//return gyro.get()->GetAngle();
 }
 

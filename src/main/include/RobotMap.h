@@ -27,7 +27,7 @@
 #include "frc/WPILib.h"
 #include "ctre/Phoenix.h"
 //#include "LidarV3.h"
-//#include "AHRS.h"
+#include "AHRS.h"
 
 class RobotMap {
 
@@ -55,7 +55,7 @@ public:
 	static std::shared_ptr<frc::Ultrasonic> ultrasonicDistanceSensor;
 	static std::shared_ptr<frc::AnalogInput> ultrasonicAnalogDistanceSensor;
 	static int UltrasonicAnalogPort;
-//	static std::shared_ptr<AHRS> navGyro;
+	static std::shared_ptr<AHRS> navGyro;
 
 	static void init();
 };

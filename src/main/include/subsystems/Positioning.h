@@ -5,7 +5,7 @@
 //#include "../LidarV3.h"
 #include "frc/WPILib.h"
 #include "ctre/Phoenix.h"
-//#include <AHRS.h>
+#include <AHRS.h>
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -20,7 +20,7 @@ private:
 	std::shared_ptr<frc::Ultrasonic> ultrasonicSensor;
 
 	std::shared_ptr<frc::ADXRS450_Gyro> gyro;
-	//std::shared_ptr<AHRS> navGyro;
+	std::shared_ptr<AHRS> navGyro;
 
 	std::shared_ptr<WPI_TalonSRX> frontLeft;
 	std::shared_ptr<WPI_TalonSRX> frontRight;
@@ -32,7 +32,7 @@ public:
 	void UpdateDashboard();
 	void InitDefaultCommand();
 	double GetDistance();
-	double GetAngle();
+	double GetGyroRotation();
 	double GetFrontLeftDistance();
 	double GetFrontRightDistance();
 	double GetRearLeftDistance();
