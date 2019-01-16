@@ -5,33 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetArmWithJoystick.h"
+#include "commands/SetLiftWithJoystick.h"
 
-SetArmWithJoystick::SetArmWithJoystick() {
+SetLiftWithJoystick::SetLiftWithJoystick() {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
 }
 
 // Called just before this Command runs the first time
-void SetArmWithJoystick::Initialize() {}
+void SetLiftWithJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetArmWithJoystick::Execute() {
-  joystickValue=OI.manipulatorJoystick.GetRawAxis(5);
-  currentAngle = Manipulator.GetArmAngle();
-  armMotor->Set(joystickValue);
+void SetLiftWithJoystick::Execute() {
+  double speed = manipulatorJoystick.GetRawAxis(4);
+  liftMotor->Set(speed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SetArmWithJoystick::IsFinished() { return false; }
+bool SetLiftWithJoystick::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-void SetArmWithJoystick::End() {
-  armMotor->Set(0);
+void SetLiftWithJoystick::End() {
+  liftMotor->Set(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SetArmWithJoystick::Interrupted() {
+void SetLiftWithJoystick::Interrupted() {
   End();
 }
