@@ -37,6 +37,10 @@ public:
 	double GetFrontRightDistance();
 	double GetRearLeftDistance();
 	double GetRearRightDistance();
+	float GetAccelX();
+	float GetAccelY();
+	float GetVelocityX();
+	float GetVelocityY();
 
 	double GetArmRotation();
 };
