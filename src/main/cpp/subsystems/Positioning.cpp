@@ -20,6 +20,10 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Rear Left", GetRearLeftDistance());
 	frc::SmartDashboard::PutNumber("Rear Right", GetRearRightDistance());
 	frc::SmartDashboard::PutNumber("Gyro", GetGyroRotation());
+	frc::SmartDashboard::PutNumber("Accleration Y", GetAccelY());
+	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
+	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
+	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
 }
 
 
@@ -46,6 +50,22 @@ double Positioning::GetGyroRotation() {
 	//return 0;
 	return navGyro.get()->GetAngle();
 	//return gyro.get()->GetAngle();
+}
+
+float Positioning::GetAccelX() {
+	return navGyro.get()->GetRawAccelX();
+}
+
+float Positioning::GetAccelY() {
+	return navGyro.get()->GetRawAccelY();
+}
+
+float Positioning::GetVelocityX() {
+	return navGyro.get()->GetVelocityX();
+}
+
+float Positioning::GetVelocityY() {
+	return navGyro.get()->GetVelocityY();
 }
 
 /*
