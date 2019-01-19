@@ -10,8 +10,9 @@
 #include <frc/WPILib.h>
 #include "frc/smartdashboard/SmartDashboard.h"
 
-#include "Commands/AutoLeft.h"
-#include "Commands/Drive.h"
+#include "commands/AutoLeft.h"
+#include "commands/Drive.h"
+#include "commands/SetLiftWithJoystick.h"
 /*
 #include "Commands/Lift.h"
 #include "Commands/SwitchDrive.h"
@@ -37,6 +38,7 @@ OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
 	_positioning = positioning;
 	_manipulator = manipulator;
 
+    _setLiftWithJoystick.reset(new SetLiftWithJoystick(_manipulator, driveJoystick.get()));
     //SwitchDrive Button
    /*  switchDriveButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
     switchDriveButton->ToggleWhenPressed(new SwitchDrive());
@@ -112,4 +114,8 @@ frc::SendableChooser<frc::Command*> *OI::getAutoChooser() {
 
 frc::Command* OI::DriveCommand() {
 	return _driveCommand.get();
+}
+
+frc::Command* OI::LiftJoystick() {
+    return _setLiftWithJoystick.get();
 }

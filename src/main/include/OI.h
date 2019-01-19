@@ -18,8 +18,12 @@ private:
 
 	//Create Private Objects
 	std::shared_ptr<frc::Command> _driveCommand;
+	std::shared_ptr<frc::Command> _setLiftWithJoystick;
 	std::shared_ptr<frc::Joystick> driveJoystick;
 	std::shared_ptr<frc::Joystick> manipulatorJoystick;
+	frc::SendableChooser<frc::Command*> *autoChooser;
+	
+	/*
 	std::shared_ptr<frc::JoystickButton> switchDriveButton;
 	std::shared_ptr<frc::JoystickButton> grabButton;
 	std::shared_ptr<frc::JoystickButton> overrideButton;
@@ -29,7 +33,6 @@ private:
 	std::shared_ptr<frc::JoystickButton> clampOutButton;
 	std::shared_ptr<frc::JoystickButton> driveEatButton;
 	std::shared_ptr<frc::JoystickButton> drivePukeButton;
-	frc::SendableChooser<frc::Command*> *autoChooser;
 	std::shared_ptr<frc::JoystickButton> ejectButton;
 	std::shared_ptr<frc::JoystickButton> droolButton;
 
@@ -41,6 +44,8 @@ private:
 	std::shared_ptr<frc::JoystickButton> manipEatButton;
 	std::shared_ptr<frc::JoystickButton> manipPukeButton;
 	std::shared_ptr<frc::JoystickButton> manipDroolButton;
+	*/
+	
 	DriveSystem *_drive;
 	Positioning *_positioning; 
 	Manipulator *_manipulator;
@@ -53,5 +58,6 @@ public:
 
 	//Create Private Inputs
 	frc::Command* DriveCommand();
+	frc::Command* LiftJoystick();
 	frc::SendableChooser<frc::Command*> *getAutoChooser();
 };

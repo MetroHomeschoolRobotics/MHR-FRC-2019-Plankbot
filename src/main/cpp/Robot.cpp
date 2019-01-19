@@ -94,6 +94,7 @@ void Robot::AutonomousInit() {
 
   
   m_oi.get()->DriveCommand()->Cancel();
+  m_oi.get()->LiftJoystick()->Cancel();
 }
 
 void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
@@ -109,6 +110,7 @@ void Robot::TeleopInit() {
   }
 
   m_oi.get()->DriveCommand()->Start();
+  m_oi.get()->LiftJoystick()->Start();
 }
 
 void Robot::TeleopPeriodic() { 
