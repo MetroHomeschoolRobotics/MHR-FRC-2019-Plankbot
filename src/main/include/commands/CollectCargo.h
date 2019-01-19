@@ -12,10 +12,13 @@
 
 class CollectCargo : public frc::Command {
  public:
-  CollectCargo();
+  CollectCargo(Manipulator *manipulator);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+
+ private:
+  Manipulator *_manipulator;
 };

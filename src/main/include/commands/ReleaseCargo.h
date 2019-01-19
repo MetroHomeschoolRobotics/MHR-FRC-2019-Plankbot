@@ -12,10 +12,13 @@
 
 class ReleaseCargo : public frc::Command {
  public:
-  ReleaseCargo();
+  ReleaseCargo(Manipulator *manipulator);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+
+ private:
+  Manipulator *_manipulator;
 };

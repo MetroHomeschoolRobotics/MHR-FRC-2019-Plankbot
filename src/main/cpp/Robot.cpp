@@ -14,13 +14,13 @@
 #include "commands/AutoCenter.h"
 #include "commands/AutoRight.h"
 #include "subsystems/TankDrive.h"
-#include "subsystems/Positioning.h"
 
  std::unique_ptr<OI> Robot::m_oi;
 
 std::shared_ptr<DriveSystem> Robot::m_mainDrive;
 std::shared_ptr<Positioning> Robot::m_positioningSystem;
 std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
+std::shared_ptr<Manipulator> Robot::m_manipulatorSystem;
 
 void Robot::RobotInit() {
   RobotMap::init();
@@ -38,11 +38,13 @@ void Robot::RobotInit() {
   m_mainDrive.reset(new TankDrive());
 
     //Instantiate OI
-	m_oi.reset(new OI());
-	m_oi.get()->SetupDashboard();
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
   m_positioningSystem.reset(new Positioning());
-}
+  m_manipulatorSystem.reset(new Manipulator(m_positioningSystem.get()));
+
+	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_manipulatorSystem.get()));
+	m_oi.get()->SetupDashboard();
+  }
 
 
 /**

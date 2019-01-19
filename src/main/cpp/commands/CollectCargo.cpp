@@ -7,9 +7,10 @@
 
 #include "commands/CollectCargo.h"
 
-CollectCargo::CollectCargo() {
+CollectCargo::CollectCargo(Manipulator *manipulator) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  _manipulator = manipulator;
 }
 
 // Called just before this Command runs the first time
@@ -18,7 +19,7 @@ void CollectCargo::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 //When CollectCargo is called, wheels spin to collect 
 void CollectCargo::Execute() {
-  cargoMotor->Set(-1)
+  _manipulator->setCargoMotor(-1);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -27,7 +28,7 @@ bool CollectCargo::IsFinished() { return true; }
 // Called once after isFinished returns true
 //When ended, motor turns off
 void CollectCargo::End() {
-  cargoMotor->Set(0);
+  _manipulator->setCargoMotor(0);
 }
 
 // Called when another command which requires one or more of the same

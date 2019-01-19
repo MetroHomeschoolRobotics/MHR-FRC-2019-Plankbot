@@ -26,13 +26,16 @@
 #include "Commands/Drool.h"
 #include "Commands/ArmPreset.h"
  */
-OI::OI() {
+OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
 
 	//Instantiate the Joystick
     driveJoystick.reset(new frc::Joystick(0));
     manipulatorJoystick.reset(new frc::Joystick(1));
 
     _driveCommand.reset(new Drive(driveJoystick.get(), manipulatorJoystick.get()));
+    _drive = drive;
+	_positioning = positioning;
+	_manipulator = manipulator;
 
     //SwitchDrive Button
    /*  switchDriveButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));

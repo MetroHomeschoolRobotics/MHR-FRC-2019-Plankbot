@@ -6,9 +6,9 @@ std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveRearRight;
 std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveRearLeft;
 
 std::shared_ptr<WPI_TalonSRX> RobotMap::liftMotor;
-std::shared_ptr<frc::Spark> RobotMap::corkscrewClampMotor;
-std::shared_ptr<frc::Spark> RobotMap::leftBoxIntake;
-std::shared_ptr<frc::Spark> RobotMap::rightBoxIntake;
+std::shared_ptr<frc::Spark> RobotMap::cargoMotor;
+std::shared_ptr<frc::Spark> RobotMap::armMotor;
+std::shared_ptr<frc::AnalogPotentiometer> RobotMap::armPot;
 
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::octoDriveSwitchSol1;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::liftGrabSol1;
@@ -49,9 +49,9 @@ void RobotMap::init() {
     frc::SpeedController *rRight = tankDriveRearRight.get();
     
     liftMotor.reset(new WPI_TalonSRX(4));
-    leftBoxIntake.reset(new frc::Spark(0));
-    rightBoxIntake.reset(new frc::Spark(1));
-    corkscrewClampMotor.reset(new frc::Spark(2));
+    cargoMotor.reset(new frc::Spark(0));
+    armMotor.reset(new frc::Spark(1));
+    armPot.reset(new frc::AnalogPotentiometer(0));
     
     //lidarDistanceSensor.reset(new LidarV3(new frc::DigitalInput(0)));
     // For Ultrasonic: Devantech SRF04, VEX Ultrasonic Rangefinder

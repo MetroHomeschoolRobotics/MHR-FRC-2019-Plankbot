@@ -8,6 +8,9 @@
 #pragma once
 
 #include "frc/WPILib.h"
+#include "subsystems/Manipulator.h"
+#include "subsystems/Positioning.h"
+#include "subsystems/DriveSystem.h"
 
 class OI {
 
@@ -38,10 +41,13 @@ private:
 	std::shared_ptr<frc::JoystickButton> manipEatButton;
 	std::shared_ptr<frc::JoystickButton> manipPukeButton;
 	std::shared_ptr<frc::JoystickButton> manipDroolButton;
+	DriveSystem *_drive;
+	Positioning *_positioning; 
+	Manipulator *_manipulator;
 
 public:
 
-	OI();
+	OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator);
 
 	void SetupDashboard();
 

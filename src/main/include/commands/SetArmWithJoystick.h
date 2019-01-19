@@ -13,10 +13,13 @@
 
 class SetArmWithJoystick : public frc::Command {
  public:
-  SetArmWithJoystick();
+  SetArmWithJoystick(Manipulator *manipulator);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+
+ private:
+  Manipulator *_manipulator;
 };

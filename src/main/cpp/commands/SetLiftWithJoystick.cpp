@@ -7,9 +7,10 @@
 
 #include "commands/SetLiftWithJoystick.h"
 
-SetLiftWithJoystick::SetLiftWithJoystick() {
+SetLiftWithJoystick::SetLiftWithJoystick(Manipulator *manipulator) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  _manipulator = manipulator;
 }
 
 // Called just before this Command runs the first time
@@ -17,8 +18,9 @@ void SetLiftWithJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SetLiftWithJoystick::Execute() {
-  double speed = manipulatorJoystick.GetRawAxis(4);
-  liftMotor->Set(speed);
+  double speed = 0;
+  //manipulatorJoystick.GetRawAxis(4);
+  _manipulator->setLiftMotor(speed);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -26,7 +28,7 @@ bool SetLiftWithJoystick::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 void SetLiftWithJoystick::End() {
-  liftMotor->Set(0);
+  _manipulator->setLiftMotor(0);
 }
 
 // Called when another command which requires one or more of the same

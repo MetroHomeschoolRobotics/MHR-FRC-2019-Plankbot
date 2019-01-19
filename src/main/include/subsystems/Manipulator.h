@@ -8,6 +8,9 @@
 #pragma once
 
 #include <frc/commands/Subsystem.h>
+#include "subsystems/Positioning.h"
+#include "RobotMap.h"
+
 
 class Manipulator : public frc::Subsystem {
  private:
@@ -15,19 +18,20 @@ class Manipulator : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   //Motors for the lift, the arm, and the cargo collector; 
   //an encoder on the lift and a potentiometer on the arm
-  std::shared_ptr<frc::Spark> liftMotor; 
-  std::shared_ptr<frc::Encoder> liftEncoder;
-	std::shared_ptr<frc::Spark> armMotor;
-  std::shared_ptr<frc::AnalogPotentiometer> armPot;
-	std::shared_ptr<frc::Spark> cargoMotor;
- 
+  WPI_TalonSRX *_liftMotor; 
+  //std::shared_ptr<frc::Encoder> liftEncoder;
+	frc::Spark *_armMotor;
+  frc::AnalogPotentiometer *_armPot;
+	frc::Spark *_cargoMotor;
+  Positioning *_positioning;
+
  public:
-  Manipulator();
-  void InitDefaultCommand() override;
-  void setLiftMotor() override;
-  void setCargoMotor() override;
-  void setArmMotor() override;
-  void resetLiftEncoder() override;
-  double getArmAngle() override;
-  double getLiftDistance() override;
+  Manipulator(Positioning *positioning);
+  void InitDefaultCommand();
+  void setLiftMotor(double speed);
+  void setCargoMotor(double speed);
+  void setArmMotor(double speed);
+  void resetLiftEncoder();
+  double getArmAngle();
+  double getLiftDistance();
 };

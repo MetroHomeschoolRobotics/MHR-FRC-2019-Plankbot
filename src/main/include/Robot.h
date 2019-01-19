@@ -16,6 +16,7 @@
 #include "subsystems/DriveSystem.h"
 #include "subsystems/PneumaticCharging.h"
 #include "subsystems/Positioning.h"
+#include "subsystems/Manipulator.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -48,5 +49,6 @@ class Robot : public frc::TimedRobot {
   static std::shared_ptr<DriveSystem> m_mainDrive;
 	static std::shared_ptr<Positioning> m_positioningSystem;
 	static std::shared_ptr<PneumaticCharging> m_pneumaticCompressor;
+  static std::shared_ptr<Manipulator> m_manipulatorSystem;
 
 };
