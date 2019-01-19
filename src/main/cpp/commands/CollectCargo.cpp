@@ -19,7 +19,8 @@ void CollectCargo::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 //When CollectCargo is called, wheels spin to collect 
 void CollectCargo::Execute() {
-  _manipulator->setCargoMotor(-1);
+//  bool collect = _driverControl->GetRawButton(3);
+    _manipulator->setCargoMotor(-1);
 }
 
 // Make this return true when this Command no longer needs to run execute()

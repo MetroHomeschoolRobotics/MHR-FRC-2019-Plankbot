@@ -13,6 +13,8 @@
 #include "commands/AutoLeft.h"
 #include "commands/Drive.h"
 #include "commands/SetLiftWithJoystick.h"
+#include "commands/CollectCargo.h"
+#include "commands/ReleaseCargo.h"
 /*
 #include "Commands/Lift.h"
 #include "Commands/SwitchDrive.h"
@@ -32,6 +34,8 @@ OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
 	//Instantiate the Joystick
     driveJoystick.reset(new frc::Joystick(0));
     manipulatorJoystick.reset(new frc::Joystick(1));
+   // collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
+    // releaseButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
 
     _driveCommand.reset(new Drive(driveJoystick.get(), manipulatorJoystick.get()));
     _drive = drive;
@@ -39,6 +43,36 @@ OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
 	_manipulator = manipulator;
 
     _setLiftWithJoystick.reset(new SetLiftWithJoystick(_manipulator, driveJoystick.get()));
+    //Collect Button
+  //  collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
+    //collectButton->Execute(new CollectCargo());
+    collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
+    collectButton->WhileHeld(new CollectCargo(_manipulator));
+
+    releaseButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    releaseButton->WhileHeld(new ReleaseCargo(_manipulator));
+
+//        manipEatButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
+  //  manipEatButton->WhenPressed(new IntakeBox());
+
+   //Grab Button
+    //grabButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    //grabButton->ToggleWhenPressed(new Grab());
+
+
+    //_setArmWithJoystick.reset(new SetArmWithJoystick(_manipulator, driveJoystick.get(), x));
+
+
+    //Release Button
+    //releaseButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    //releaseButton->Execute(new ReleaseCargo());
+
+
+
+
+    //manipGrabButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 4));
+    //manipGrabButton->ToggleWhenPressed(new Grab());
+
     //SwitchDrive Button
    /*  switchDriveButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
     switchDriveButton->ToggleWhenPressed(new SwitchDrive());

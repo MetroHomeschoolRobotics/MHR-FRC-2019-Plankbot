@@ -19,7 +19,10 @@ void ReleaseCargo::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 //When called, cargoMotor spins to shoot cargo 
 void ReleaseCargo::Execute() {
-  _manipulator->setCargoMotor(1);
+//  _manipulator->setCargoMotor(1);
+  //bool release = _driverControl->GetRawButton(4);
+//  _manipulator->setCargoMotor(-1);
+    _manipulator->setCargoMotor(1);
 }
 
 // Make this return true when this Command no longer needs to run execute()

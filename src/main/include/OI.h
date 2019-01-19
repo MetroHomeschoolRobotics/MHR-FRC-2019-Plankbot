@@ -22,6 +22,8 @@ private:
 	std::shared_ptr<frc::Joystick> driveJoystick;
 	std::shared_ptr<frc::Joystick> manipulatorJoystick;
 	frc::SendableChooser<frc::Command*> *autoChooser;
+	std::shared_ptr<frc::JoystickButton> collectButton;
+	std::shared_ptr<frc::JoystickButton> releaseButton;
 	
 	/*
 	std::shared_ptr<frc::JoystickButton> switchDriveButton;
