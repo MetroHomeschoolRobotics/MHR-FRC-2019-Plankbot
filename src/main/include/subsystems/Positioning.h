@@ -8,6 +8,7 @@
 #include <AHRS.h>
 #include <iostream>
 #include <fstream>
+#include "RobotMap.h"
 using namespace std;
 
 
@@ -22,10 +23,10 @@ private:
 	std::shared_ptr<frc::ADXRS450_Gyro> gyro;
 	std::shared_ptr<AHRS> navGyro;
 
-	std::shared_ptr<WPI_TalonSRX> frontLeft;
-	std::shared_ptr<WPI_TalonSRX> frontRight;
-	std::shared_ptr<WPI_TalonSRX> rearLeft;
-	std::shared_ptr<WPI_TalonSRX> rearRight;
+	std::shared_ptr<rev::CANSparkMax> frontLeft;
+	std::shared_ptr<rev::CANSparkMax> frontRight;
+	std::shared_ptr<rev::CANSparkMax> rearLeft;
+	std::shared_ptr<rev::CANSparkMax> rearRight;
 
 public:
 	Positioning();

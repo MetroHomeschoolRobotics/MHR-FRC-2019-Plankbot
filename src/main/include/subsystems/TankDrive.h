@@ -10,10 +10,10 @@ class TankDrive: public DriveSystem {
 
 private:
 
-	std::shared_ptr<WPI_TalonSRX> frontLeft;
-	std::shared_ptr<WPI_TalonSRX> frontRight;
-	std::shared_ptr<WPI_TalonSRX> rearRight;
-	std::shared_ptr<WPI_TalonSRX> rearLeft;
+	std::shared_ptr<rev::CANSparkMax> frontLeft;
+	std::shared_ptr<rev::CANSparkMax> frontRight;
+	std::shared_ptr<rev::CANSparkMax> rearRight;
+	std::shared_ptr<rev::CANSparkMax> rearLeft;
 	std::shared_ptr<Positioning> positioning;
 
 public:

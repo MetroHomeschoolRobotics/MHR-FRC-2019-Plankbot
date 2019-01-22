@@ -1,9 +1,9 @@
 #include "RobotMap.h"
 
-std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveFrontLeft;
-std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveFrontRight;
-std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveRearRight;
-std::shared_ptr<WPI_TalonSRX> RobotMap::tankDriveRearLeft;
+std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveFrontLeft;
+std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveFrontRight;
+std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearRight;
+std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearLeft;
 
 std::shared_ptr<WPI_TalonSRX> RobotMap::liftMotor;
 std::shared_ptr<frc::Spark> RobotMap::cargoMotor;
@@ -35,13 +35,13 @@ void RobotMap::init() {
 	cam0.SetFPS(30);
 	cam0.SetResolution(640,480);
 
-    tankDriveFrontLeft.reset(new WPI_TalonSRX(0));
+    tankDriveFrontLeft.reset(new rev::CANSparkMax(0, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
     
-    tankDriveFrontRight.reset(new WPI_TalonSRX(2));
+    tankDriveFrontRight.reset(new rev::CANSparkMax(2, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
-    tankDriveRearRight.reset(new WPI_TalonSRX(3));
+    tankDriveRearRight.reset(new rev::CANSparkMax(3, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
-    tankDriveRearLeft.reset(new WPI_TalonSRX(1));
+    tankDriveRearLeft.reset(new rev::CANSparkMax(1, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
     frc::SpeedController *fLeft = tankDriveFrontLeft.get();
     frc::SpeedController *rLeft = tankDriveRearLeft.get();

@@ -28,14 +28,15 @@
 #include "ctre/Phoenix.h"
 //#include "LidarV3.h"
 #include "AHRS.h"
+#include "rev/CANSparkMax.h"
 
 class RobotMap {
 
 public:
-	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontLeft;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontRight;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveRearRight;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveRearLeft;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveFrontLeft;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveFrontRight;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveRearRight;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveRearLeft;
 
 	static std::shared_ptr<WPI_TalonSRX> liftMotor;
 	static std::shared_ptr<frc::Spark> cargoMotor;
