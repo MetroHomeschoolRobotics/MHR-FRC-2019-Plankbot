@@ -47,7 +47,7 @@ void Manipulator::InitDefaultCommand() {
 //returns the distance the lifter has risen
   double Manipulator::getLiftDistance()  {
     return 0;
-    // _liftMotor->GetAngle();
+    //return lift encoder distance
   }
 
 //resets the lift encoder
