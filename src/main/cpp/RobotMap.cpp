@@ -50,7 +50,7 @@ void RobotMap::init() {
     
     liftMotor.reset(new WPI_TalonSRX(4));
     cargoMotor.reset(new frc::Spark(0));
-    armMotor.reset(new frc::Spark(1));
+    armMotor.reset(new frc::Spark(9));
     armPot.reset(new frc::AnalogPotentiometer(0));
     
     //lidarDistanceSensor.reset(new LidarV3(new frc::DigitalInput(0)));
