@@ -49,7 +49,7 @@ void RobotMap::init() {
     frc::SpeedController *rRight = tankDriveRearRight.get();
     
     liftMotor.reset(new WPI_TalonSRX(4));
-    cargoMotor.reset(new frc::Spark(0));
+    cargoMotor.reset(new frc::Spark(9));
     armMotor.reset(new frc::Spark(1));
     armPot.reset(new frc::AnalogPotentiometer(0));
     
