@@ -12,8 +12,10 @@ class FRCPixy2
 {
 
 private:
-	frc::SPI *pixy;
+	frc::SPI *pixySPI;
+	frc::I2C *pixyI2C;
 	static constexpr int pixySPIClock = 1000000; //2MHZ maximum from Arduino Spec
+	static constexpr int pixyI2CClock = 1000000; //2MHZ maximum from Arduino Spec
 
 	//Command Bytes
 public:
@@ -39,12 +41,15 @@ public:
 public:
 	virtual ~FRCPixy2()
 	{
-		delete pixy;
+		delete pixySPI;
+		delete pixyI2C;
 	}
 
 	FRCPixy2();
 
 	FRCPixy2(frc::SPI::Port port);
+
+	FRCPixy2(frc::I2C::Port port, int address);
 
 
 private:

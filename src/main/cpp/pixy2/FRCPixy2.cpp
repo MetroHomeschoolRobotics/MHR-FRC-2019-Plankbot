@@ -6,13 +6,18 @@ FRCPixy2::FRCPixy2() : FRCPixy2(frc::SPI::Port::kMXP)
 
 FRCPixy2::FRCPixy2(frc::SPI::Port port)
 {
-	pixy = new frc::SPI(port);
+	pixySPI = new frc::SPI(port);
 
 	//Setup as per Pixycam SPI spec
-	pixy->SetClockRate(pixySPIClock); //Set Clockrate, FRC = 500khz default
-	pixy->SetMSBFirst(); //Most Significant Bit First
-	pixy->SetClockActiveHigh(); //SPI SCK is low when idle
-	pixy->SetChipSelectActiveLow(); //Slave Select is LOW
+	pixySPI->SetClockRate(pixySPIClock); //Set Clockrate, FRC = 500khz default
+	pixySPI->SetMSBFirst(); //Most Significant Bit First
+	pixySPI->SetClockActiveHigh(); //SPI SCK is low when idle
+	pixySPI->SetChipSelectActiveLow(); //Slave Select is LOW
+
+}
+
+FRCPixy2::FRCPixy2(frc::I2C::Port port, int address){
+	pixyI2C = new frc::I2C(port, address);
 
 }
 
@@ -31,7 +36,12 @@ std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 			sendBytes[3] = PIXY00;
 	}
 
-	pixy->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
+	if (pixySPI != nullptr) {
+		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
+	}
+	if (pixyI2C != nullptr){
+		pixyI2C->Transaction(sendBytes.data(), sendBytes.size(), receiveBytes.data(),  receiveBytes.size());
+	}
 	for (int i = 0; i < receiveBytes.size(); i++)
 	{
 		std::wcout << StringHelper::formatSimple(L"%02X ", receiveBytes[i]) << std::endl;
