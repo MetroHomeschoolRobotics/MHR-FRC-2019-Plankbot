@@ -24,6 +24,17 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
+
+	FRCPixyBlock* spiBlock = RobotMap::pixySPI->GetBlocks(0);
+	if (spiBlock == nullptr){
+		frc::SmartDashboard::PutNumber("SPI Blocks", 0);
+	} else {
+		frc::SmartDashboard::PutNumber("SPI Blocks", 1);
+		frc::SmartDashboard::PutNumber("SPI Block - X", spiBlock->getX());
+		frc::SmartDashboard::PutNumber("SPI Block - Y", spiBlock->getY());
+		frc::SmartDashboard::PutNumber("SPI Block - H", spiBlock->getHeight());
+		frc::SmartDashboard::PutNumber("SPI Block - W", spiBlock->getWidth());
+	}
 }
 
 

@@ -19,6 +19,8 @@ std::shared_ptr<frc::Encoder> RobotMap::liftMotorEncoder;
 
 //std::shared_ptr<LidarV3> RobotMap::lidarDistanceSensor;
 std::shared_ptr<frc::ADXRS450_Gyro> RobotMap::gyro;
+std::shared_ptr<FRCPixy2> RobotMap::pixySPI;
+std::shared_ptr<FRCPixy2> RobotMap::pixyI2C;
 
 std::shared_ptr<frc::Compressor> RobotMap::pneumoCharger;
 // For Ultrasonic: Devantech SRF04, VEX Ultrasonic Rangefinder
@@ -79,5 +81,9 @@ void RobotMap::init() {
     liftMotorEncoder.reset(new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X));
 
     pneumoCharger.reset(new frc::Compressor());
+
+    pixySPI.reset(new FRCPixy2());
+    pixyI2C.reset(new FRCPixy2());
+
 }
 
