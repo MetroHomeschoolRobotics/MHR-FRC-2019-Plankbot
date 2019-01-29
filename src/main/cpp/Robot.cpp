@@ -29,9 +29,9 @@ void Robot::RobotInit() {
   m_centerAutoCommand = new AutoCenter();
   m_rightAutoCommand = new AutoRight();
 
-  m_chooser.SetDefaultOption("Default Auto", m_centerAutoCommand);
+
   m_chooser.AddOption("Left", m_leftAutoCommand);
-  m_chooser.AddOption("Center", m_centerAutoCommand);
+  m_chooser.SetDefaultOption("Center", m_centerAutoCommand);
   m_chooser.AddOption("Right", m_rightAutoCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 

@@ -34,17 +34,27 @@ std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 			sendBytes[1] = PIXYSTARTNOCHECK2;
 			sendBytes[2] = PIXY_TYPE_REQUEST_VERSION;
 			sendBytes[3] = PIXY00;
+		case FRCPixy2::PixyCommands::GETBLOCKS:
+
+			sendBytes[0] = PIXYSTARTNOCHECK1;
+			sendBytes[1] = PIXYSTARTNOCHECK2;
+			sendBytes[2] = PIXY_CCC_REQUEST_BLOCKS;
+			sendBytes[3] = PIXY02;
+			sendBytes[4] = 0x01;
+			sendBytes[5] = 0x01;
 	}
 
 	if (pixySPI != nullptr) {
+		std::wcout << L"Pixy - " << static_cast<std::underlying_type<FRCPixy2::PixyCommands>::type>(pCommand) << std::endl;
 		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
 	}
 	if (pixyI2C != nullptr){
+		std::wcout << L"Pixy - I2C" << std::endl;
 		pixyI2C->Transaction(sendBytes.data(), sendBytes.size(), receiveBytes.data(),  receiveBytes.size());
 	}
 	for (int i = 0; i < receiveBytes.size(); i++)
 	{
-		std::wcout << StringHelper::formatSimple(L"%02X ", receiveBytes[i]) << std::endl;
+		std::wcout << receiveBytes[i] << std::endl;
 	}
 
 	return receiveBytes;
@@ -87,6 +97,8 @@ FRCPixyBlock* FRCPixy2::GetBlocks(int sigmap, int maxBlocks)
 	std::wcout << L"Pixy - get blocks" << std::endl;
 
 	std::vector<std::uint8_t> response = SendCommand(PixyCommands::GETBLOCKS);
+
+	std::wcout << L"Pixy - response type: " << response[2] << std::endl;
 
 	if (response[2] == PIXY_CCC_RESPONSE_BLOCKS)
 	{

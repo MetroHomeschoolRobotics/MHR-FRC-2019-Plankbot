@@ -33,10 +33,11 @@ std::shared_ptr<AHRS> RobotMap::navGyro;
 
 void RobotMap::init() {
 
+/*
 	cs::UsbCamera cam0 = frc::CameraServer::GetInstance()->StartAutomaticCapture();
 	cam0.SetFPS(30);
 	cam0.SetResolution(640,480);
-
+*/
     tankDriveFrontLeft.reset(new WPI_TalonSRX(0));
     
     tankDriveFrontRight.reset(new WPI_TalonSRX(2));
@@ -53,17 +54,18 @@ void RobotMap::init() {
     liftMotor.reset(new WPI_TalonSRX(4));
     cargoMotor.reset(new frc::Spark(0));
     armMotor.reset(new frc::Spark(1));
-    armPot.reset(new frc::AnalogPotentiometer(0));
+    //armPot.reset(new frc::AnalogPotentiometer(0));
     
     //lidarDistanceSensor.reset(new LidarV3(new frc::DigitalInput(0)));
     // For Ultrasonic: Devantech SRF04, VEX Ultrasonic Rangefinder
     //ultrasonicDistanceSensor.reset(new Ultrasonic(1, 1));
     // For Ultrasonic: Maxbotix LV-MaxSonar-EZ1
-    ultrasonicAnalogDistanceSensor.reset(new frc::AnalogInput(UltrasonicAnalogPort));
+    //ultrasonicAnalogDistanceSensor.reset(new frc::AnalogInput(UltrasonicAnalogPort));
 
-    gyro.reset(new frc::ADXRS450_Gyro());
+    //gyro.reset(new frc::ADXRS450_Gyro());
     navGyro.reset(new AHRS(SerialPort::kMXP));
 
+/*
     octoDriveSwitchSol1.reset(new frc::DoubleSolenoid(0, 0, 1));
     octoDriveSwitchSol1->Set(frc::DoubleSolenoid::kReverse);
     octoDriveSwitchSol1->SetName("OctoDrive", "SwitchSol1");
@@ -81,9 +83,9 @@ void RobotMap::init() {
     liftMotorEncoder.reset(new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X));
 
     pneumoCharger.reset(new frc::Compressor());
-
-    pixySPI.reset(new FRCPixy2());
-    pixyI2C.reset(new FRCPixy2());
+*/
+    pixySPI.reset(new FRCPixy2(frc::SPI::kOnboardCS0));
+    //pixyI2C.reset(new FRCPixy2());
 
 }
 
