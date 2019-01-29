@@ -20,11 +20,11 @@ void CollectCargo::Initialize() {}
 //When CollectCargo is called, wheels spin to collect 
 void CollectCargo::Execute() {
 //  bool collect = _driverControl->GetRawButton(3);
-    _manipulator->setCargoMotor(-1);
+    _manipulator->setCargoMotor(1);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool CollectCargo::IsFinished() { return true; }
+bool CollectCargo::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 //When ended, motor turns off
