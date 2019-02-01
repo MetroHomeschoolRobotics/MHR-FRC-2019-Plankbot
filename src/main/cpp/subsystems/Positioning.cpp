@@ -6,7 +6,7 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	ultrasonicAnalogSensor = RobotMap::ultrasonicAnalogDistanceSensor;
 	ultrasonicSensor = RobotMap::ultrasonicDistanceSensor;
 	gyro = RobotMap::gyro;
-	gyro.get()->Reset();
+	//gyro.get()->Reset();
 	navGyro = RobotMap::navGyro;
 	frontLeft = RobotMap::tankDriveFrontLeft;
 	frontRight = RobotMap::tankDriveFrontRight;
@@ -24,6 +24,30 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
+
+	FRCPixyBlock* spiBlock = RobotMap::pixySPI->GetBlocks(0);
+	if (spiBlock == nullptr){
+		frc::SmartDashboard::PutNumber("SPI Blocks", 0);
+		frc::SmartDashboard::PutNumber("SPI Block - X", 0);
+		frc::SmartDashboard::PutNumber("SPI Block - Y", 0);
+		frc::SmartDashboard::PutNumber("SPI Block - H", 0);
+		frc::SmartDashboard::PutNumber("SPI Block - W", 0);
+	} else {
+		frc::SmartDashboard::PutNumber("SPI Blocks", 1);
+		frc::SmartDashboard::PutNumber("SPI Block - X", spiBlock->getX());
+		frc::SmartDashboard::PutNumber("SPI Block - Y", spiBlock->getY());
+		frc::SmartDashboard::PutNumber("SPI Block - H", spiBlock->getHeight());
+		frc::SmartDashboard::PutNumber("SPI Block - W", spiBlock->getWidth());
+	}
+
+/*
+	FRCPixyVersion* version = RobotMap::pixySPI->CheckVersion();
+	if (version == nullptr){
+		std::wcout << L"Pixy - unknown version" << std::endl;
+	} else {
+		std::wcout << L"Pixy - version " << version->getFirmware() << std::endl;
+	}
+	*/
 }
 
 
