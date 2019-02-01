@@ -10,7 +10,7 @@ FRCPixy2::FRCPixy2(frc::SPI::Port port)
 
 	//Setup as per Pixycam SPI spec
 	pixySPI->SetClockRate(pixySPIClock); //Set Clockrate, FRC = 500khz default
-	pixySPI->SetMSBFirst(); //Most Significant Bit First
+	pixySPI->SetLSBFirst(); //Most Least Bit First
 	pixySPI->SetClockActiveHigh(); //SPI SCK is low when idle
 	pixySPI->SetChipSelectActiveLow(); //Slave Select is LOW
 
@@ -24,17 +24,19 @@ FRCPixy2::FRCPixy2(frc::I2C::Port port, int address){
 std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 {
 	std::vector<std::uint8_t> sendBytes(17);
-	std::vector<std::uint8_t> receiveBytes(17);
+	std::vector<std::uint8_t> receiveBytes(34);
 
 	switch (pCommand)
 	{
 		case FRCPixy2::PixyCommands::VERSION:
+			std::wcout << L"Pixy - GetVersion"<< std::endl;
 
 			sendBytes[0] = PIXYSTARTNOCHECK1;
 			sendBytes[1] = PIXYSTARTNOCHECK2;
 			sendBytes[2] = PIXY_TYPE_REQUEST_VERSION;
 			sendBytes[3] = PIXY00;
 		case FRCPixy2::PixyCommands::GETBLOCKS:
+			std::wcout << L"Pixy - GetBlocks"<< std::endl;
 
 			sendBytes[0] = PIXYSTARTNOCHECK1;
 			sendBytes[1] = PIXYSTARTNOCHECK2;
@@ -45,7 +47,7 @@ std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 	}
 
 	if (pixySPI != nullptr) {
-		std::wcout << L"Pixy - " << static_cast<std::underlying_type<FRCPixy2::PixyCommands>::type>(pCommand) << std::endl;
+		std::wcout << L"Pixy - SPI"<< std::endl;
 		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
 	}
 	if (pixyI2C != nullptr){
@@ -54,9 +56,10 @@ std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 	}
 	for (int i = 0; i < receiveBytes.size(); i++)
 	{
-		std::wcout << receiveBytes[i] << std::endl;
+		std::wcout << receiveBytes[i] << ",";
 	}
 
+	std::wcout << std::endl;
 	return receiveBytes;
 }
 
@@ -98,16 +101,19 @@ FRCPixyBlock* FRCPixy2::GetBlocks(int sigmap, int maxBlocks)
 
 	std::vector<std::uint8_t> response = SendCommand(PixyCommands::GETBLOCKS);
 
-	std::wcout << L"Pixy - response type: " << response[2] << std::endl;
+	int size = response.size();
 
-	if (response[2] == PIXY_CCC_RESPONSE_BLOCKS)
+	std::wcout << L"Pixy - response type: " << response[16] << std::endl;
+
+	if (response[16] == PIXY_CCC_RESPONSE_BLOCKS && response[0] > 0)
 	{
-		int x = ((response[8] & 0xff) << 8) | (response[7] & 0xff);
-		int y = ((response[10] & 0xff) << 8) | (response[9] & 0xff);
-		int width = ((response[12] & 0xff) << 8) | (response[11] & 0xff);
-		int height = ((response[14] & 0xff) << 8) | (response[13] & 0xff);
-		int idx = (response[16] & 0xff);
-		int age = (response[17] & 0xff);
+		std::wcout << L"Pixy - Block Found" << std::endl;
+		int x = ((response[5] & 0xff) << 8) | (response[6] & 0xff);
+		int y = ((response[7] & 0xff) << 8) | (response[8] & 0xff);
+		int width = ((response[9] & 0xff) << 8) | (response[10] & 0xff);
+		int height = ((response[11] & 0xff) << 8) | (response[12] & 0xff);
+		int idx = (response[13] & 0xff);
+		int age = (response[14] & 0xff);
 
 		return new FRCPixyBlock(x,y,width,height,idx,age);
 	}
