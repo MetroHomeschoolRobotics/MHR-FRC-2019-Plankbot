@@ -29,6 +29,7 @@
 //#include "LidarV3.h"
 #include "AHRS.h"
 #include "rev/CANSparkMax.h"
+#include "pixy2/FRCPixy2.h"
 
 class RobotMap {
 
@@ -57,6 +58,8 @@ public:
 	static std::shared_ptr<frc::AnalogInput> ultrasonicAnalogDistanceSensor;
 	static int UltrasonicAnalogPort;
 	static std::shared_ptr<AHRS> navGyro;
+	static std::shared_ptr<FRCPixy2> pixySPI;
+	static std::shared_ptr<FRCPixy2> pixyI2C;
 
 	static void init();
 };
