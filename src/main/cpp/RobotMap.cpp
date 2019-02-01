@@ -54,13 +54,8 @@ void RobotMap::init() {
     
     liftMotor.reset(new WPI_TalonSRX(4));
     cargoMotor.reset(new frc::Spark(0));
-<<<<<<< HEAD
     armMotor.reset(new frc::Spark(9));
     armPot.reset(new frc::AnalogPotentiometer(0));
-=======
-    armMotor.reset(new frc::Spark(1));
-    //armPot.reset(new frc::AnalogPotentiometer(0));
->>>>>>> ec19e13ab17bf9c2f294fce0d2d1a2dc0548e147
     
     //lidarDistanceSensor.reset(new LidarV3(new frc::DigitalInput(0)));
     // For Ultrasonic: Devantech SRF04, VEX Ultrasonic Rangefinder
