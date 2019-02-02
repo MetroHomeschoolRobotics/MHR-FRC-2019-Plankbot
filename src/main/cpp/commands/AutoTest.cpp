@@ -9,7 +9,8 @@
 
 AutoTest::AutoTest() {
 
-  AddSequential(new AutoDriveRotation(5000, 0, 0.25, 0, tankDriveFrontLeft));
+  //AddSequential(new AutoDriveRotation(100, 0, 0.25, 0, tankDriveFrontLeft));
+  AddSequential(new AutoDriveRotation(60, -0.25, 0, 0, tankDriveFrontLeft));
   //AddSequential(new AutoDrive(34, 0, 0));
   // Add Commands here:
   // e.g. AddSequential(new Command1());

@@ -100,7 +100,10 @@ void Robot::AutonomousInit() {
   m_oi.get()->LiftJoystick()->Cancel();
 }
 
-void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::AutonomousPeriodic() { 
+  frc::Scheduler::GetInstance()->Run(); 
+  m_positioningSystem->UpdateDashboard(); 
+  }
 
 void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when
