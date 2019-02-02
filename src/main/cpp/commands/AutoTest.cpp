@@ -9,6 +9,6 @@
 
 AutoTest::AutoTest() {
 
-  //AddSequential(new AutoDriveRotation(100, 0, 0.25, 0, tankDriveFrontLeft));
-  AddSequential(new AutoDriveRotation(60, -0.25, 0, 0, tankDriveFrontLeft));
+  //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
+  AddSequential(new AutoDriveRotation(30, -0.25, 0, 0, tankDriveFrontLeft));
 }
