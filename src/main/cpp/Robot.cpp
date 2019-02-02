@@ -10,9 +10,6 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "commands/AutoLeft.h"
-#include "commands/AutoCenter.h"
-#include "commands/AutoRight.h"
 #include "commands/AutoTest.h"
 #include "subsystems/TankDrive.h"
 
@@ -26,15 +23,8 @@ std::shared_ptr<Manipulator> Robot::m_manipulatorSystem;
 void Robot::RobotInit() {
   RobotMap::init();
 
-  //m_leftAutoCommand = new AutoLeft();
-  //m_centerAutoCommand = new AutoCenter();
-  //m_rightAutoCommand = new AutoRight();
   m_defaultAutoCommand = new AutoTest();
 
-
-  //m_chooser.AddOption("Left", m_leftAutoCommand);
-  //m_chooser.SetDefaultOption("Center", m_centerAutoCommand);
-  //m_chooser.AddOption("Right", m_rightAutoCommand);
   m_chooser.SetDefaultOption("Test", m_defaultAutoCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
