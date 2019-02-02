@@ -21,10 +21,10 @@ AutoDriveRotation::AutoDriveRotation(double rotation, double driveX, double driv
 
 double AutoDriveRotation::GetEncoderValue() {
 	switch(encoderSource){
-		case FrontLeft: return  Robot::PositioningSystem()->GetFrontLeftDistance();
-		case FrontRight: return  Robot::PositioningSystem()->GetFrontRightDistance();
-		case RearLeft: return  Robot::PositioningSystem()->GetRearLeftDistance();
-		case RearRight: return  Robot::PositioningSystem()->GetRearRightDistance();
+		case tankDriveFrontLeft: return  Robot::PositioningSystem()->GetFrontLeftDistance();
+		case tankDriveFrontRight: return  Robot::PositioningSystem()->GetFrontRightDistance();
+		case tankDriveRearLeft: return  Robot::PositioningSystem()->GetRearLeftDistance();
+		case tankDriveRearRight: return  Robot::PositioningSystem()->GetRearRightDistance();
 	}
 	return 0;
 }

@@ -9,6 +9,8 @@
 
 #include <frc/commands/CommandGroup.h>
 #include "AutoDriveRotation.h"
+#include "RobotMap.h"
+#include "../Robot.h"
 
 class AutoTest : public frc::CommandGroup {
  public:

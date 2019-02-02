@@ -10,7 +10,7 @@
 #include <frc/WPILib.h>
 #include "frc/smartdashboard/SmartDashboard.h"
 
-#include "commands/AutoLeft.h"
+#include "commands/AutoTest.h"
 #include "commands/Drive.h"
 #include "commands/SetLiftWithJoystick.h"
 #include "commands/CollectCargo.h"
