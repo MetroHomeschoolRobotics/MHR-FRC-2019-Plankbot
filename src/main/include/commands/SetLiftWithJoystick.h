@@ -8,12 +8,15 @@
 #pragma once
 
 #include <frc/commands/Command.h>
+#include "subsystems/Lift.h"
 #include "OI.h"
-#include "subsystems/Manipulator.h"
+//#include "subsystems/Positioning.h"
 
 class SetLiftWithJoystick : public frc::Command {
+ 
  public:
-  SetLiftWithJoystick(Manipulator *manipulator, frc::Joystick* driverControl);
+  //SetLiftWithJoystick(Lift *lift);
+  SetLiftWithJoystick(Lift *lift, frc::Joystick* driverControl);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -21,6 +24,7 @@ class SetLiftWithJoystick : public frc::Command {
   void Interrupted() override;
 
  private:
-  Manipulator *_manipulator;
+  Lift *_lift;
+  //double speed = _driverControl->GetRawAxis(5);
   frc::Joystick * _driverControl;
 };

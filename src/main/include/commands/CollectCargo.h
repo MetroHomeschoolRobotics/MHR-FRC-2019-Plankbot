@@ -8,11 +8,12 @@
 #pragma once
 
 #include <frc/commands/Command.h>
-#include "subsystems/Manipulator.h"
+#include "subsystems/CargoSystem.h"
+#include "subsystems/Positioning.h"
 
 class CollectCargo : public frc::Command {
  public:
-  CollectCargo(Manipulator *manipulator);
+  CollectCargo(CargoSystem *cargoSystem);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -20,5 +21,5 @@ class CollectCargo : public frc::Command {
   void Interrupted() override;
 
  private:
-  Manipulator *_manipulator;
+  CargoSystem *_cargoSystem;
 };

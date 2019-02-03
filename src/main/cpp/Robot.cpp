@@ -18,7 +18,9 @@
 std::shared_ptr<DriveSystem> Robot::m_mainDrive;
 std::shared_ptr<Positioning> Robot::m_positioningSystem;
 std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
-std::shared_ptr<Manipulator> Robot::m_manipulatorSystem;
+std::shared_ptr<CargoSystem> Robot::m_cargoSystem;
+std::shared_ptr<Lift> Robot::m_lift;
+std::shared_ptr<Arm> Robot::m_arm;
 
 void Robot::RobotInit() {
   RobotMap::init();
@@ -33,9 +35,11 @@ void Robot::RobotInit() {
     //Instantiate OI
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
   m_positioningSystem.reset(new Positioning());
-  m_manipulatorSystem.reset(new Manipulator(m_positioningSystem.get()));
+  m_cargoSystem.reset(new CargoSystem(m_positioningSystem.get()));
+  m_lift.reset(new Lift(m_positioningSystem.get()));
+  m_arm.reset(new Arm(m_positioningSystem.get()));
 
-	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_manipulatorSystem.get()));
+	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get()));
 	m_oi.get()->SetupDashboard();
   }
 

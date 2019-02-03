@@ -8,7 +8,9 @@
 #pragma once
 
 #include "frc/WPILib.h"
-#include "subsystems/Manipulator.h"
+#include "subsystems/CargoSystem.h"
+#include "subsystems/Lift.h"
+#include "subsystems/Arm.h"
 #include "subsystems/Positioning.h"
 #include "subsystems/DriveSystem.h"
 
@@ -50,11 +52,13 @@ private:
 	
 	DriveSystem *_drive;
 	Positioning *_positioning; 
-	Manipulator *_manipulator;
+	CargoSystem *_cargoSystem;
+	Lift *_lift;
+	Arm *_arm;
 
 public:
 
-	OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator);
+	OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, Lift *lift, Arm *arm);
 
 	void SetupDashboard();
 

@@ -13,6 +13,7 @@
 #include "commands/AutoTest.h"
 #include "commands/Drive.h"
 #include "commands/SetLiftWithJoystick.h"
+#include "commands/SetArmWithJoystick.h"
 #include "commands/CollectCargo.h"
 #include "commands/ReleaseCargo.h"
 /*
@@ -29,7 +30,7 @@
 #include "Commands/Drool.h"
 #include "Commands/ArmPreset.h"
  */
-OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
+OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, Lift *lift, Arm *arm) {
 
 	//Instantiate the Joystick
     driveJoystick.reset(new frc::Joystick(0));
@@ -40,17 +41,20 @@ OI::OI(DriveSystem *drive, Positioning *positioning, Manipulator *manipulator) {
     _driveCommand.reset(new Drive(driveJoystick.get(), manipulatorJoystick.get()));
     _drive = drive;
 	_positioning = positioning;
-	_manipulator = manipulator;
+	_cargoSystem = cargoSystem;
+    _lift = lift;
+    _arm = arm;
 
-    _setLiftWithJoystick.reset(new SetLiftWithJoystick(_manipulator, driveJoystick.get()));
+//_setLiftWithJoystick.reset(new SetLiftWithJoystick(Lift *_lift, frc::Joystick))
+  _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, driveJoystick.get()));
     //Collect Button
   //  collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
     //collectButton->Execute(new CollectCargo());
     collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
-    collectButton->WhileHeld(new CollectCargo(_manipulator));
+    collectButton->WhileHeld(new CollectCargo(_cargoSystem));
 
     releaseButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
-    releaseButton->WhileHeld(new ReleaseCargo(_manipulator));
+    releaseButton->WhileHeld(new ReleaseCargo(_cargoSystem));
 
 //        manipEatButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
   //  manipEatButton->WhenPressed(new IntakeBox());

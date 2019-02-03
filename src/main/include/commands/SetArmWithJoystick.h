@@ -8,12 +8,13 @@
 #pragma once
 
 #include <frc/commands/Command.h>
-#include "subsystems/Manipulator.h"
+#include "subsystems/Arm.h"
 #include "OI.h"
+//#include "subsystems/Positioning.h"
 
 class SetArmWithJoystick : public frc::Command {
  public:
-  SetArmWithJoystick(Manipulator *manipulator);
+  SetArmWithJoystick(Arm *arm);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -21,5 +22,5 @@ class SetArmWithJoystick : public frc::Command {
   void Interrupted() override;
 
  private:
-  Manipulator *_manipulator;
+  Arm *_arm;
 };

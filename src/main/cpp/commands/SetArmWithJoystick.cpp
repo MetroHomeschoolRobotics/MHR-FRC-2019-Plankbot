@@ -7,10 +7,10 @@
 
 #include "commands/SetArmWithJoystick.h"
 
-SetArmWithJoystick::SetArmWithJoystick(Manipulator *manipulator) {
+SetArmWithJoystick::SetArmWithJoystick(Arm *arm) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  _manipulator = manipulator;
+  _arm = arm;
 }
 
 // Called just before this Command runs the first time
@@ -20,7 +20,7 @@ void SetArmWithJoystick::Initialize() {}
 void SetArmWithJoystick::Execute() {
   //joystickValue=OI.manipulatorJoystick.GetRawAxis(5);
   //currentAngle = Manipulator.GetArmAngle();
-  _manipulator->setArmMotor(0);
+   _arm->setArmMotor(0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -28,7 +28,7 @@ bool SetArmWithJoystick::IsFinished() { return false; }
 
 // Called once after isFinished returns true
 void SetArmWithJoystick::End() {
-  _manipulator->setArmMotor(0);
+  _arm->setArmMotor(0);
 }
 
 // Called when another command which requires one or more of the same

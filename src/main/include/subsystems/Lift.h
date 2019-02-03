@@ -11,27 +11,17 @@
 #include "subsystems/Positioning.h"
 #include "RobotMap.h"
 
-
-class Manipulator : public frc::Subsystem {
+class Lift : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  //Motors for the lift, the arm, and the cargo collector; 
-  //an encoder on the lift and a potentiometer on the arm
-  WPI_TalonSRX *_liftMotor; 
-  //std::shared_ptr<frc::Encoder> liftEncoder;
-	frc::Spark *_armMotor;
-  frc::AnalogPotentiometer *_armPot;
-	frc::Spark *_cargoMotor;
+  WPI_TalonSRX *_liftMotor;
   Positioning *_positioning;
 
  public:
-  Manipulator(Positioning *positioning);
-  void InitDefaultCommand();
+  Lift(Positioning *positioning);
+  void InitDefaultCommand() override;
   void setLiftMotor(double speed);
-  void setCargoMotor(double speed);
-  void setArmMotor(double speed);
   void resetLiftEncoder();
-  double getArmAngle();
   double getLiftDistance();
 };
