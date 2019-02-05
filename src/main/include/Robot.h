@@ -27,6 +27,9 @@ class Robot : public frc::TimedRobot {
   static DriveSystem* MainDrive();
 	static Positioning* PositioningSystem();
 	static PneumaticCharging* PneumaticCompressor();
+  static Lift* LiftSystem();
+  static CargoSystem* Cargo();
+  static Arm* ArmSystem();
 
   void RobotInit() override;
   void RobotPeriodic() override;

@@ -11,6 +11,7 @@ SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick* driverContro
 //SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick *driverControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(Robot::LiftSystem());
   _lift = lift;
   _driverControl = driverControl;
 }

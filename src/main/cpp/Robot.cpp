@@ -133,7 +133,17 @@ Positioning* Robot::PositioningSystem(){
     return m_positioningSystem.get();
 }
 
+Lift* Robot::LiftSystem(){
+    return m_lift.get();
+}
 
+CargoSystem* Robot::Cargo(){
+    return m_cargoSystem.get();
+}
+
+Arm* Robot::ArmSystem(){
+    return m_arm.get();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

@@ -10,6 +10,7 @@
 ReleaseCargo::ReleaseCargo(CargoSystem *cargoSystem) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(Robot::Cargo());
   _cargoSystem = cargoSystem;
 }
 

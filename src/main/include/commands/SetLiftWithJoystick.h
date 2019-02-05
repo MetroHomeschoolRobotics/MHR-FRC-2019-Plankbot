@@ -10,6 +10,7 @@
 #include <frc/commands/Command.h>
 #include "subsystems/Lift.h"
 #include "OI.h"
+#include "Robot.h"
 //#include "subsystems/Positioning.h"
 
 class SetLiftWithJoystick : public frc::Command {

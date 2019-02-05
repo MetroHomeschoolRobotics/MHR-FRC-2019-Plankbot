@@ -10,6 +10,7 @@
 SetArmWithJoystick::SetArmWithJoystick(Arm *arm) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
+  Requires(Robot::ArmSystem());
   _arm = arm;
 }
 

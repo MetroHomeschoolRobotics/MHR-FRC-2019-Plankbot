@@ -10,6 +10,7 @@
 #include <frc/commands/Command.h>
 #include "subsystems/CargoSystem.h"
 #include "subsystems/Positioning.h"
+#include "Robot.h"
 
 class ReleaseCargo : public frc::Command {
  public:
