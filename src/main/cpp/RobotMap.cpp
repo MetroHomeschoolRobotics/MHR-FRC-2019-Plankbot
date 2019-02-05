@@ -85,7 +85,7 @@ void RobotMap::init() {
     pneumoCharger.reset(new frc::Compressor());
 */
     pixySPI.reset(new FRCPixy2(frc::SPI::kOnboardCS0));
-    //pixyI2C.reset(new FRCPixy2());
+    pixyI2C.reset(new FRCPixy2(frc::I2C::kOnboard , 0));
 
 }
 
