@@ -31,6 +31,9 @@ public:
 	static const std::uint8_t PIXY_CCC_RESPONSE_BLOCKS = static_cast<std::uint8_t>(0x21);
 	static const std::uint8_t PIXY_CCC_REQUEST_BLOCKS = static_cast<std::uint8_t>(0x20);
 
+	static const std::uint8_t PIXY_TYPE_REQUEST_SET_LAMP = static_cast<std::uint8_t>(0x16);
+	static const std::uint8_t PIXY_TYPE_RESPONSE_SET_LAMP = static_cast<std::uint8_t>(0x01);
+
 public:
 	enum class PixyCommands
 	{
@@ -68,7 +71,7 @@ public:
 	int8_t SetServos(uint16_t s0, uint16_t s1);
 	int8_t SetCameraBrightness(uint8_t brightness);
 	int8_t SetLED(uint8_t r, uint8_t g, uint8_t b);
-	int8_t SetLamp(uint8_t upper, uint8_t lower);
+	void SetLamp(uint8_t upper, uint8_t lower);
 	int8_t GetResolution();
 	int8_t GetFPS();
 };

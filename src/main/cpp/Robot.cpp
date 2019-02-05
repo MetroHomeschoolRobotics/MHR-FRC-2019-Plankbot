@@ -26,11 +26,14 @@ void Robot::RobotInit() {
   RobotMap::init();
 
   m_defaultAutoCommand = new AutoTest();
+  m_mainDrive.reset(new TankDrive());
+
+  m_leftAutoCommand = new AutoLeft();
+  m_centerAutoCommand = new AutoCenter();
+  m_rightAutoCommand = new AutoRight();
 
   m_chooser.SetDefaultOption("Test", m_defaultAutoCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
-  m_mainDrive.reset(new TankDrive());
 
     //Instantiate OI
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
