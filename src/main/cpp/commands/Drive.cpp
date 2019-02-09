@@ -15,9 +15,21 @@ void Drive::Execute() {
 		abs(_driverControl->GetRawAxis(2)) +
 		abs(_driverControl->GetRawAxis(3));
 	if (total > _threshold*2) {
+		double x = _driverControl->GetRawAxis(0);
+		double y = _driverControl->GetRawAxis(1);
+		if (abs(x) < _threshold){
+			x = 0;
+		} else if (abs(x) < _threshold * 7){
+			x /= 2;
+		}
+		if (abs(y) < _threshold){
+			y = 0;
+		} else if (abs(y) < _threshold * 7){
+			y /= 2;
+		}
 		Robot::MainDrive()->Move(
-				_driverControl->GetRawAxis(0),
-				_driverControl->GetRawAxis(1),
+				x,
+				y,
 				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
 	} else {
 		Robot::MainDrive()->Move(
