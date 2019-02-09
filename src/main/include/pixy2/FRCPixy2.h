@@ -23,6 +23,7 @@ public:
 	static const std::uint8_t PIXYSTARTNOCHECK2 = static_cast<std::uint8_t>(0xc1);
 
 	static const std::uint8_t PIXY00 = static_cast<std::uint8_t>(0x00);
+	static const std::uint8_t PIXY01 = static_cast<std::uint8_t>(0x01);
 	static const std::uint8_t PIXY02 = static_cast<std::uint8_t>(0x02);
 
 	static const std::uint8_t PIXY_TYPE_REQUEST_VERSION = static_cast<std::uint8_t>(0x0e);
@@ -33,6 +34,10 @@ public:
 	
 	static const std::uint8_t PIXY_TYPE_REQUEST_SET_LAMP = static_cast<std::uint8_t>(0x16);
 	static const std::uint8_t PIXY_TYPE_RESPONSE_SET_LAMP = static_cast<std::uint8_t>(0x01);
+
+	static const std::uint8_t PIXY_TYPE_REQUEST_SET_CAMERA_BRIGHTNESS = static_cast<std::uint8_t>(0x10);
+	static const std::uint8_t PIXY_TYPE_RESPONSE_SET_CAMERA_BRIGHTNESS = static_cast<std::uint8_t>(0x01);
+
 
 public:
 	enum class PixyCommands

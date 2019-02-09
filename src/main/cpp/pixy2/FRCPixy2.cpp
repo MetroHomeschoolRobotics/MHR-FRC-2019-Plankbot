@@ -165,3 +165,30 @@ void FRCPixy2::SetLamp(uint8_t upper, uint8_t lower){
 	}
 }
 
+int8_t FRCPixy2::SetCameraBrightness(uint8_t brightness){
+	std::wcout << L"Pixy - set camera brightness" << std::endl;
+	std::vector<std::uint8_t> sendBytes(17);
+	std::vector<std::uint8_t> receiveBytes(34);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = PIXY_TYPE_REQUEST_SET_CAMERA_BRIGHTNESS;
+	sendBytes[3] = PIXY01;
+	sendBytes[4] = brightness;
+
+	if (pixySPI != nullptr) {
+		std::wcout << L"Pixy - SPI - ";
+		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
+	} else if (pixyI2C != nullptr){
+		std::wcout << L"Pixy - I2C - ";
+		pixyI2C->Transaction(sendBytes.data(), sendBytes.size(), receiveBytes.data(),  receiveBytes.size());
+	
+	for (int i = 0; i < receiveBytes.size(); i++)
+	{
+		std::wcout << receiveBytes[i] << ",";
+	}
+
+	std::wcout << std::endl;
+	}
+}
+
