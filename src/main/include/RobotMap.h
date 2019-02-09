@@ -28,14 +28,16 @@
 #include "ctre/Phoenix.h"
 //#include "LidarV3.h"
 #include "AHRS.h"
+#include "rev/CANSparkMax.h"
+#include "pixy2/FRCPixy2.h"
 
 class RobotMap {
 
 public:
-	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontLeft;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveFrontRight;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveRearRight;
-	static std::shared_ptr<WPI_TalonSRX> tankDriveRearLeft;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveFrontLeft;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveFrontRight;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveRearRight;
+	static std::shared_ptr<rev::CANSparkMax> tankDriveRearLeft;
 
 	static std::shared_ptr<WPI_TalonSRX> liftMotor;
 	static std::shared_ptr<frc::Spark> cargoMotor;
@@ -48,6 +50,8 @@ public:
 	static std::shared_ptr<frc::DoubleSolenoid> pusherSol2;
 
 	static std::shared_ptr<frc::Encoder> liftMotorEncoder;
+	static std::shared_ptr<frc::DigitalInput> manipulatorTopSwitch;
+	static std::shared_ptr<frc::DigitalInput> manipulatorBottomSwitch;
 
 	//static std::shared_ptr<LidarV3> lidarDistanceSensor;
 	static std::shared_ptr<frc::ADXRS450_Gyro> gyro;
@@ -56,6 +60,8 @@ public:
 	static std::shared_ptr<frc::AnalogInput> ultrasonicAnalogDistanceSensor;
 	static int UltrasonicAnalogPort;
 	static std::shared_ptr<AHRS> navGyro;
+	static std::shared_ptr<FRCPixy2> pixySPI;
+	static std::shared_ptr<FRCPixy2> pixyI2C;
 
 	static void init();
 };

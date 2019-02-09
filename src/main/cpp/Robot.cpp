@@ -10,9 +10,7 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "commands/AutoLeft.h"
-#include "commands/AutoCenter.h"
-#include "commands/AutoRight.h"
+#include "commands/AutoTest.h"
 #include "subsystems/TankDrive.h"
 
  std::unique_ptr<OI> Robot::m_oi;
@@ -20,29 +18,31 @@
 std::shared_ptr<DriveSystem> Robot::m_mainDrive;
 std::shared_ptr<Positioning> Robot::m_positioningSystem;
 std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
-std::shared_ptr<Manipulator> Robot::m_manipulatorSystem;
+std::shared_ptr<CargoSystem> Robot::m_cargoSystem;
+std::shared_ptr<Lift> Robot::m_lift;
+std::shared_ptr<Arm> Robot::m_arm;
 
 void Robot::RobotInit() {
   RobotMap::init();
 
-  m_leftAutoCommand = new AutoLeft();
-  m_centerAutoCommand = new AutoCenter();
-  m_rightAutoCommand = new AutoRight();
-
-  m_chooser.SetDefaultOption("Default Auto", m_centerAutoCommand);
-  m_chooser.AddOption("Left", m_leftAutoCommand);
-  m_chooser.AddOption("Center", m_centerAutoCommand);
-  m_chooser.AddOption("Right", m_rightAutoCommand);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
+  m_defaultAutoCommand = new AutoTest();
   m_mainDrive.reset(new TankDrive());
+
+  //m_leftAutoCommand = new AutoLeft();
+  //m_centerAutoCommand = new AutoCenter();
+  //m_rightAutoCommand = new AutoRight();
+
+  m_chooser.SetDefaultOption("Test", m_defaultAutoCommand);
+  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
     //Instantiate OI
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
   m_positioningSystem.reset(new Positioning());
-  m_manipulatorSystem.reset(new Manipulator(m_positioningSystem.get()));
+  m_cargoSystem.reset(new CargoSystem(m_positioningSystem.get()));
+  m_lift.reset(new Lift(m_positioningSystem.get()));
+  m_arm.reset(new Arm(m_positioningSystem.get()));
 
-	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_manipulatorSystem.get()));
+	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get()));
 	m_oi.get()->SetupDashboard();
   }
 
@@ -97,7 +97,10 @@ void Robot::AutonomousInit() {
   m_oi.get()->LiftJoystick()->Cancel();
 }
 
-void Robot::AutonomousPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::AutonomousPeriodic() { 
+  frc::Scheduler::GetInstance()->Run(); 
+  m_positioningSystem->UpdateDashboard(); 
+  }
 
 void Robot::TeleopInit() {
   // This makes sure that the autonomous stops running when
@@ -133,7 +136,17 @@ Positioning* Robot::PositioningSystem(){
     return m_positioningSystem.get();
 }
 
+Lift* Robot::LiftSystem(){
+    return m_lift.get();
+}
 
+CargoSystem* Robot::Cargo(){
+    return m_cargoSystem.get();
+}
+
+Arm* Robot::ArmSystem(){
+    return m_arm.get();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

@@ -16,7 +16,9 @@
 #include "subsystems/DriveSystem.h"
 #include "subsystems/PneumaticCharging.h"
 #include "subsystems/Positioning.h"
-#include "subsystems/Manipulator.h"
+#include "subsystems/CargoSystem.h"
+#include "subsystems/Lift.h"
+#include "subsystems/Arm.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -25,6 +27,9 @@ class Robot : public frc::TimedRobot {
   static DriveSystem* MainDrive();
 	static Positioning* PositioningSystem();
 	static PneumaticCharging* PneumaticCompressor();
+  static Lift* LiftSystem();
+  static CargoSystem* Cargo();
+  static Arm* ArmSystem();
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -41,14 +46,15 @@ class Robot : public frc::TimedRobot {
   // doesn't have undefined behavior and potentially crash.
   frc::Command* m_autonomousCommand = nullptr;
   frc::SendableChooser<frc::Command*> m_chooser;
-  frc::Command* m_leftAutoCommand;
-  frc::Command* m_centerAutoCommand;
-  frc::Command* m_rightAutoCommand;
+  frc::Command* m_defaultAutoCommand;
+
 
 	// subsystems
   static std::shared_ptr<DriveSystem> m_mainDrive;
 	static std::shared_ptr<Positioning> m_positioningSystem;
 	static std::shared_ptr<PneumaticCharging> m_pneumaticCompressor;
-  static std::shared_ptr<Manipulator> m_manipulatorSystem;
+  static std::shared_ptr<CargoSystem> m_cargoSystem;
+  static std::shared_ptr<Lift> m_lift;
+  static std::shared_ptr<Arm> m_arm;
 
 };

@@ -5,17 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/Manipulator.h"
+#include "subsystems/Lift.h"
 
-
-Manipulator::Manipulator(Positioning *positioning) : Subsystem("Manipulator Subsystem") {
+Lift::Lift(Positioning *positioning) : Subsystem("Lift Subsystem") {
   _liftMotor = RobotMap::liftMotor.get();
-  _cargoMotor = RobotMap::cargoMotor.get();
-  _armMotor = RobotMap::armMotor.get();
   _positioning = positioning;
 }
 
-void Manipulator::InitDefaultCommand() {
+void Lift::InitDefaultCommand() {
   // Set the default command for a subsystem here.
   // SetDefaultCommand(new MySpecialCommand());
 }
@@ -24,35 +21,17 @@ void Manipulator::InitDefaultCommand() {
 // here. Call these from Commands.
 
 //sets the lift motor to a specified speed
-  void Manipulator::setLiftMotor(double speed) {
+  void Lift::setLiftMotor(double speed) {
     _liftMotor->Set(speed);
   }
 
-//sets the cargo intake/release motor to a speed
-  void Manipulator::setCargoMotor(double speed) {
-    _cargoMotor->Set(speed);
-  }
-
-//sets the arm motor to a specified speed
-    void Manipulator::setArmMotor(double speed) {
-    _armMotor->Set(speed);
-  }
-
-//returns the current angle of the arm
-//Check this
-  double Manipulator::getArmAngle()  {
-    return _armPot->Get();
-  }
-
 //returns the distance the lifter has risen
-  double Manipulator::getLiftDistance()  {
+  double Lift::getLiftDistance()  {
     return 0;
     //return lift encoder distance
   }
 
 //resets the lift encoder
-  void Manipulator::resetLiftEncoder() {
+  void Lift::resetLiftEncoder() {
     //_liftMotor->(reset)
   }
-
-

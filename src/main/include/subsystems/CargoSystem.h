@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,20 +7,17 @@
 
 #pragma once
 
-#include <frc/commands/Command.h>
-#include "subsystems/CargoSystem.h"
+#include <frc/commands/Subsystem.h>
 #include "subsystems/Positioning.h"
-#include "Robot.h"
+#include "RobotMap.h"
 
-class ReleaseCargo : public frc::Command {
- public:
-  ReleaseCargo(CargoSystem *cargoSystem);
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-
+class CargoSystem : public frc::Subsystem {
  private:
-  CargoSystem *_cargoSystem;
+ frc::Spark *_cargoMotor;
+ Positioning *_positioning;
+
+ public:
+  CargoSystem(Positioning *positioning);
+  void InitDefaultCommand() override;
+  void setCargoMotor(double speed);
 };

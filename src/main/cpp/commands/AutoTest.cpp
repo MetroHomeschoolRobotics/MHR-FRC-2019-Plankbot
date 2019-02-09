@@ -5,23 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "commands/AutoTest.h"
 
-#include <frc/commands/Command.h>
-#include "subsystems/Arm.h"
-#include "OI.h"
-#include "Robot.h"
-//#include "subsystems/Positioning.h"
+AutoTest::AutoTest() {
 
-class SetArmWithJoystick : public frc::Command {
- public:
-  SetArmWithJoystick(Arm *arm);
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-
- private:
-  Arm *_arm;
-};
+  //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
+  AddSequential(new AutoDriveRotation(-30, 0, -0.25, 0, tankDriveFrontLeft));
+}

@@ -12,10 +12,10 @@
 #include "Robot.h"
 
 enum DriveMotorEncoder {
-		FrontLeft,
-		FrontRight,
-		RearLeft,
-		RearRight
+		tankDriveFrontLeft,
+		tankDriveFrontRight,
+		tankDriveRearLeft,
+		tankDriveRearRight
 	};
 
 class AutoDriveRotation : public frc::Command {

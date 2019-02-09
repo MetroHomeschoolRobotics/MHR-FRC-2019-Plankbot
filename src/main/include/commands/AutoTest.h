@@ -7,21 +7,12 @@
 
 #pragma once
 
-#include <frc/commands/Command.h>
-#include "subsystems/Arm.h"
-#include "OI.h"
-#include "Robot.h"
-//#include "subsystems/Positioning.h"
+#include <frc/commands/CommandGroup.h>
+#include "AutoDriveRotation.h"
+#include "RobotMap.h"
+#include "../Robot.h"
 
-class SetArmWithJoystick : public frc::Command {
+class AutoTest : public frc::CommandGroup {
  public:
-  SetArmWithJoystick(Arm *arm);
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-
- private:
-  Arm *_arm;
+  AutoTest();
 };

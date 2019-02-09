@@ -7,21 +7,21 @@
 
 #pragma once
 
-#include <frc/commands/Command.h>
-#include "subsystems/Arm.h"
-#include "OI.h"
-#include "Robot.h"
-//#include "subsystems/Positioning.h"
+#include <frc/commands/Subsystem.h>
+#include "subsystems/Positioning.h"
+#include "RobotMap.h"
 
-class SetArmWithJoystick : public frc::Command {
- public:
-  SetArmWithJoystick(Arm *arm);
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-
+class Arm : public frc::Subsystem {
  private:
-  Arm *_arm;
+  // It's desirable that everything possible under private except
+  // for methods that implement subsystem capabilities
+  frc::Spark *_armMotor;
+  frc::AnalogPotentiometer *_armPot;
+  Positioning *_positioning;
+
+ public:
+  Arm(Positioning *positioning);
+  void InitDefaultCommand() override;
+  void setArmMotor(double speed);
+  double getArmAngle();
 };
