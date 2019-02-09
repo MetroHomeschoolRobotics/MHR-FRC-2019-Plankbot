@@ -14,7 +14,8 @@
   "wpilib.online": true,
   "files.associations": {
     "*.inc": "cpp",
-    "*.json": "cpp"
+    "*.json": "cpp",
+    "iostream": "cpp"
   },
   "C_Cpp.configurationWarnings": "Disabled",
   "C_Cpp.default.configurationProvider": "vscode-wpilib"

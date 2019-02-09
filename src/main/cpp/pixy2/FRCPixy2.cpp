@@ -47,6 +47,13 @@ std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
 			sendBytes[3] = PIXY02;
 			sendBytes[4] = 0x01;
 			sendBytes[5] = 0x01;
+		case FRCPixy2::PixyCommands::GETFPS:
+
+			sendBytes[0] = PIXYSTARTNOCHECK1;
+			sendBytes[1] = PIXYSTARTNOCHECK2;
+			sendBytes[2] = PIXY_TYPE_REQUEST_FPS;
+			sendBytes[3] = PIXY00;
+
 	}
 
 	if (pixySPI != nullptr) {
@@ -192,3 +199,24 @@ int8_t FRCPixy2::SetCameraBrightness(uint8_t brightness){
 	}
 }
 
+int8_t FRCPixy2::GetFPS()
+{
+	std::wcout << L"Pixy - get FPS" << std::endl;
+
+	std::vector<std::uint8_t> response = SendCommand(PixyCommands::GETFPS);
+
+	int size = response.size();
+
+	int responseType = response[2];
+
+	if (responseType == PIXY_TYPE_RESPONSE_FPS)
+	{
+		return 0;
+	//retrieve frames per second from response
+	}
+	else
+	{
+		//possibly return integer
+		return 0;
+	}
+}

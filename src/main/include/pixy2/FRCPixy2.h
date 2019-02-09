@@ -38,12 +38,16 @@ public:
 	static const std::uint8_t PIXY_TYPE_REQUEST_SET_CAMERA_BRIGHTNESS = static_cast<std::uint8_t>(0x10);
 	static const std::uint8_t PIXY_TYPE_RESPONSE_SET_CAMERA_BRIGHTNESS = static_cast<std::uint8_t>(0x01);
 
+	static const std::uint8_t PIXY_TYPE_REQUEST_FPS = static_cast<std::uint8_t>(0x18);
+	static const std::uint8_t PIXY_TYPE_RESPONSE_FPS = static_cast<std::uint8_t>(0x01);
+
 
 public:
 	enum class PixyCommands
 	{
 		VERSION,
-		GETBLOCKS
+		GETBLOCKS,
+		GETFPS
 	};
 
 	//Assume Port 0 if none supplied
@@ -71,7 +75,7 @@ public:
 	virtual FRCPixyBlock* GetBlocks(int sigmap);
 
 	virtual FRCPixyBlock* GetBlocks(int sigmap, int maxBlocks);
-	  
+
 	int8_t ChangeProg(const char *prog);
 	int8_t SetServos(uint16_t s0, uint16_t s1);
 	int8_t SetCameraBrightness(uint8_t brightness);
