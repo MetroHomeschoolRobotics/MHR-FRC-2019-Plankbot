@@ -16,6 +16,8 @@ std::shared_ptr<frc::DoubleSolenoid> RobotMap::pusherSol1;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::pusherSol2;
 
 std::shared_ptr<frc::Encoder> RobotMap::liftMotorEncoder;
+std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorTopSwitch;
+std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorBottomSwitch;
 
 //std::shared_ptr<LidarV3> RobotMap::lidarDistanceSensor;
 std::shared_ptr<frc::ADXRS450_Gyro> RobotMap::gyro;
@@ -56,6 +58,9 @@ void RobotMap::init() {
     cargoMotor.reset(new frc::Spark(0));
     armMotor.reset(new frc::Spark(9));
     armPot.reset(new frc::AnalogPotentiometer(0));
+
+    manipulatorBottomSwitch.reset(new DigitalInput(1));
+    manipulatorTopSwitch.reset(new DigitalInput(2));
     
     //lidarDistanceSensor.reset(new LidarV3(new frc::DigitalInput(0)));
     // For Ultrasonic: Devantech SRF04, VEX Ultrasonic Rangefinder
