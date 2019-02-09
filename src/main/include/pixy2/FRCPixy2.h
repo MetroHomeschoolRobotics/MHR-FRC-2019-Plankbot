@@ -28,9 +28,9 @@ public:
 	static const std::uint8_t PIXY_TYPE_REQUEST_VERSION = static_cast<std::uint8_t>(0x0e);
 	static const std::uint8_t PIXY_TYPE_RESPONSE_VERSION = static_cast<std::uint8_t>(0x0f);
 
-	static const std::uint8_t PIXY_CCC_RESPONSE_BLOCKS = static_cast<std::uint8_t>(0x21);
 	static const std::uint8_t PIXY_CCC_REQUEST_BLOCKS = static_cast<std::uint8_t>(0x20);
-
+	static const std::uint8_t PIXY_CCC_RESPONSE_BLOCKS = static_cast<std::uint8_t>(0x21);
+	
 	static const std::uint8_t PIXY_TYPE_REQUEST_SET_LAMP = static_cast<std::uint8_t>(0x16);
 	static const std::uint8_t PIXY_TYPE_RESPONSE_SET_LAMP = static_cast<std::uint8_t>(0x01);
 
