@@ -22,13 +22,6 @@ void SetLiftWithJoystick::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void SetLiftWithJoystick::Execute() {
   double speed = 0-_driverControl->GetRawAxis(5);
-  if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
-    // Bottom Limit Swith Hit -- STOP!!
-    speed = 0;
-  } else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
-    // Top Limit Switch Hit -- STOP!!
-    speed = 0;
-  }
   _lift->setLiftMotor(speed);
 }
 

@@ -23,6 +23,13 @@ void Lift::InitDefaultCommand() {
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     _liftMotor->Set(speed);
+      if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
+    // Bottom Limit Swith Hit -- STOP!!
+    speed = 0;
+  } else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
+    // Top Limit Switch Hit -- STOP!!
+    speed = 0;
+  }
   }
 
 //returns the distance the lifter has risen
