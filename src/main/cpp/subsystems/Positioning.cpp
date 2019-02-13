@@ -125,6 +125,12 @@ double Positioning::GetLiftDistance() {
 	return liftMotor.get()->GetSelectedSensorPosition(0);
 }
 
+void Positioning::ResetLiftEncoder() {
+	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+		liftEncoder.get()->Reset();
+	}
+}
+
 double Positioning::GetFrontLeftDistance() {
 	// encoder runs in reverse
 	return -frontLeft.get()->GetEncoder().GetPosition();
@@ -142,5 +148,3 @@ double Positioning::GetRearLeftDistance() {
 double Positioning::GetRearRightDistance() {
 	return rearRight.get()->GetEncoder().GetPosition();
 }
-
-

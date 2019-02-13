@@ -38,6 +38,7 @@ public:
 	double GetDistance();
 	double GetGyroRotation();
 	double GetLiftDistance();
+	void ResetLiftEncoder();
 	double GetFrontLeftDistance();
 	double GetFrontRightDistance();
 	double GetRearLeftDistance();
