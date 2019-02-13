@@ -26,7 +26,7 @@ void Lift::InitDefaultCommand() {
   }
 
 //returns the distance the lifter has risen
-  double Lift::getLiftDistance()  {
+  /*double Lift::getLiftDistance()  {
     return 0;
     //return lift encoder distance
   }
@@ -34,4 +34,4 @@ void Lift::InitDefaultCommand() {
 //resets the lift encoder
   void Lift::resetLiftEncoder() {
     //_liftMotor->(reset)
-  }
+  }*/

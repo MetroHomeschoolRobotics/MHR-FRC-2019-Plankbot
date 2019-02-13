@@ -15,7 +15,8 @@
   "files.associations": {
     "*.inc": "cpp",
     "*.json": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "vector": "cpp"
   },
   "C_Cpp.configurationWarnings": "Disabled",
   "C_Cpp.default.configurationProvider": "vscode-wpilib"

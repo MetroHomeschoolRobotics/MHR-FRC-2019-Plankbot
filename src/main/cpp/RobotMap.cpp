@@ -79,14 +79,14 @@ void RobotMap::init() {
 
     pusherSol2.reset(new frc::DoubleSolenoid(0, 4, 5));
     pusherSol2->SetName("Lift", "SwitchSol2");
-    pusherSol2.get()->Set(frc::DoubleSolenoid::Value::kReverse);
+    pusherSol2.get()->Set(frc::DoubleSolenoid::Value::kReverse);*/
 
     liftMotorEncoder.reset(new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X));
 
-    pneumoCharger.reset(new frc::Compressor());
-*/
+    /*pneumoCharger.reset(new frc::Compressor());
+
     pixySPI.reset(new FRCPixy2(frc::SPI::kOnboardCS0));
-    pixyI2C.reset(new FRCPixy2(frc::I2C::kOnboard , 0));
+    pixyI2C.reset(new FRCPixy2(frc::I2C::kOnboard , 0));*/
 
 }
 

@@ -28,12 +28,16 @@ private:
 	std::shared_ptr<rev::CANSparkMax> rearLeft;
 	std::shared_ptr<rev::CANSparkMax> rearRight;
 
+	std::shared_ptr<WPI_TalonSRX> liftMotor;
+	std::shared_ptr<frc::Encoder> liftEncoder;
+
 public:
 	Positioning();
 	void UpdateDashboard();
 	void InitDefaultCommand();
 	double GetDistance();
 	double GetGyroRotation();
+	double GetLiftDistance();
 	double GetFrontLeftDistance();
 	double GetFrontRightDistance();
 	double GetRearLeftDistance();

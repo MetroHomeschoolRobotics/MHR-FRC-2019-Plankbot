@@ -12,6 +12,8 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	frontRight = RobotMap::tankDriveFrontRight;
 	rearLeft = RobotMap::tankDriveRearLeft;
 	rearRight = RobotMap::tankDriveRearRight;
+	liftMotor = RobotMap::liftMotor;
+	liftEncoder = RobotMap::liftMotorEncoder;
 }
 
 void Positioning::UpdateDashboard(){
@@ -25,6 +27,7 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
+	frc::SmartDashboard::PutNumber("Lift Distance", GetLiftDistance());
 	
 
 	if (RobotMap::pixySPI != nullptr) {
@@ -117,6 +120,10 @@ double Positioning::GetArmRotation() {
 	return RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
 }
 */
+
+double Positioning::GetLiftDistance() {
+	return liftMotor.get()->GetSelectedSensorPosition(0);
+}
 
 double Positioning::GetFrontLeftDistance() {
 	// encoder runs in reverse
