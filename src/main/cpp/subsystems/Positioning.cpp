@@ -28,6 +28,8 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
 	frc::SmartDashboard::PutNumber("Lift Distance", GetLiftDistance());
+	frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
+	frc::SmartDashboard::PutNumber("Bottom Limit Switch", !RobotMap::manipulatorBottomSwitch.get()->Get());
 	
 
 	if (RobotMap::pixySPI != nullptr) {
