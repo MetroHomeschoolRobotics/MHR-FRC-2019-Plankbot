@@ -50,6 +50,8 @@ public:
 	static std::shared_ptr<frc::DoubleSolenoid> pusherSol2;
 
 	static std::shared_ptr<frc::Encoder> liftMotorEncoder;
+	static std::shared_ptr<frc::DigitalInput> manipulatorTopSwitch;
+	static std::shared_ptr<frc::DigitalInput> manipulatorBottomSwitch;
 
 	//static std::shared_ptr<LidarV3> lidarDistanceSensor;
 	static std::shared_ptr<frc::ADXRS450_Gyro> gyro;
