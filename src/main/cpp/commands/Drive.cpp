@@ -33,9 +33,9 @@ void Drive::Execute() {
 				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
 	} else {
 		Robot::MainDrive()->Move(
-				_manipulatorControl->GetRawAxis(0),
-				_manipulatorControl->GetRawAxis(1),
-				_manipulatorControl->GetRawAxis(2) - _manipulatorControl->GetRawAxis(3));
+				_driverControl->GetRawAxis(0),
+				_driverControl->GetRawAxis(1),
+				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
 	}
 }
 

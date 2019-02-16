@@ -40,7 +40,7 @@ public:
 	static std::shared_ptr<rev::CANSparkMax> tankDriveRearLeft;
 
 	static std::shared_ptr<WPI_TalonSRX> liftMotor;
-	static std::shared_ptr<frc::Spark> cargoMotor;
+	static std::shared_ptr<WPI_TalonSRX> cargoMotor;
 	static std::shared_ptr<WPI_TalonSRX> armMotor;
 	static std::shared_ptr<frc::Encoder> armMotorEncoder;
 
