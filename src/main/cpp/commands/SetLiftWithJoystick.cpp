@@ -21,8 +21,8 @@ void SetLiftWithJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SetLiftWithJoystick::Execute() {
-  double speed = 0-_driverControl->GetRawAxis(5);
-  _lift->setLiftMotor(speed);
+  double rate = 0-_driverControl->GetRawAxis(5);
+  _lift->setLiftMotor(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()

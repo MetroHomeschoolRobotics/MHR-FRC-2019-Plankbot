@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/Lift.h"
+#include <cmath>
 
 Lift::Lift(Positioning *positioning) : Subsystem("Lift Subsystem") {
   _liftMotor = RobotMap::liftMotor.get();
@@ -22,9 +23,9 @@ void Lift::InitDefaultCommand() {
 
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
-    _liftMotor->Set(speed);
+    //_liftMotor->Set(speed);
 /*      if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
-    // Bottom Limit Swith Hit -- STOP!!
+    // Bottom Limit Switch Hit -- STOP!!
     speed = 0;
   } else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
     // Top Limit Switch Hit -- STOP!!
@@ -36,7 +37,8 @@ void Lift::InitDefaultCommand() {
     } else if (!RobotMap::manipulatorTopSwitch.get()->Get()){ 
 // If the top limit switch is pressed, we want to keep the values between 0 and -1
       speed = fmin(speed, 0);
-  }
+    }
+ _liftMotor->Set(speed);
   }
 
 //returns the distance the lifter has risen
