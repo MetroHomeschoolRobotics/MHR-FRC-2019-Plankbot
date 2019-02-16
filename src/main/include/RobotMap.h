@@ -41,8 +41,8 @@ public:
 
 	static std::shared_ptr<WPI_TalonSRX> liftMotor;
 	static std::shared_ptr<frc::Spark> cargoMotor;
-	static std::shared_ptr<frc::Spark> armMotor;
-	static std::shared_ptr<frc::AnalogPotentiometer> armPot;
+	static std::shared_ptr<WPI_TalonSRX> armMotor;
+	static std::shared_ptr<frc::Encoder> armMotorEncoder;
 
 	static std::shared_ptr<frc::DoubleSolenoid> octoDriveSwitchSol1;
 	static std::shared_ptr<frc::DoubleSolenoid> liftGrabSol1;

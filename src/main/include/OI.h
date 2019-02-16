@@ -21,6 +21,7 @@ private:
 	//Create Private Objects
 	std::shared_ptr<frc::Command> _driveCommand;
 	std::shared_ptr<frc::Command> _setLiftWithJoystick;
+	std::shared_ptr<frc::Command> _setArmWithJoystick;
 	std::shared_ptr<frc::Joystick> driveJoystick;
 	std::shared_ptr<frc::Joystick> manipulatorJoystick;
 	frc::SendableChooser<frc::Command*> *autoChooser;
@@ -65,5 +66,6 @@ public:
 	//Create Private Inputs
 	frc::Command* DriveCommand();
 	frc::Command* LiftJoystick();
+	frc::Command* ArmJoystick();
 	frc::SendableChooser<frc::Command*> *getAutoChooser();
 };

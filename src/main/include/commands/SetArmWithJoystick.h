@@ -15,7 +15,7 @@
 
 class SetArmWithJoystick : public frc::Command {
  public:
-  SetArmWithJoystick(Arm *arm);
+  SetArmWithJoystick(Arm *arm, frc::Joystick* driverControl);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -24,4 +24,5 @@ class SetArmWithJoystick : public frc::Command {
 
  private:
   Arm *_arm;
+  frc::Joystick * _driverControl;
 };

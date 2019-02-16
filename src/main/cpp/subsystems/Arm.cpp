@@ -28,5 +28,5 @@ void Arm::setArmMotor(double speed) {
 //returns the current angle of the arm
 //Check this
   double Arm::getArmAngle()  {
-    return _armPot->Get();
+    return _armMotorEncoder->Get();
   }

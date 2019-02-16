@@ -15,8 +15,8 @@ class Arm : public frc::Subsystem {
  private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
-  frc::Spark *_armMotor;
-  frc::AnalogPotentiometer *_armPot;
+  WPI_TalonSRX *_armMotor;
+  frc::Encoder *_armMotorEncoder;
   Positioning *_positioning;
 
  public:

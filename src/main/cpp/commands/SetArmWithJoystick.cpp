@@ -7,7 +7,7 @@
 
 #include "commands/SetArmWithJoystick.h"
 
-SetArmWithJoystick::SetArmWithJoystick(Arm *arm) {
+SetArmWithJoystick::SetArmWithJoystick(Arm *arm, frc::Joystick* driverControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(Robot::ArmSystem());
@@ -19,9 +19,10 @@ void SetArmWithJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SetArmWithJoystick::Execute() {
+  double rate = 0-_driverControl->GetRawAxis(1);
   //joystickValue=OI.manipulatorJoystick.GetRawAxis(5);
   //currentAngle = Manipulator.GetArmAngle();
-   _arm->setArmMotor(0);
+   _arm->setArmMotor(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -46,14 +46,16 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     _arm = arm;
 
 //_setLiftWithJoystick.reset(new SetLiftWithJoystick(Lift *_lift, frc::Joystick))
-  _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, driveJoystick.get()));
+  _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, manipulatorJoystick.get()));
+
+  _setArmWithJoystick.reset(new SetArmWithJoystick(_arm, manipulatorJoystick.get()));
     //Collect Button
   //  collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
     //collectButton->Execute(new CollectCargo());
-    collectButton.reset(new frc::JoystickButton(driveJoystick.get(), 3));
+    collectButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
     collectButton->WhileHeld(new CollectCargo(_cargoSystem));
 
-    releaseButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    releaseButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 4));
     releaseButton->WhileHeld(new ReleaseCargo(_cargoSystem));
 
 //        manipEatButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
@@ -156,4 +158,8 @@ frc::Command* OI::DriveCommand() {
 
 frc::Command* OI::LiftJoystick() {
     return _setLiftWithJoystick.get();
+}
+
+frc::Command* OI::ArmJoystick() {
+    return _setArmWithJoystick.get();
 }
