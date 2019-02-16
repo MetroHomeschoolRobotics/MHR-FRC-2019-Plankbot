@@ -123,12 +123,13 @@ float Positioning::GetArmDistance() {
 }
 
 float Positioning::GetLiftDistance() {
-	return liftMotor.get()->GetSelectedSensorPosition(0);
+	return liftMotor.get()->GetSelectedSensorPosition(0)+9757;
 }
 
 void Positioning::ResetLiftEncoder() {
-	/*if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+/*	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
 		liftEncoder.get()->Reset();
+		liftMotor.get()->Reset();
 	}*/
 }
 

@@ -5,12 +5,24 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoTest.h"
+#pragma once
 
-AutoTest::AutoTest() {
+#include <frc/commands/Command.h>
+#include "../Robot.h"
+#include "subsystems/Lift.h"
 
-  //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
-  //-.25 is motor speed on y axis
-  //With current gear ratio and wheel diameter, 1 drive train encoder rotation is 1.7599957" 
-  AddSequential(new AutoDriveRotation(-30, 0, -0.25, 0, tankDriveFrontLeft));
-}
+class AutoLift : public frc::Command {
+ public:
+ AutoLift(float height, double speed);
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+
+private:
+	float startPos, targetPos;
+  double rate;
+	float GetEncoderValue();
+  WPI_TalonSRX *_liftMotor;
+};
