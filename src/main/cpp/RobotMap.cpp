@@ -6,7 +6,7 @@ std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearRight;
 std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearLeft;
 
 std::shared_ptr<WPI_TalonSRX> RobotMap::liftMotor;
-std::shared_ptr<frc::Spark> RobotMap::cargoMotor;
+std::shared_ptr<WPI_TalonSRX> RobotMap::cargoMotor;
 std::shared_ptr<WPI_TalonSRX> RobotMap::armMotor;
 std::shared_ptr<frc::Encoder> RobotMap::armMotorEncoder;
 
@@ -54,8 +54,8 @@ void RobotMap::init() {
     frc::SpeedController *rRight = tankDriveRearRight.get();
     
     liftMotor.reset(new WPI_TalonSRX(4));
-    cargoMotor.reset(new frc::Spark(9));
-    armMotor.reset(new WPI_TalonSRX(9));
+    cargoMotor.reset(new WPI_TalonSRX(2));
+    armMotor.reset(new WPI_TalonSRX(1));
     //armMotorEncoder.reset(new frc::Encoder(0));
 
     manipulatorBottomSwitch.reset(new DigitalInput(1));

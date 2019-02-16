@@ -13,7 +13,7 @@
 
 class CargoSystem : public frc::Subsystem {
  private:
- frc::Spark *_cargoMotor;
+ WPI_TalonSRX *_cargoMotor;
  Positioning *_positioning;
 
  public:
