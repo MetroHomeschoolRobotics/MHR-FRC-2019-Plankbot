@@ -7,13 +7,13 @@
 
 #include "commands/SetLiftWithJoystick.h"
 //take out these spaces if need be - naming put it on the right. or put back in
-SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick* driverControl) {
+SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick* manipulatorControl) {
 //SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick *driverControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
   Requires(Robot::LiftSystem());
   _lift = lift;
-  _driverControl = driverControl;
+  _manipulatorControl = manipulatorControl;
 }
 
 // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ void SetLiftWithJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SetLiftWithJoystick::Execute() {
-  double rate = 0-_driverControl->GetRawAxis(5);
+  double rate = 0-_manipulatorControl->GetRawAxis(5);
   _lift->setLiftMotor(rate);
 }
 

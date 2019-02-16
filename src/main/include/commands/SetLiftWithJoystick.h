@@ -17,7 +17,7 @@ class SetLiftWithJoystick : public frc::Command {
  
  public:
   //SetLiftWithJoystick(Lift *lift);
-  SetLiftWithJoystick(Lift *lift, frc::Joystick* driverControl);
+  SetLiftWithJoystick(Lift *lift, frc::Joystick* manipulatorControl);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -27,5 +27,5 @@ class SetLiftWithJoystick : public frc::Command {
  private:
   Lift *_lift;
   //double speed = _driverControl->GetRawAxis(5);
-  frc::Joystick * _driverControl;
+  frc::Joystick * _manipulatorControl;
 };
