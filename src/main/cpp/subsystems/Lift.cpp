@@ -42,7 +42,7 @@ void Lift::InitDefaultCommand() {
   }
 
 //returns the distance the lifter has risen
-  /*double Lift::getLiftDistance()  {
+  /*float Lift::getLiftDistance()  {
     return 0;
     //return lift encoder distance
   }
