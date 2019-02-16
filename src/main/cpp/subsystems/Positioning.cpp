@@ -124,13 +124,17 @@ double Positioning::GetArmRotation() {
 */
 
 double Positioning::GetLiftDistance() {
-	return liftMotor.get()->GetSelectedSensorPosition(0);
+	return liftMotor.get()->GetSelectedSensorPosition(0)+9757;
 }
 
 void Positioning::ResetLiftEncoder() {
-	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+/*	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
 		liftEncoder.get()->Reset();
+		liftMotor.get()->Reset();
+		frc::SmartDashboard::PutString("Reading/Switch?", "Yes");
 	}
+	if(liftEncoder.get()->Reset())
+		frc::SmartDashboard::PutString("Reset?", "Yes");*/
 }
 
 double Positioning::GetFrontLeftDistance() {

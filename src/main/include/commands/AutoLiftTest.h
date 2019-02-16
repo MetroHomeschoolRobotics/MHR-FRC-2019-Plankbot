@@ -5,11 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoTest.h"
+#pragma once
 
-AutoTest::AutoTest() {
+#include <frc/commands/CommandGroup.h>
+#include "AutoLift.h"
+#include "RobotMap.h"
+#include "../Robot.h"
 
-  //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
-  //-.25 is motor speed on y axis
-  AddSequential(new AutoDriveRotation(-30, 0, -0.25, 0, tankDriveFrontLeft));
-}
+class AutoLiftTest : public frc::CommandGroup {//candidate: AutoLift::AutoLift(float, Lift*)  AutoLift(float height, Lift *lift);
+ public:
+  AutoLiftTest();
+};

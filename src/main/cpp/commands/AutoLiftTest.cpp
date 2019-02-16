@@ -5,11 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/AutoTest.h"
+#include "commands/AutoLiftTest.h"
 
-AutoTest::AutoTest() {
-
-  //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
-  //-.25 is motor speed on y axis
-  AddSequential(new AutoDriveRotation(-30, 0, -0.25, 0, tankDriveFrontLeft));
+AutoLiftTest::AutoLiftTest() {
+  //5000 and 2000 are test values
+  AddSequential(new AutoLift(5000, 0.25));
+  AddSequential(new AutoLift(2000, -0.25));
 }
