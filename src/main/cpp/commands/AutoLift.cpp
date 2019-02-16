@@ -7,12 +7,10 @@
 
 #include "commands/AutoLift.h"
 
-//AutoLift::AutoLift(float height, Lift *lift) {
 AutoLift::AutoLift(float height, double speed) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::LiftSystem());
-	//_lift = lift;
 	_liftMotor = RobotMap::liftMotor.get();
 	rate = speed;
 	startPos = 0;
@@ -28,7 +26,6 @@ void AutoLift::Initialize() {
 	startPos = GetEncoderValue();
 	frc::SmartDashboard::PutNumber("AutoLift Start", startPos);
 	  _liftMotor->Set(rate);
-	  //::_liftMotor->setLiftMotor(0.25);
 }
 
 // Called repeatedly when this Command is scheduled to run

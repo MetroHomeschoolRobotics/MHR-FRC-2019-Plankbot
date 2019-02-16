@@ -14,7 +14,6 @@
 class AutoLift : public frc::Command {
  public:
  AutoLift(float height, double speed);
-  //AutoLift(float height, Lift *lift);//expects 2 arguments, 1 provided
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
@@ -22,7 +21,6 @@ class AutoLift : public frc::Command {
   void Interrupted() override;
 
 private:
-  //Lift *_lift;
 	float startPos, targetPos;
   double rate;
 	float GetEncoderValue();

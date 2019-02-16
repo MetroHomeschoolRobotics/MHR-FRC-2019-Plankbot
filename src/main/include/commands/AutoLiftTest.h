@@ -12,7 +12,7 @@
 #include "RobotMap.h"
 #include "../Robot.h"
 
-class AutoLiftTest : public frc::CommandGroup {//candidate: AutoLift::AutoLift(float, Lift*)  AutoLift(float height, Lift *lift);
+class AutoLiftTest : public frc::CommandGroup {
  public:
   AutoLiftTest();
 };
