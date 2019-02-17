@@ -31,13 +31,17 @@ private:
 	std::shared_ptr<WPI_TalonSRX> liftMotor;
 	std::shared_ptr<frc::Encoder> liftEncoder;
 
+	std::shared_ptr<WPI_TalonSRX> armMotor;
+	std::shared_ptr<frc::Encoder> armMotorEncoder;
+
 public:
 	Positioning();
 	void UpdateDashboard();
 	void InitDefaultCommand();
 	double GetDistance();
 	double GetGyroRotation();
-	double GetLiftDistance();
+	float GetLiftDistance();
+	float GetArmDistance();
 	void ResetLiftEncoder();
 	double GetFrontLeftDistance();
 	double GetFrontRightDistance();
@@ -47,8 +51,6 @@ public:
 	float GetAccelY();
 	float GetVelocityX();
 	float GetVelocityY();
-
-	double GetArmRotation();
 };
 
 #endif  // Positioning_H

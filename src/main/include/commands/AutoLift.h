@@ -7,21 +7,22 @@
 
 #pragma once
 
-#include <frc/commands/Subsystem.h>
-#include "subsystems/Positioning.h"
-#include "RobotMap.h"
+#include <frc/commands/Command.h>
+#include "../Robot.h"
+#include "subsystems/Lift.h"
 
-class Lift : public frc::Subsystem {
- private:
-  // It's desirable that everything possible under private except
-  // for methods that implement subsystem capabilities
-  WPI_TalonSRX *_liftMotor;
-  Positioning *_positioning;
-
+class AutoLift : public frc::Command {
  public:
-  Lift(Positioning *positioning);
-  void InitDefaultCommand() override;
-  void setLiftMotor(double speed);
-  /*void resetLiftEncoder();
-  float getLiftDistance();*/
+ AutoLift(float height, double speed);
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+
+private:
+	float startPos, targetPos;
+  double rate;
+	float GetEncoderValue();
+  WPI_TalonSRX *_liftMotor;
 };

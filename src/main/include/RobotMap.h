@@ -42,7 +42,6 @@ public:
 	static std::shared_ptr<WPI_TalonSRX> liftMotor;
 	static std::shared_ptr<WPI_TalonSRX> cargoMotor;
 	static std::shared_ptr<WPI_TalonSRX> armMotor;
-	static std::shared_ptr<frc::Encoder> armMotorEncoder;
 
 	static std::shared_ptr<frc::DoubleSolenoid> octoDriveSwitchSol1;
 	static std::shared_ptr<frc::DoubleSolenoid> liftGrabSol1;
@@ -50,6 +49,7 @@ public:
 	static std::shared_ptr<frc::DoubleSolenoid> pusherSol2;
 
 	static std::shared_ptr<frc::Encoder> liftMotorEncoder;
+	static std::shared_ptr<frc::Encoder> armMotorEncoder;
 	static std::shared_ptr<frc::DigitalInput> manipulatorTopSwitch;
 	static std::shared_ptr<frc::DigitalInput> manipulatorBottomSwitch;
 
