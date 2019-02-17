@@ -95,6 +95,8 @@ void Robot::AutonomousInit() {
   
   m_oi.get()->DriveCommand()->Cancel();
   m_oi.get()->LiftJoystick()->Cancel();
+  m_oi.get()->ArmJoystick()->Cancel();
+  //added get arm joystick
 }
 
 void Robot::AutonomousPeriodic() { 
@@ -114,6 +116,8 @@ void Robot::TeleopInit() {
 
   m_oi.get()->DriveCommand()->Start();
   m_oi.get()->LiftJoystick()->Start();
+  m_oi.get()->ArmJoystick()->Start();
+  //added arm joystick
 }
 
 void Robot::TeleopPeriodic() { 
