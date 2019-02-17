@@ -46,7 +46,7 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     _arm = arm;
 
 //_setLiftWithJoystick.reset(new SetLiftWithJoystick(Lift *_lift, frc::Joystick))
-  _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, manipulatorJoystick.get()));
+  _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, driveJoystick.get()));
 
   _setArmWithJoystick.reset(new SetArmWithJoystick(_arm, manipulatorJoystick.get()));
     //Collect Button

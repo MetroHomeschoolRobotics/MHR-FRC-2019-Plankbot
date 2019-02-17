@@ -8,7 +8,6 @@ std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearLeft;
 std::shared_ptr<WPI_TalonSRX> RobotMap::liftMotor;
 std::shared_ptr<WPI_TalonSRX> RobotMap::cargoMotor;
 std::shared_ptr<WPI_TalonSRX> RobotMap::armMotor;
-std::shared_ptr<frc::Encoder> RobotMap::armMotorEncoder;
 
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::octoDriveSwitchSol1;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::liftGrabSol1;
@@ -16,6 +15,7 @@ std::shared_ptr<frc::DoubleSolenoid> RobotMap::pusherSol1;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::pusherSol2;
 
 std::shared_ptr<frc::Encoder> RobotMap::liftMotorEncoder;
+std::shared_ptr<frc::Encoder> RobotMap::armMotorEncoder;
 std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorTopSwitch;
 std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorBottomSwitch;
 
@@ -56,7 +56,6 @@ void RobotMap::init() {
     liftMotor.reset(new WPI_TalonSRX(4));
     cargoMotor.reset(new WPI_TalonSRX(2));
     armMotor.reset(new WPI_TalonSRX(1));
-    //armMotorEncoder.reset(new frc::Encoder(0));
 
     manipulatorBottomSwitch.reset(new DigitalInput(1));
     manipulatorTopSwitch.reset(new DigitalInput(2));
@@ -86,6 +85,7 @@ void RobotMap::init() {
     pusherSol2.get()->Set(frc::DoubleSolenoid::Value::kReverse);*/
 
     liftMotorEncoder.reset(new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X));
+    armMotorEncoder.reset(new frc::Encoder(3, 4, false, frc::Encoder::EncodingType::k4X));
 
     /*pneumoCharger.reset(new frc::Compressor());
 
