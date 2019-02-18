@@ -13,6 +13,8 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	rearLeft = RobotMap::tankDriveRearLeft;
 	rearRight = RobotMap::tankDriveRearRight;
 	liftMotor = RobotMap::liftMotor;
+	armMotor = RobotMap::armMotor;
+	armMotorEncoder = RobotMap::armMotorEncoder;
 	liftEncoder = RobotMap::liftMotorEncoder;
 }
 
@@ -119,11 +121,11 @@ float Positioning::GetVelocityY() {
 }
 
 float Positioning::GetArmDistance() {
-	return armMotor.get()->GetSelectedSensorPosition(0);
+	return armMotorEncoder.get()->Get();
 }
 
 float Positioning::GetLiftDistance() {
-	return liftMotor.get()->GetSelectedSensorPosition(0)+9757;
+	return liftMotor.get()->GetSelectedSensorPosition(0);//+9757;
 }
 
 void Positioning::ResetLiftEncoder() {

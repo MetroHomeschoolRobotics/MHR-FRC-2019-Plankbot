@@ -21,6 +21,11 @@ void Lift::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+int Lift::GetLiftDistance() {
+  return _positioning->GetLiftDistance();
+}
+
+
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);

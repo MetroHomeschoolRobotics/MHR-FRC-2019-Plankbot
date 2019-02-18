@@ -27,29 +27,7 @@ private:
 	frc::SendableChooser<frc::Command*> *autoChooser;
 	std::shared_ptr<frc::JoystickButton> collectButton;
 	std::shared_ptr<frc::JoystickButton> releaseButton;
-	
-	/*
-	std::shared_ptr<frc::JoystickButton> switchDriveButton;
-	std::shared_ptr<frc::JoystickButton> grabButton;
-	std::shared_ptr<frc::JoystickButton> overrideButton;
-	std::shared_ptr<frc::JoystickButton> releaseBoxButton;
-	std::shared_ptr<frc::JoystickButton> intakeBoxButton;
-	std::shared_ptr<frc::JoystickButton> clampInButton;
-	std::shared_ptr<frc::JoystickButton> clampOutButton;
-	std::shared_ptr<frc::JoystickButton> driveEatButton;
-	std::shared_ptr<frc::JoystickButton> drivePukeButton;
-	std::shared_ptr<frc::JoystickButton> ejectButton;
-	std::shared_ptr<frc::JoystickButton> droolButton;
-
-	std::shared_ptr<frc::JoystickButton> manipSwitchDriveButton;
-	std::shared_ptr<frc::JoystickButton> manipGrabButton;
-	std::shared_ptr<frc::JoystickButton> manipOverrideButton;
-	std::shared_ptr<frc::JoystickButton> manipReleaseBoxButton;
-	std::shared_ptr<frc::JoystickButton> manipIntakeBoxButton;
-	std::shared_ptr<frc::JoystickButton> manipEatButton;
-	std::shared_ptr<frc::JoystickButton> manipPukeButton;
-	std::shared_ptr<frc::JoystickButton> manipDroolButton;
-	*/
+	std::shared_ptr<frc::JoystickButton> autoLiftTestButton;
 	
 	DriveSystem *_drive;
 	Positioning *_positioning; 

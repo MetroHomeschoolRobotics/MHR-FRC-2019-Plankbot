@@ -20,7 +20,6 @@ void CollectCargo::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 //When CollectCargo is called, wheels spin to collect 
 void CollectCargo::Execute() {
-//  bool collect = _driverControl->GetRawButton(3);
     _cargoSystem->setCargoMotor(-1);
 }
 
@@ -28,7 +27,6 @@ void CollectCargo::Execute() {
 bool CollectCargo::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-//When ended, motor turns off
 void CollectCargo::End() {
   _cargoSystem->setCargoMotor(0);
 }

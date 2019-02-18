@@ -9,14 +9,13 @@
 
 #include <frc/commands/Command.h>
 #include "subsystems/Lift.h"
+#include "subsystems/Positioning.h"
 #include "OI.h"
 #include "Robot.h"
-//#include "subsystems/Positioning.h"
 
 class SetLiftWithJoystick : public frc::Command {
  
  public:
-  //SetLiftWithJoystick(Lift *lift);
   SetLiftWithJoystick(Lift *lift, frc::Joystick* manipulatorControl);
   void Initialize() override;
   void Execute() override;
@@ -26,6 +25,6 @@ class SetLiftWithJoystick : public frc::Command {
 
  private:
   Lift *_lift;
-  //double speed = _driverControl->GetRawAxis(5);
+  double _threshold = 0.1;
   frc::Joystick * _manipulatorControl;
 };

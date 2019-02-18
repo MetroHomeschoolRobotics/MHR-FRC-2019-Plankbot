@@ -22,6 +22,7 @@ class Lift : public frc::Subsystem {
   Lift(Positioning *positioning);
   void InitDefaultCommand() override;
   void setLiftMotor(double speed);
+  int GetLiftDistance();
   /*void resetLiftEncoder();
   float getLiftDistance();*/
 };
