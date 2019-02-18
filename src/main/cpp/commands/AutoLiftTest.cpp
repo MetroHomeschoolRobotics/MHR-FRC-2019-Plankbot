@@ -8,7 +8,8 @@
 #include "commands/AutoLiftTest.h"
 
 AutoLiftTest::AutoLiftTest() {
-  //5000 and 2000 are test values
-  AddSequential(new AutoLift(5000, 0.25));
-  AddSequential(new AutoLift(2000, -0.25));
+  //test values
+  AddSequential(new AutoLift(12000, 0.4));
+  AddSequential(new AutoLift(8000, 0.4));
+  AddSequential(new AutoLift(14000, 0.4));
 }

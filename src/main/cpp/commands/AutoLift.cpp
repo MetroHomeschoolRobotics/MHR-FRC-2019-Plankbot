@@ -24,21 +24,27 @@ float AutoLift::GetEncoderValue() {
 // Called just before this Command runs the first time
 void AutoLift::Initialize() {
 	startPos = GetEncoderValue();
+	if (startPos < targetPos) {
+		rate = abs(rate);
+	} else {
+		rate = -abs(rate);
+	}
 	frc::SmartDashboard::PutNumber("AutoLift Start", startPos);
-	  _liftMotor->Set(rate);
+	frc::SmartDashboard::PutNumber("AutoLift Speed", rate);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoLift::Execute() {
-
+	_liftMotor->Set(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoLift::IsFinished() {
-	if (targetPos > 0) {
-		return startPos > targetPos;
+	if (rate > 0) {
+		//I think these are wrong -Mary
+		return GetEncoderValue() > targetPos;
 	} else {
-		return startPos < targetPos;
+		return GetEncoderValue() < targetPos;
 	}
 }
 
