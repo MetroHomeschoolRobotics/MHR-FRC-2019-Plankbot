@@ -41,7 +41,6 @@ void AutoLift::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool AutoLift::IsFinished() {
 	if (rate > 0) {
-		//I think these are wrong -Mary
 		return GetEncoderValue() > targetPos;
 	} else {
 		return GetEncoderValue() < targetPos;
