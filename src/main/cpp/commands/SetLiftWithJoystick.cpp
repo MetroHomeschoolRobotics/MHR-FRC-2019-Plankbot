@@ -23,17 +23,11 @@ void SetLiftWithJoystick::Initialize() {
 void SetLiftWithJoystick::Execute() {
   double rate = 0-_manipulatorControl->GetRawAxis(5);
   
-  if (_lift->GetLiftDistance() < 10 && rate < 0){
+  if (abs(rate)<_threshold){
     rate = 0;
-  } else if (_lift->GetLiftDistance() > 26000 && rate > 0){
-    rate = .1;
-  } else if (abs(rate)<_threshold){
-    rate = .15;
   } else if (rate < 0){
     rate /= 3;
-  } else if (rate > 0 && _lift->GetLiftDistance() > 23000){
-    rate /= 2;
-  }
+  } 
   
   _lift->setLiftMotor(rate);
 }

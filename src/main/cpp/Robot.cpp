@@ -25,8 +25,8 @@ std::shared_ptr<Arm> Robot::m_arm;
 void Robot::RobotInit() {
   RobotMap::init();
 
-  m_defaultAutoCommand = new AutoTest();
   m_mainDrive.reset(new TankDrive());
+  m_defaultAutoCommand = new AutoTest();
 
   //m_leftAutoCommand = new AutoLeft();
   //m_centerAutoCommand = new AutoCenter();

@@ -24,7 +24,7 @@ void SetArmWithJoystick::Initialize() {
 void SetArmWithJoystick::Execute() {
   double rate = _manipulatorControl->GetRawAxis(1);
   if (abs(rate)<_threshold){
-    rate = -.15;
+    rate = 0;
   }
 
    _arm->setArmMotor(rate);

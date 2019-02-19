@@ -15,7 +15,7 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	liftMotor = RobotMap::liftMotor;
 	armMotor = RobotMap::armMotor;
 	armMotorEncoder = RobotMap::armMotorEncoder;
-	liftEncoder = RobotMap::liftMotorEncoder;
+	//liftEncoder = RobotMap::liftMotorEncoder;
 }
 
 void Positioning::UpdateDashboard(){
@@ -24,14 +24,16 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Front Right", GetFrontRightDistance());
 	frc::SmartDashboard::PutNumber("Rear Left", GetRearLeftDistance());
 	frc::SmartDashboard::PutNumber("Rear Right", GetRearRightDistance());
+	
 	frc::SmartDashboard::PutNumber("Gyro", GetGyroRotation());
 	frc::SmartDashboard::PutNumber("Accleration Y", GetAccelY());
 	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
+	
 	frc::SmartDashboard::PutNumber("Lift Distance", GetLiftDistance());
 	frc::SmartDashboard::PutNumber("Arm Distance", GetArmDistance());
-	frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
+	//frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
 	frc::SmartDashboard::PutNumber("Bottom Limit Switch", !RobotMap::manipulatorBottomSwitch.get()->Get());
 	
 

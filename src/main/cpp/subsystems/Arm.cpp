@@ -9,6 +9,7 @@
 
 Arm::Arm(Positioning *positioning) : Subsystem("Arm Subsystem") {
   _armMotor = RobotMap::armMotor.get();
+  _armMotorEncoder = RobotMap::armMotorEncoder.get();
   _positioning = positioning;
 }
 
@@ -22,7 +23,18 @@ void Arm::InitDefaultCommand() {
 
 //sets the arm motor to a specified speed
 void Arm::setArmMotor(double speed) {
-    _armMotor->Set(speed);
+    double val = speed;
+
+    int angle = getArmAngle();
+    if (angle < 0 && speed < 0){
+      val = 0;
+    }  else if (angle > 500 && speed > 0){
+      val = 0;
+    } else if (getArmAngle() > 230 && speed == 0){
+      val = -.15;
+    }
+    _armMotor->Set(val);
+
   }
 
 //returns the current angle of the arm

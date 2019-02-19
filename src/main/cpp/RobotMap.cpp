@@ -55,11 +55,10 @@ void RobotMap::init() {
     armMotor.reset(new WPI_TalonSRX(1));
 
     manipulatorBottomSwitch.reset(new DigitalInput(1));
-   // manipulatorTopSwitch.reset(new DigitalInput(2));
+    // manipulatorTopSwitch.reset(new DigitalInput(2));
     
     navGyro.reset(new AHRS(SerialPort::kMXP));
 
-    liftMotorEncoder.reset(new frc::Encoder(0, 1, false, frc::Encoder::EncodingType::k4X));
     armMotorEncoder.reset(new frc::Encoder(3, 4, false, frc::Encoder::EncodingType::k4X));
 
     /*

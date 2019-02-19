@@ -29,10 +29,19 @@ int Lift::GetLiftDistance() {
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);
-    if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
+    int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
+    if (pos > 26000 && speed > 0){
+      speed = 0;
+    } else if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
       // Bottom Limit Switch Hit -- STOP!!
       speed = 0;
-      RobotMap::liftMotorEncoder.get()->Reset();      
+      RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);      
+    } else if (speed > 0 && pos > 23000){
+      speed /= 2;
+    }
+
+    if (speed == 0){
+      speed = .15;
     }
   /* else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
     // Top Limit Switch Hit -- STOP!!
