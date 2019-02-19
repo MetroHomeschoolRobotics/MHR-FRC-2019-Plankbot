@@ -28,6 +28,9 @@ private:
 	std::shared_ptr<frc::JoystickButton> collectButton;
 	std::shared_ptr<frc::JoystickButton> releaseButton;
 	std::shared_ptr<frc::JoystickButton> autoLiftTestButton;
+	std::shared_ptr<frc::JoystickButton> lowLiftButton;
+	std::shared_ptr<frc::JoystickButton> midRocketButton;
+	std::shared_ptr<frc::JoystickButton> highRocketButton;
 	
 	DriveSystem *_drive;
 	Positioning *_positioning; 

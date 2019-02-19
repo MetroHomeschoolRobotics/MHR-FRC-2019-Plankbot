@@ -29,13 +29,16 @@ int Lift::GetLiftDistance() {
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);
-/*      if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
-    // Bottom Limit Switch Hit -- STOP!!
-    speed = 0;
-  } else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
+    if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
+      // Bottom Limit Switch Hit -- STOP!!
+      speed = 0;
+      RobotMap::liftMotorEncoder.get()->Reset();      
+    }
+  /* else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
     // Top Limit Switch Hit -- STOP!!
     speed = 0;
-*/
+  */
+ /*
     if (!RobotMap::manipulatorBottomSwitch.get()->Get()){
 // If the bottom limit switch is pressed, we want to keep the values between 1 and 0
       speed = fmax(speed, 0);
@@ -43,7 +46,9 @@ int Lift::GetLiftDistance() {
 // If the top limit switch is pressed, we want to keep the values between 0 and -1
       speed = fmin(speed, 0);
     }
- _liftMotor->Set(speed);
+    */
+    
+    _liftMotor->Set(speed);
   }
 
 //returns the distance the lifter has risen
