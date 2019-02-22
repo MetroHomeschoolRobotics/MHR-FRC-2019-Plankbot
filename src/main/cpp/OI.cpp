@@ -11,8 +11,8 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 
 #include "commands/AutoTest.h"
+#include "commands/AutoLift.h"
 #include "commands/Drive.h"
-#include "commands/AutoLiftTest.h"
 #include "commands/SetLiftWithJoystick.h"
 #include "commands/SetArmWithJoystick.h"
 #include "commands/CollectCargo.h"
