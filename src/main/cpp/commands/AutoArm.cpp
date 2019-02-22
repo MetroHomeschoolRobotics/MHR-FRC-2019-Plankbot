@@ -24,21 +24,26 @@ float AutoArm::GetEncoderValue() {
 // Called just before this Command runs the first time
 void AutoArm::Initialize() {
 	startPos = GetEncoderValue();
+	if (startPos < targetPos) {
+		rate = abs(rate);
+	} else {
+		rate = -abs(rate);
+	}
 	frc::SmartDashboard::PutNumber("AutoArm Start", startPos);
-	  _armMotor->Set(rate);
+	frc::SmartDashboard::PutNumber("AutoArm Speed", rate);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoArm::Execute() {
-
+  _armMotor->Set(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoArm::IsFinished() {
-	if (targetPos > 0) {
-		return startPos > targetPos;
+	if (rate > 0) {
+		return GetEncoderValue() < targetPos;
 	} else {
-		return startPos < targetPos;
+		return GetEncoderValue() > targetPos;
 	}
 }
 
