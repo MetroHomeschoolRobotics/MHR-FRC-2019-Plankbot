@@ -13,7 +13,9 @@ Positioning::Positioning() : frc::Subsystem("PositioningSubsystem") {
 	rearLeft = RobotMap::tankDriveRearLeft;
 	rearRight = RobotMap::tankDriveRearRight;
 	liftMotor = RobotMap::liftMotor;
-	liftEncoder = RobotMap::liftMotorEncoder;
+	armMotor = RobotMap::armMotor;
+	armMotorEncoder = RobotMap::armMotorEncoder;
+	//liftEncoder = RobotMap::liftMotorEncoder;
 }
 
 void Positioning::UpdateDashboard(){
@@ -22,13 +24,16 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Front Right", GetFrontRightDistance());
 	frc::SmartDashboard::PutNumber("Rear Left", GetRearLeftDistance());
 	frc::SmartDashboard::PutNumber("Rear Right", GetRearRightDistance());
+	
 	frc::SmartDashboard::PutNumber("Gyro", GetGyroRotation());
 	frc::SmartDashboard::PutNumber("Accleration Y", GetAccelY());
 	frc::SmartDashboard::PutNumber("Acceleration X", GetAccelX());
 	frc::SmartDashboard::PutNumber("Velocity X", GetVelocityX());
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
+	
 	frc::SmartDashboard::PutNumber("Lift Distance", GetLiftDistance());
-	frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
+	frc::SmartDashboard::PutNumber("Arm Distance", GetArmDistance());
+	//frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
 	frc::SmartDashboard::PutNumber("Bottom Limit Switch", !RobotMap::manipulatorBottomSwitch.get()->Get());
 	
 
@@ -117,20 +122,19 @@ float Positioning::GetVelocityY() {
 	return navGyro.get()->GetVelocityY();
 }
 
-/*
-double Positioning::GetArmRotation() {
-	return RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
+float Positioning::GetArmDistance() {
+	return armMotorEncoder.get()->Get();
 }
-*/
 
-double Positioning::GetLiftDistance() {
-	return liftMotor.get()->GetSelectedSensorPosition(0);
+float Positioning::GetLiftDistance() {
+	return liftMotor.get()->GetSelectedSensorPosition(0);//+9757;
 }
 
 void Positioning::ResetLiftEncoder() {
-	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+/*	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
 		liftEncoder.get()->Reset();
-	}
+		liftMotor.get()->Reset();
+	}*/
 }
 
 double Positioning::GetFrontLeftDistance() {

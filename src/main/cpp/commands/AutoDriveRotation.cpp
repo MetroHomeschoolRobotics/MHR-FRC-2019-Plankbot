@@ -33,12 +33,11 @@ double AutoDriveRotation::GetEncoderValue() {
 void AutoDriveRotation::Initialize() {
 	startPos = GetEncoderValue();
 	frc::SmartDashboard::PutNumber("Auto Drive Rotation Start", startPos);
-	Robot::MainDrive()->Move(x, y, z);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveRotation::Execute() {
-
+	Robot::MainDrive()->Move(x, y, z);
 }
 
 // Make this return true when this Command no longer needs to run execute()

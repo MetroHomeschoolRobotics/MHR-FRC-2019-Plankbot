@@ -18,11 +18,7 @@ ReleaseCargo::ReleaseCargo(CargoSystem *cargoSystem) {
 void ReleaseCargo::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-//When called, cargoMotor spins to shoot cargo 
 void ReleaseCargo::Execute() {
-//  _manipulator->setCargoMotor(1);
-  //bool release = _driverControl->GetRawButton(4);
-//  _manipulator->setCargoMotor(-1);
     _cargoSystem->setCargoMotor(1);
 }
 
@@ -30,7 +26,6 @@ void ReleaseCargo::Execute() {
 bool ReleaseCargo::IsFinished() { return false; }
 
 // Called once after isFinished returns true
-//When ended, cargoMotor turned off
 void ReleaseCargo::End() {
   _cargoSystem->setCargoMotor(0);
 }

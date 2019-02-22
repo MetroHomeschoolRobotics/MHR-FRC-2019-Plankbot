@@ -8,25 +8,28 @@
 #include "commands/SetLiftWithJoystick.h"
 //take out these spaces if need be - naming put it on the right. or put back in
 SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick* manipulatorControl) {
-//SetLiftWithJoystick::SetLiftWithJoystick(Lift *lift, frc::Joystick *driverControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(Robot::LiftSystem());
+  //Requires(Robot::LiftSystem());
   _lift = lift;
   _manipulatorControl = manipulatorControl;
 }
 
 // Called just before this Command runs the first time
 void SetLiftWithJoystick::Initialize() {
-  frc::SmartDashboard::PutString("LiftInit", "Initializing");
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SetLiftWithJoystick::Execute() {
   double rate = 0-_manipulatorControl->GetRawAxis(5);
+  
+  if (abs(rate)<_threshold){
+    rate = 0;
+  } else if (rate < 0){
+    rate /= 3;
+  } 
+  
   _lift->setLiftMotor(rate);
-  frc::SmartDashboard::PutString("LiftExec", "Executing");
-  frc::SmartDashboard::PutNumber("LiftRate", rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -35,12 +38,10 @@ bool SetLiftWithJoystick::IsFinished() { return false; }
 // Called once after isFinished returns true
 void SetLiftWithJoystick::End() {
   _lift->setLiftMotor(0);
-  frc::SmartDashboard::PutString("LiftEnd", "Ending");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void SetLiftWithJoystick::Interrupted() {
   End();
-  frc::SmartDashboard::PutString("LiftInterr", "Interrupting");
 }

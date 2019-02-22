@@ -11,7 +11,6 @@
 #include "subsystems/Arm.h"
 #include "OI.h"
 #include "Robot.h"
-//#include "subsystems/Positioning.h"
 
 class SetArmWithJoystick : public frc::Command {
  public:
@@ -24,5 +23,6 @@ class SetArmWithJoystick : public frc::Command {
 
  private:
   Arm *_arm;
+  double _threshold = 0.1;
   frc::Joystick * _manipulatorControl;
 };

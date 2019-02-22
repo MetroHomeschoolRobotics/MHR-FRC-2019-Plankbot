@@ -22,9 +22,11 @@ void SetArmWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SetArmWithJoystick::Execute() {
-  double rate = 0-_manipulatorControl->GetRawAxis(1);
-  //joystickValue=OI.manipulatorJoystick.GetRawAxis(5);
-  //currentAngle = Manipulator.GetArmAngle();
+  double rate = _manipulatorControl->GetRawAxis(1);
+  if (abs(rate)<_threshold){
+    rate = 0;
+  }
+
    _arm->setArmMotor(rate);
    frc::SmartDashboard::PutString("ArmExec", "Executing");
    frc::SmartDashboard::PutNumber("ArmRate", rate);

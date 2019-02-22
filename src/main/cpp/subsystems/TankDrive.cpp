@@ -32,4 +32,3 @@ void TankDrive::Move(double x, double y, double z){
 	frontRight->Set((-y-x));
 	rearRight->Set((-y-x));
 }
-

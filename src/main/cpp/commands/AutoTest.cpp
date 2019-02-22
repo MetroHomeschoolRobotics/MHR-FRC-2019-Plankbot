@@ -10,5 +10,6 @@
 AutoTest::AutoTest() {
 
   //30 (rounded up) is encoder rotation value for driving off hab at beginning of auto period
+  //With current gear ratio and wheel diameter, 1 drive train encoder rotation is 1.7599957" 
   AddSequential(new AutoDriveRotation(-30, 0, -0.25, 0, tankDriveFrontLeft));
 }
