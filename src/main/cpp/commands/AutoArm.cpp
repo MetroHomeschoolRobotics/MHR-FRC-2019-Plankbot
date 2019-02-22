@@ -47,7 +47,7 @@ bool AutoArm::IsFinished() {
 	}
 }
 
-// Called once after isFinished returns true
+// Called once after IsFinished returns true
 void AutoArm::End() {
 	  _armMotor->Set(0);
 }
