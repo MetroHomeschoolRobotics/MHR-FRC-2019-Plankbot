@@ -30,7 +30,7 @@ int Lift::GetLiftDistance() {
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);
     int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
-    if (pos > 26000 && speed > 0){
+    if (pos > 28600 && speed > 0){
       speed = 0;
     } else if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
       // Bottom Limit Switch Hit -- STOP!!

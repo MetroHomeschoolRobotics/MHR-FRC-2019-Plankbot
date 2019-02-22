@@ -48,7 +48,7 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     midRocketButton->WhenPressed(new AutoLift(15500, 0.4));
 
     highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
-    highRocketButton->WhenPressed(new AutoLift(26000, 0.4));
+    highRocketButton->WhenPressed(new AutoLift(28600, 0.4));
 
     autoChooser = new frc::SendableChooser<frc::Command*>();
 }
