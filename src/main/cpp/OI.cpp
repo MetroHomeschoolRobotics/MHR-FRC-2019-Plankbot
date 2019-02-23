@@ -10,8 +10,12 @@
 #include <frc/WPILib.h>
 #include "frc/smartdashboard/SmartDashboard.h"
 
+#include "commands/ArmEncoderOverride.h"
+#include "commands/LiftEncoderOverride.h"
 #include "commands/AutoTest.h"
 #include "commands/AutoLift.h"
+#include "commands/AutoArm.h"
+#include "commands/LoadingHatch.h"
 #include "commands/Drive.h"
 #include "commands/SetLiftWithJoystick.h"
 #include "commands/SetArmWithJoystick.h"
@@ -35,10 +39,10 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
 
   _setArmWithJoystick.reset(new SetArmWithJoystick(_arm, manipulatorJoystick.get()));
 
-    collectButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
+    collectButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 5));
     collectButton->WhileHeld(new CollectCargo(_cargoSystem));
 
-    releaseButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 4));
+    releaseButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 6));
     releaseButton->WhileHeld(new ReleaseCargo(_cargoSystem));
 
     lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
@@ -49,6 +53,18 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
 
     highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
     highRocketButton->WhenPressed(new AutoLift(28600, 0.4));
+
+    flatArmButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
+    flatArmButton->WhenPressed(new AutoArm(250, 0.4));
+
+    loadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 1));
+    loadingHatchButton->WhenPressed(new LoadingHatch());
+
+    armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 5));
+    armEncoderOverrideButton->WhileHeld(new ArmEncoderOverride(_arm));
+
+    liftEncoderOverrideButton.reset(new frc::JoystickButton(driveJoystick.get(), 5));
+    liftEncoderOverrideButton->WhileHeld(new LiftEncoderOverride(_lift));
 
     autoChooser = new frc::SendableChooser<frc::Command*>();
 }

@@ -22,6 +22,11 @@ class Arm : public frc::Subsystem {
  public:
   Arm(Positioning *positioning);
   void InitDefaultCommand() override;
+  void setOverride(bool active);
   void setArmMotor(double speed);
   double getArmAngle();
+  void resetArmEncoder();
+ 
+ private:
+  bool encoderOverride = false;
 };

@@ -20,25 +20,38 @@ void Arm::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+//creates encoder override variable
+void Arm::setOverride(bool active){
+	if (active) {
+		encoderOverride = true;
+	} else {
+		encoderOverride = false;
+  }
+}
 
-//sets the arm motor to a specified speed
 void Arm::setArmMotor(double speed) {
     double val = speed;
-
     int angle = getArmAngle();
+    //limits run only if encoderOverride is false; by activating encoderOverride, driver circumvents limits
+if(!encoderOverride){
     if (angle < 0 && speed < 0){
       val = 0;
     }  else if (angle > 500 && speed > 0){
       val = 0;
-    } else if (getArmAngle() > 230 && speed == 0){
+    }
+if (getArmAngle() > 230 && speed == 0){
       val = -.15;
     }
     _armMotor->Set(val);
-
   }
+}
 
 //returns the current angle of the arm
 //Check this
-  double Arm::getArmAngle()  {
-    return _armMotorEncoder->Get();
+double Arm::getArmAngle() {
+  return _armMotorEncoder->Get();
+  }
+
+void Arm::resetArmEncoder() {
+    _armMotorEncoder->Reset();
   }

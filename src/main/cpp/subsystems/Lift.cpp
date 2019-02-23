@@ -25,19 +25,31 @@ int Lift::GetLiftDistance() {
   return _positioning->GetLiftDistance();
 }
 
+void Lift::setOverride(bool active){
+  if (active) {
+    encoderOverride = true;
+  } else {
+    encoderOverride = false;
+  }
+}
+
 
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);
     int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
+  if (!encoderOverride) {
     if (pos > 28600 && speed > 0){
-      speed = 0;
-    } else if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
-      // Bottom Limit Switch Hit -- STOP!!
-      speed = 0;
-      RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);      
+      speed = 0;      
     } else if (speed > 0 && pos > 23000){
       speed /= 2;
+    }
+  }
+
+    if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
+      // Bottom Limit Switch Hit -- STOP!!
+      speed = 0;
+      RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
     }
 
     if (speed == 0){
@@ -59,7 +71,6 @@ int Lift::GetLiftDistance() {
     
     _liftMotor->Set(speed);
   }
-
 //returns the distance the lifter has risen
   /*float Lift::getLiftDistance()  {
     return 0;

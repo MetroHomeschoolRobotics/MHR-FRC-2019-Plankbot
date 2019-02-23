@@ -28,10 +28,16 @@ void Drive::Execute() {
 			y /= 2;
 		}
 		Robot::MainDrive()->Move(
-				x,
-				y,
+				x/2,
+				y/2,
 				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
 	} else {
+		Robot::MainDrive()->Move(
+				_driverControl->GetRawAxis(0)/2,
+				_driverControl->GetRawAxis(1)/2,
+				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
+	}
+	if (_driverControl->GetRawButton(6)) {
 		Robot::MainDrive()->Move(
 				_driverControl->GetRawAxis(0),
 				_driverControl->GetRawAxis(1),
