@@ -5,45 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetArmWithJoystick.h"
+#include "commands/ArmEncoderOverride.h"
 
-SetArmWithJoystick::SetArmWithJoystick(Arm *arm, frc::Joystick* manipulatorControl) {
+ArmEncoderOverride::ArmEncoderOverride(Arm *arm) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(Robot::ArmSystem());
   _arm = arm;
-  _manipulatorControl = manipulatorControl;
 }
 
 // Called just before this Command runs the first time
-void SetArmWithJoystick::Initialize() {
-  frc::SmartDashboard::PutString("ArmInit", "Initializing");
-}
+void ArmEncoderOverride::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetArmWithJoystick::Execute() {
-  double rate = 0-_manipulatorControl->GetRawAxis(1);
-  if (abs(rate)<_threshold){
-    rate = 0;
-  }
-
-   _arm->setArmMotor(rate);
-   frc::SmartDashboard::PutString("ArmExec", "Executing");
-   frc::SmartDashboard::PutNumber("ArmRate", rate);
+void ArmEncoderOverride::Execute() {
+  _arm->setOverride(true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool SetArmWithJoystick::IsFinished() { return false; }
+bool ArmEncoderOverride::IsFinished(){ return false; }
 
 // Called once after isFinished returns true
-void SetArmWithJoystick::End() {
-  _arm->setArmMotor(0);
-  frc::SmartDashboard::PutString("ArmEnd", "Ending");
+void ArmEncoderOverride::End() {
+  _arm->resetArmEncoder();
+  _arm->setOverride(false);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void SetArmWithJoystick::Interrupted() {
-  End();
-  frc::SmartDashboard::PutString("ArmInter", "interrupting");
-}
+void ArmEncoderOverride::Interrupted() {}

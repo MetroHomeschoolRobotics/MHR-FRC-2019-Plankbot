@@ -30,7 +30,11 @@ private:
 	std::shared_ptr<frc::JoystickButton> lowLiftButton;
 	std::shared_ptr<frc::JoystickButton> midRocketButton;
 	std::shared_ptr<frc::JoystickButton> highRocketButton;
-	
+	std::shared_ptr<frc::JoystickButton> flatArmButton;
+	std::shared_ptr<frc::JoystickButton> loadingHatchButton;
+	std::shared_ptr<frc::JoystickButton> armEncoderOverrideButton;
+	std::shared_ptr<frc::JoystickButton> liftEncoderOverrideButton;
+
 	DriveSystem *_drive;
 	Positioning *_positioning; 
 	CargoSystem *_cargoSystem;
