@@ -33,7 +33,6 @@ void Lift::setOverride(bool active){
   }
 }
 
-
 //sets the lift motor to a specified speed
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);

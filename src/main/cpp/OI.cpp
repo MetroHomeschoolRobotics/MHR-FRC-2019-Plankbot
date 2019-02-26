@@ -60,10 +60,10 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     loadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 1));
     loadingHatchButton->WhenPressed(new LoadingHatch());
 
-    armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 5));
+    armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 8));
     armEncoderOverrideButton->WhileHeld(new ArmEncoderOverride(_arm));
 
-    liftEncoderOverrideButton.reset(new frc::JoystickButton(driveJoystick.get(), 5));
+    liftEncoderOverrideButton.reset(new frc::JoystickButton(driveJoystick.get(), 8));
     liftEncoderOverrideButton->WhileHeld(new LiftEncoderOverride(_lift));
 
     autoChooser = new frc::SendableChooser<frc::Command*>();
