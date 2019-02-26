@@ -1,4 +1,5 @@
 #include "pixy2/FRCPixy2.h"
+#include "pixy2/LineFeatures.h"
 
 FRCPixy2::FRCPixy2() : FRCPixy2(frc::SPI::Port::kMXP)
 {
@@ -24,6 +25,25 @@ FRCPixy2::FRCPixy2(frc::I2C::Port port, int address){
 	
 
 	pixySPI = nullptr;
+}
+
+std::vector<std::uint8_t> FRCPixy2::SendBytes(std::vector<std::uint8_t> sendBytes) {
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	if (pixySPI != nullptr) {
+		std::wcout << L"Pixy - SPI - ";
+		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
+	} else if (pixyI2C != nullptr){
+		std::wcout << L"Pixy - I2C - ";
+		pixyI2C->Transaction(sendBytes.data(), sendBytes.size(), receiveBytes.data(),  receiveBytes.size());
+	}
+	for (int i = 0; i < receiveBytes.size(); i++)
+	{
+		std::wcout << receiveBytes[i] << ",";
+	}
+
+	std::wcout << std::endl;
+	return receiveBytes;
 }
 
 std::vector<std::uint8_t> FRCPixy2::SendCommand(FRCPixy2::PixyCommands pCommand)
@@ -140,7 +160,7 @@ FRCPixyBlock* FRCPixy2::GetBlocks(int sigmap, int maxBlocks)
 void FRCPixy2::SetLamp(uint8_t upper, uint8_t lower){
 	std::wcout << L"Pixy - set lamp" << std::endl;
 	std::vector<std::uint8_t> sendBytes(17);
-	std::vector<std::uint8_t> receiveBytes(34);
+	std::vector<std::uint8_t> receiveBytes(3);
 
 	sendBytes[0] = PIXYSTARTNOCHECK1;
 	sendBytes[1] = PIXYSTARTNOCHECK2;
@@ -149,19 +169,179 @@ void FRCPixy2::SetLamp(uint8_t upper, uint8_t lower){
 	sendBytes[4] = upper;
 	sendBytes[5] = lower;
 
-	if (pixySPI != nullptr) {
-		std::wcout << L"Pixy - SPI - ";
-		pixySPI->Transaction(sendBytes.data(), receiveBytes.data(), sendBytes.size());
-	} else if (pixyI2C != nullptr){
-		std::wcout << L"Pixy - I2C - ";
-		pixyI2C->Transaction(sendBytes.data(), sendBytes.size(), receiveBytes.data(),  receiveBytes.size());
-	
-	for (int i = 0; i < receiveBytes.size(); i++)
-	{
-		std::wcout << receiveBytes[i] << ",";
-	}
-
-	std::wcout << std::endl;
-	}
+	receiveBytes = FRCPixy2::SendBytes(sendBytes);
 }
 
+LineFeatures* FRCPixy2::GetAllFeatures()
+{
+	return GetFeatures(LINE_GET_ALL_FEATURES, LINE_ALL_FEATURES, true);
+}
+
+LineFeatures* FRCPixy2::GetMainFeatures()
+{
+	return GetFeatures(LINE_GET_MAIN_FEATURES, LINE_ALL_FEATURES, true);
+}
+
+
+LineFeatures* FRCPixy2::GetFeatures(char type, char features, bool wait)
+{
+	char res;
+	int offset, fsize, ftype;
+	std::vector<std::uint8_t> fdata;
+	std::vector<std::uint8_t> sendBytes(17);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+
+	std::vector<Vector*> vectors;
+	std::vector<Intersection*> intersections;
+	std::vector<Barcode*> barcodes;
+
+
+	while (true)
+	{
+		// fill in request data
+		sendBytes[2] = LINE_REQUEST_GET_FEATURES;
+		sendBytes[3] = type;
+		sendBytes[4] = features;
+
+		// send request
+		receiveBytes = SendBytes(sendBytes);
+		if (receiveBytes.size() == 0)
+		{
+			if (receiveBytes[1] == LINE_RESPONSE_GET_FEATURES)
+			{
+				// parse line response
+				for (offset = 0, res = 0; receiveBytes.size() > offset; offset += fsize + 2)
+				{
+					ftype = receiveBytes[offset];
+					fsize = receiveBytes[offset + 1];
+					// TODO read bytes correctly
+					//fdata = std::copy(receiveBytes, offset + 2,receiveBytes.size());
+					if (ftype == LINE_VECTOR)
+					{
+						vectors = std::vector<Vector*>(static_cast<int>(std::floor(fdata.size() / 6)));
+						for (int i = 0; (i + 1) * 6 <= fdata.size(); i++)
+						{
+							vectors[i] = new Vector(fdata[(6 * i)] & 0xFF, fdata[(6 * i) + 1] & 0xFF, fdata[(6 * i) + 2] & 0xFF, fdata[(6 * i) + 3] & 0xFF, fdata[(6 * i) + 4] & 0xFF, fdata[(6 * i) + 5] & 0xFF);
+						}
+						res |= LINE_VECTOR;
+					}
+					else if (ftype == LINE_INTERSECTION)
+					{
+						int size = 4 + (4 * Intersection::LINE_MAX_INTERSECTION_LINES);
+						intersections = std::vector<Intersection*>(static_cast<int>(std::floor(fdata.size() / (4 + (4 * Intersection::LINE_MAX_INTERSECTION_LINES)))));
+						for (int i = 0; (i + 1) * size < fdata.size(); i++)
+						{
+							std::vector<IntersectionLine*> lines(Intersection::LINE_MAX_INTERSECTION_LINES);
+							for (int l = 0; l <= Intersection::LINE_MAX_INTERSECTION_LINES; l++)
+							{
+								int arr = ((size * i) + 4);
+								int index = fdata[arr + (4 * l)];
+								int reserved = fdata[arr + (4 * l) + 1];
+								short angle = static_cast<short>(((fdata[arr + (4 * l) + 3] & 0xff) << 8) | (fdata[arr + (4 * l) + 2] & 0xff));
+								IntersectionLine *intLine = new IntersectionLine(index, reserved, angle);
+								lines[l] = intLine;
+
+								delete intLine;
+							}
+							intersections[i] = new Intersection(fdata[size * i] & 0xFF, fdata[(size * i) + 1] & 0xFF, fdata[(size * i) + 2] & 0xFF, fdata[(size * i) + 3] & 0xFF, lines);
+						}
+						res |= LINE_INTERSECTION;
+					}
+					else if (ftype == LINE_BARCODE)
+					{
+						barcodes = std::vector<Barcode*>(static_cast<int>(std::floor(fdata.size() / 4)));
+						for (int i = 0; (i + 1) * 4 <= fdata.size(); i++)
+						{
+							barcodes[i] = new Barcode(fdata[(4 * i)] & 0xFF, fdata[(4 * i) + 1] & 0xFF, fdata[(4 * i) + 2] & 0xFF, fdata[(4 * i) + 3] & 0xFF);
+						}
+						res |= LINE_BARCODE;
+					}
+					else
+					{
+						break; // parse error
+					}
+				}
+				return new LineFeatures(vectors, intersections, barcodes);
+			}
+		}
+	}
+	return new LineFeatures(vectors, intersections, barcodes);
+}
+
+
+void FRCPixy2::SetLineMode(int mode)
+{
+	int res;
+	std::wcout << L"Pixy - set line mode " << mode << std::endl;
+	std::vector<std::uint8_t> sendBytes(7);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = LINE_REQUEST_SET_MODE;
+	sendBytes[3] = static_cast<char>(mode & 0xff);
+	sendBytes[4] = static_cast<char>((mode >> 8) & 0xff);
+	sendBytes[5] = static_cast<char>((mode >> 16) & 0xff);
+	sendBytes[6] = static_cast<char>((mode >> 24) & 0xff);
+	receiveBytes = FRCPixy2::SendBytes(sendBytes);
+}
+
+void FRCPixy2::SetNextTurn(short angle)
+{
+	int res;
+	std::wcout << L"Pixy - set next turn " << angle << std::endl;
+	std::vector<std::uint8_t> sendBytes(5);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = LINE_REQUEST_SET_NEXT_TURN_ANGLE;
+	sendBytes[3] = static_cast<char>(angle & 0xff);
+	sendBytes[4] = static_cast<char>((angle >> 8) & 0xff);
+	receiveBytes = SendBytes(sendBytes);
+}
+
+void FRCPixy2::SetDefaultTurn(short angle)
+{
+	int res;
+	std::wcout << L"Pixy - set default turn " << angle << std::endl;
+	std::vector<std::uint8_t> sendBytes(5);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = LINE_REQUEST_SET_DEFAULT_TURN_ANGLE;
+	sendBytes[3] = static_cast<char>(angle & 0xff);
+	sendBytes[4] = static_cast<char>((angle >> 8) & 0xff);
+	receiveBytes = SendBytes(sendBytes);
+}
+
+void FRCPixy2::SetVector(int index)
+{
+	int res;
+	std::wcout << L"Pixy - set vector " << index << std::endl;
+	std::vector<std::uint8_t> sendBytes(4);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = LINE_REQUEST_SET_VECTOR; 
+	sendBytes[3] = static_cast<char>(index);
+	receiveBytes = SendBytes(sendBytes);
+}
+
+void FRCPixy2::ReverseVector()
+{
+	int res;
+	std::wcout << L"Pixy - reverse vector " << std::endl;
+	std::vector<std::uint8_t> sendBytes(3);
+	std::vector<std::uint8_t> receiveBytes(3);
+
+	sendBytes[0] = PIXYSTARTNOCHECK1;
+	sendBytes[1] = PIXYSTARTNOCHECK2;
+	sendBytes[2] = LINE_REQUEST_REVERSE_VECTOR;
+	receiveBytes = SendBytes(sendBytes);
+}
