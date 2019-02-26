@@ -37,13 +37,13 @@ void RobotMap::init() {
 	cam0.SetFPS(30);
 	cam0.SetResolution(640,480);
 
-    tankDriveFrontLeft.reset(new rev::CANSparkMax(0, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+    tankDriveFrontLeft.reset(new rev::CANSparkMax(1, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
    
-    tankDriveFrontRight.reset(new rev::CANSparkMax(2, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+    tankDriveFrontRight.reset(new rev::CANSparkMax(3, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
-    tankDriveRearRight.reset(new rev::CANSparkMax(3, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+    tankDriveRearRight.reset(new rev::CANSparkMax(4, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
-    tankDriveRearLeft.reset(new rev::CANSparkMax(1, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
+    tankDriveRearLeft.reset(new rev::CANSparkMax(2, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
 
     frc::SpeedController *fLeft = tankDriveFrontLeft.get();
     frc::SpeedController *rLeft = tankDriveRearLeft.get();
