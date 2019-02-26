@@ -5,11 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#ifndef AUTO_H
-#define AUTO_H
+#pragma once
 
 #include "frc/commands/CommandGroup.h"
-#include "../Robot.h"
+//#include "../Robot.h"
 #include "AutoDrive.h"
 
 class AutoCenter: public frc::CommandGroup {
@@ -18,5 +17,3 @@ public:
 
 	AutoCenter();
 };
-
-#endif

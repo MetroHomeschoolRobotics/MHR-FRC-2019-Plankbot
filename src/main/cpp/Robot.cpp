@@ -10,7 +10,10 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include "commands/AutoTest.h"
+//#include "commands/AutoTest.h"
+#include "commands/AutoLeft.h"
+#include "commands/AutoCenter.h"
+#include "commands/AutoRight.h"
 #include "subsystems/TankDrive.h"
 
  std::unique_ptr<OI> Robot::m_oi;
@@ -26,13 +29,15 @@ void Robot::RobotInit() {
   RobotMap::init();
 
   m_mainDrive.reset(new TankDrive());
-  m_defaultAutoCommand = new AutoTest();
+  //m_defaultAutoCommand = new AutoTest();
 
-  //m_leftAutoCommand = new AutoLeft();
-  //m_centerAutoCommand = new AutoCenter();
-  //m_rightAutoCommand = new AutoRight();
+m_leftAutoCommand = new AutoLeft();
+m_centerAutoCommand = new AutoCenter();
+m_rightAutoCommand = new AutoRight();
 
-  m_chooser.SetDefaultOption("Test", m_defaultAutoCommand);
+  m_chooser.AddOption("Left", m_leftAutoCommand);
+  m_chooser.SetDefaultOption("Center", m_centerAutoCommand);
+  m_chooser.AddOption("Right", m_rightAutoCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
     //Instantiate OI

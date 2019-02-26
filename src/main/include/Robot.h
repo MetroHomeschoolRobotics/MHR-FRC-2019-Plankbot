@@ -46,8 +46,10 @@ class Robot : public frc::TimedRobot {
   // doesn't have undefined behavior and potentially crash.
   frc::Command* m_autonomousCommand = nullptr;
   frc::SendableChooser<frc::Command*> m_chooser;
-  frc::Command* m_defaultAutoCommand;
-
+  //frc::Command* m_defaultAutoCommand;
+  frc::Command* m_leftAutoCommand;
+  frc::Command* m_centerAutoCommand;
+  frc::Command* m_rightAutoCommand;
 
 	// subsystems
   static std::shared_ptr<DriveSystem> m_mainDrive;
