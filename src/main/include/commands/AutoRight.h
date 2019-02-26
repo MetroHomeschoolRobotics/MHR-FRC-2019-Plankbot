@@ -1,0 +1,21 @@
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+#ifndef AUTO_H
+#define AUTO_H
+
+#include "frc/commands/CommandGroup.h"
+#include "../Robot.h"
+#include "AutoDrive.h"
+
+class AutoRight: public frc::CommandGroup {
+
+public:
+
+	AutoRight();
+};
+
+#endif
