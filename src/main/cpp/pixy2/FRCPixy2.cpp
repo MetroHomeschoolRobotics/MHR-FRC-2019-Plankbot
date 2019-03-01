@@ -219,6 +219,9 @@ LineFeatures* FRCPixy2::GetFeatures(char type, char features, bool wait)
 					fsize = receiveBytes[offset + 1];
 					// TODO read bytes correctly
 					//fdata = std::copy(receiveBytes, offset + 2,receiveBytes.size());
+    				for(int i=0; i<10; i=i+2){
+       	 				fdata[i] = receiveBytes[i];
+					}
 					if (ftype == LINE_VECTOR)
 					{
 						vectors = std::vector<Vector*>(static_cast<int>(std::floor(fdata.size() / 6)));
