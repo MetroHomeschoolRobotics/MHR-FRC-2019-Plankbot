@@ -30,6 +30,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> lowLiftButton;
 	std::shared_ptr<frc::JoystickButton> midRocketButton;
 	std::shared_ptr<frc::JoystickButton> highRocketButton;
+	std::shared_ptr<frc::JoystickButton> verticalArmButton;
 	std::shared_ptr<frc::JoystickButton> flatArmButton;
 	std::shared_ptr<frc::JoystickButton> loadingHatchButton;
 	std::shared_ptr<frc::JoystickButton> armEncoderOverrideButton;

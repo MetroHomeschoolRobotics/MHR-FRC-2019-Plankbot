@@ -55,15 +55,18 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     highRocketButton->WhenPressed(new AutoLift(28600, 0.4));
 
     flatArmButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
-    flatArmButton->WhenPressed(new AutoArm(250, 0.4));
+    flatArmButton->WhenPressed(new AutoArm(650, 0.4));
+
+    verticalArmButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 2));
+    verticalArmButton->WhenPressed(new AutoArm(180, 0.4));
 
     loadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 1));
     loadingHatchButton->WhenPressed(new LoadingHatch());
 
-    armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 5));
+    armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 8));
     armEncoderOverrideButton->WhileHeld(new ArmEncoderOverride(_arm));
 
-    liftEncoderOverrideButton.reset(new frc::JoystickButton(driveJoystick.get(), 5));
+    liftEncoderOverrideButton.reset(new frc::JoystickButton(driveJoystick.get(), 7));
     liftEncoderOverrideButton->WhileHeld(new LiftEncoderOverride(_lift));
 
     autoChooser = new frc::SendableChooser<frc::Command*>();
