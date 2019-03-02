@@ -10,7 +10,7 @@
 SetArmWithJoystick::SetArmWithJoystick(Arm *arm, frc::Joystick* manipulatorControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(Robot::ArmSystem());
+//  Requires(Robot::ArmSystem());
   _arm = arm;
   _manipulatorControl = manipulatorControl;
 }
