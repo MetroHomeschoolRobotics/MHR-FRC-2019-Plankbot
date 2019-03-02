@@ -19,6 +19,7 @@ void ArmEncoderOverride::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ArmEncoderOverride::Execute() {
   _arm->setOverride(true);
+  frc::SmartDashboard::PutString("Arm Enc Ov Ex", "Executing");
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -28,8 +29,11 @@ bool ArmEncoderOverride::IsFinished(){ return false; }
 void ArmEncoderOverride::End() {
   _arm->resetArmEncoder();
   _arm->setOverride(false);
+  frc::SmartDashboard::PutString("Arm Enc Ov End", "Ending");
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ArmEncoderOverride::Interrupted() {}
+void ArmEncoderOverride::Interrupted() {
+  End();
+}
