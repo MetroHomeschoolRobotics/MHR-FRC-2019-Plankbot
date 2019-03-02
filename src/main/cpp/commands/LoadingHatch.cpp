@@ -8,6 +8,6 @@
 #include "commands/LoadingHatch.h"
 
 LoadingHatch::LoadingHatch() {
-  AddParallel(new AutoArm(250, 0.4));
+  AddParallel(new AutoArm(550, 0.4));
   AddParallel(new AutoLift(2000, 0.4));
 }
