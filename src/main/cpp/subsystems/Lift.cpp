@@ -44,21 +44,23 @@ void Lift::setOverride(bool active){
     } else if (speed > 0 && pos > 23000){
       speed /= 2;
     }
-  if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
-   // RobotMap::armMotor.get()->Set(-0.4);
-    speed = 0;
-  }
-  }
-
-    if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
-      // Bottom Limit Switch Hit -- STOP!!
+   if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
+    // RobotMap::armMotor.get()->Set(-0.4);
       speed = 0;
-      RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
+    }
+  }
+  if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+    RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
+  }
+  if (speed < 0 && !RobotMap::manipulatorBottomSwitch.get()->Get()){
+      // Bottom Limit Switch Hit -- STOP!!
+    speed = 0;
+     //RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
     }
 
-    if (pos > 3500 && speed == 0){
+  if (pos > 3500 && speed == 0){
       speed = .15;
-    } else if (speed == 0){
+  } else if (speed == 0){
       speed = .05;
     }
   /* else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
