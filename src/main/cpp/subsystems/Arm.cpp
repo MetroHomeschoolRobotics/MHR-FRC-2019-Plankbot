@@ -37,7 +37,7 @@ void Arm::setArmMotor(double speed) {
 if(!encoderOverride){
     if (angle < 0 && speed > 0){
       val = 0;
-    }  else if (angle > 725 && speed < 0){
+    }  else if (angle > 800 && speed < 0){
       val = 0;
     }
     if (getArmAngle() > 230 && speed == 0){
