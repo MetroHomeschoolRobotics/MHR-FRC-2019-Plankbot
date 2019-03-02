@@ -45,7 +45,10 @@ bool AutoLift::IsFinished() {
     } else {
         return GetEncoderValue() < targetPos;
     }
-}
+   // if (rate < 0 && !RobotMap::manipulatorBottomSwitch.get()) {
+    //    return true;
+    //}
+    }
 
 // Called once after isFinished returns true
 void AutoLift::End() {
