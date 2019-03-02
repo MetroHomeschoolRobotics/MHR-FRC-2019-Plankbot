@@ -27,6 +27,7 @@ void Arm::setOverride(bool active){
 	} else {
 		encoderOverride = false;
   }
+  frc::SmartDashboard::PutNumber("encoderoverride", active);
 }
 
 void Arm::setArmMotor(double speed) {
@@ -34,24 +35,28 @@ void Arm::setArmMotor(double speed) {
     int angle = getArmAngle();
     //limits run only if encoderOverride is false; by activating encoderOverride, driver circumvents limits
 if(!encoderOverride){
-    if (angle < 0 && speed < 0){
+    if (angle < 0 && speed > 0){
       val = 0;
-    }  else if (angle > 500 && speed > 0){
+    }  else if (angle > 725 && speed < 0){
       val = 0;
     }
-if (getArmAngle() > 230 && speed == 0){
-      val = -.15;
+    if (getArmAngle() > 230 && speed == 0){
+      val = .05;
     }
-    _armMotor->Set(val);
   }
+  _armMotor->Set(val);
+  frc::SmartDashboard::PutNumber("arm val", val);
 }
 
 //returns the current angle of the arm
 //Check this
 double Arm::getArmAngle() {
-  return _armMotorEncoder->Get();
-  }
+  float degree = _armMotorEncoder->Get();
+  frc::SmartDashboard::PutNumber("Arm Distance", degree);
+  return degree;
+}
 
 void Arm::resetArmEncoder() {
     _armMotorEncoder->Reset();
+    frc::SmartDashboard::PutString("Resetting?", "Yes");
   }
