@@ -8,6 +8,6 @@
 #include "commands/CollectLoadingHatch.h"
 
 CollectLoadingHatch::CollectLoadingHatch() {
-  AddSequential(new AutoArm(75, 0.4));
-  AddSequential(new AutoLift(5, 0.4));
+  AddSequential(new AutoArm(75, 0.6));
+  AddSequential(new AutoLift(5, 0.6));
 }

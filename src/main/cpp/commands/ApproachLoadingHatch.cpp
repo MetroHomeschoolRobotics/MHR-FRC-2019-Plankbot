@@ -8,6 +8,6 @@
 #include "commands/ApproachLoadingHatch.h"
 
 ApproachLoadingHatch::ApproachLoadingHatch() {
-  AddSequential(new AutoArm(737, 0.4));
-  AddSequential(new AutoLift(4950, 0.4));
+  AddSequential(new AutoArm(737, 0.6));
+  AddSequential(new AutoLift(4950, 0.6));
 }
