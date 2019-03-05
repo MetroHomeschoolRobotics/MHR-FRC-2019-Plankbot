@@ -5,9 +5,9 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/LoadingHatch.h"
+#include "commands/ApproachLoadingHatch.h"
 
-LoadingHatch::LoadingHatch() {
-  AddParallel(new AutoArm(550, 0.4));
-  AddParallel(new AutoLift(2000, 0.4));
+ApproachLoadingHatch::ApproachLoadingHatch() {
+  AddSequential(new AutoArm(737, 0.6));
+  AddSequential(new AutoLift(4950, 0.6));
 }

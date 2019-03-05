@@ -12,22 +12,25 @@ AutoArm::AutoArm(float height, double speed) {
 	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::ArmSystem());
 	_armMotor = RobotMap::armMotor.get();
+	_armMotorEncoder = RobotMap::armMotorEncoder.get();
 	rate = speed;
 	startPos = 0;
 	targetPos = height;
 }
 
 float AutoArm::GetEncoderValue() {
-  return  Robot::PositioningSystem()->GetArmDistance();
+  //return  Robot::PositioningSystem()->GetArmDistance();
+  return _armMotorEncoder->Get();
 }
 
 // Called just before this Command runs the first time
 void AutoArm::Initialize() {
 	startPos = GetEncoderValue();
 	if (startPos < targetPos) {
-		rate = abs(rate);
-	} else {
 		rate = -abs(rate);
+	} else {
+		rate = abs(rate);
+		//swapped absolute value of rates
 	}
 	frc::SmartDashboard::PutNumber("AutoArm Start", startPos);
 	frc::SmartDashboard::PutNumber("AutoArm Speed", rate);

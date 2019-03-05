@@ -5,9 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/LoadingHatch.h"
+#pragma once
 
-LoadingHatch::LoadingHatch() {
-  AddParallel(new AutoArm(550, 0.4));
-  AddParallel(new AutoLift(2000, 0.4));
-}
+#include <frc/commands/CommandGroup.h>
+#include "commands/AutoArm.h"
+#include "commands/AutoLift.h"
+
+class ApproachLoadingHatch : public frc::CommandGroup {
+ public:
+  ApproachLoadingHatch();
+};

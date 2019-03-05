@@ -5,9 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/LoadingHatch.h"
+#include "commands/AutoCenter.h"
 
-LoadingHatch::LoadingHatch() {
-  AddParallel(new AutoArm(550, 0.4));
-  AddParallel(new AutoLift(2000, 0.4));
+AutoCenter::AutoCenter() {
+//Requires(Robot::MainDrive());
+	AddSequential(new AutoDrive(8500, -0.8,-0.5));
+	AddSequential(new AutoDrive(23000, 0,-0.5));
+	AddSequential(new AutoDrive(3000, 0.7,-0.5));
+	AddSequential(new AutoDrive(2000, 0,-0.5));
 }

@@ -15,7 +15,7 @@ public:
 	void Interrupted() override;
 
 private:
-	double _threshold = 0.1;
+	double _threshold = 0.025;
 	frc::Joystick* _driverControl;
 	frc::Joystick* _manipulatorControl;
 };

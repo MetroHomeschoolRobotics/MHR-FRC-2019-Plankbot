@@ -10,7 +10,7 @@
 SetArmWithJoystick::SetArmWithJoystick(Arm *arm, frc::Joystick* manipulatorControl) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  Requires(Robot::ArmSystem());
+//  Requires(Robot::ArmSystem());
   _arm = arm;
   _manipulatorControl = manipulatorControl;
 }
@@ -22,7 +22,7 @@ void SetArmWithJoystick::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SetArmWithJoystick::Execute() {
-  double rate = 0-_manipulatorControl->GetRawAxis(1);
+  double rate = _manipulatorControl->GetRawAxis(1);
   if (abs(rate)<_threshold){
     rate = 0;
   }

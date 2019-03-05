@@ -10,6 +10,7 @@
 #include <frc/commands/Command.h>
 #include "../Robot.h" 
 #include "subsystems/Lift.h"
+#include "subsystems/Arm.h"
 
 class AutoArm : public frc::Command {
  public:
@@ -21,8 +22,9 @@ class AutoArm : public frc::Command {
   void Interrupted() override;
 
 private:
-    float startPos, targetPos;
+  float startPos, targetPos;
   double rate;
-    float GetEncoderValue();
+  float GetEncoderValue();
   WPI_TalonSRX *_armMotor;
+  frc::Encoder *_armMotorEncoder;
 };

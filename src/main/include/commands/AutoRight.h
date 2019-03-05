@@ -4,10 +4,16 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+#pragma once
 
-#include "commands/LoadingHatch.h"
+#include "frc/commands/CommandGroup.h"
+//#include "../Robot.h"
+#include "AutoDrive.h"
 
-LoadingHatch::LoadingHatch() {
-  AddParallel(new AutoArm(550, 0.4));
-  AddParallel(new AutoLift(2000, 0.4));
-}
+class AutoRight: public frc::CommandGroup {
+
+public:
+
+	AutoRight();
+};
+

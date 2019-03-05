@@ -32,7 +32,7 @@ void Positioning::UpdateDashboard(){
 	frc::SmartDashboard::PutNumber("Velocity Y", GetVelocityY());
 	
 	frc::SmartDashboard::PutNumber("Lift Distance", GetLiftDistance());
-	frc::SmartDashboard::PutNumber("Arm Distance", GetArmDistance());
+//	frc::SmartDashboard::PutNumber("Arm Distance", GetArmDistance());
 	//frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
 	frc::SmartDashboard::PutNumber("Bottom Limit Switch", !RobotMap::manipulatorBottomSwitch.get()->Get());
 	
@@ -123,7 +123,7 @@ float Positioning::GetVelocityY() {
 }
 
 float Positioning::GetArmDistance() {
-	return armMotorEncoder.get()->Get();
+//	return armMotorEncoder.get()->Get();
 }
 
 float Positioning::GetLiftDistance() {
@@ -131,10 +131,10 @@ float Positioning::GetLiftDistance() {
 }
 
 void Positioning::ResetLiftEncoder() {
-/*	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
+	if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
 		liftEncoder.get()->Reset();
-		liftMotor.get()->Reset();
-	}*/
+//		liftMotor.get()->Reset();
+	}
 }
 
 double Positioning::GetFrontLeftDistance() {
