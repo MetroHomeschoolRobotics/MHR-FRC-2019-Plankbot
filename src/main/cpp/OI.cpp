@@ -53,17 +53,17 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     collectLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
     collectLoadingHatchButton->WhenPressed(new CollectLoadingHatch);
 
-    //lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
-    //lowLiftButton->WhenPressed(new AutoLift(2000, 0.4));
-    //low rocket on new gear ratio is 4709
+    lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
+    lowLiftButton->WhenPressed(new AutoLift(4709, 0.6));
+    //low rocket on old gear ratio was 2000
 
-    //midRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 2));
-    //midRocketButton->WhenPressed(new AutoLift(16750, 0.4));
+    midRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 2));
+    midRocketButton->WhenPressed(new AutoLift(16750, 0.6));
     //mid rocket on new gear ratio is 16750
     //old mid rocket value was 15500
 
-    //highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
-    //highRocketButton->WhenPressed(new AutoLift(28600, 0.4));
+    highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    highRocketButton->WhenPressed(new AutoLift(28000, 0.6));
 
     //flatArmButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
     //flatArmButton->WhenPressed(new AutoArm(650, 0.4));

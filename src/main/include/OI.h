@@ -27,9 +27,9 @@ private:
 	frc::SendableChooser<frc::Command*> *autoChooser;
 	std::shared_ptr<frc::JoystickButton> collectButton;
 	std::shared_ptr<frc::JoystickButton> releaseButton;
-	//std::shared_ptr<frc::JoystickButton> lowLiftButton;
-	//std::shared_ptr<frc::JoystickButton> midRocketButton;
-	//std::shared_ptr<frc::JoystickButton> highRocketButton;
+	std::shared_ptr<frc::JoystickButton> lowLiftButton;
+	std::shared_ptr<frc::JoystickButton> midRocketButton;
+	std::shared_ptr<frc::JoystickButton> highRocketButton;
 	//std::shared_ptr<frc::JoystickButton> verticalArmButton;
 	//std::shared_ptr<frc::JoystickButton> flatArmButton;
 	//std::shared_ptr<frc::JoystickButton> loadingHatchButton;
