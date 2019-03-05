@@ -20,6 +20,14 @@ void Arm::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+void Arm::overrideJoystick(bool ignore){
+  if (ignore) {
+    joystickOverride = true;
+  } else { 
+    joystickOverride = false;
+  }
+}
+
 //creates encoder override variable
 void Arm::setOverride(bool active){
 	if (active) {
@@ -40,9 +48,12 @@ if(!encoderOverride){
     }  else if (angle > 800 && speed < 0){
       val = 0;
     }
-    if (getArmAngle() > 230 && speed == 0){
+    if (angle > 230 && speed == 0){
       val = .05;
     }
+  }
+  if (joystickOverride && angle < 70) {
+      val = -0.4;
   }
   _armMotor->Set(val);
   frc::SmartDashboard::PutNumber("arm val", val);
