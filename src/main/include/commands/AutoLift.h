@@ -21,8 +21,9 @@ class AutoLift : public frc::Command {
   void Interrupted() override;
 
 private:
-    float startPos, targetPos;
+  Lift* _lift;
+  float startPos, targetPos;
   double rate;
-    float GetEncoderValue();
+  float GetEncoderValue();
   WPI_TalonSRX *_liftMotor;
 };

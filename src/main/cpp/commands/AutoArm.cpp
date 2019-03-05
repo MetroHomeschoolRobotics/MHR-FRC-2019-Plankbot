@@ -10,9 +10,10 @@
 AutoArm::AutoArm(float height, double speed) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::ArmSystem());
-	_armMotor = RobotMap::armMotor.get();
-	_armMotorEncoder = RobotMap::armMotorEncoder.get();
+	_arm = Robot::ArmSystem();
+	Requires(_arm);
+	//_armMotor = RobotMap::armMotor.get();
+	//_armMotorEncoder = RobotMap::armMotorEncoder.get();
 	rate = speed;
 	startPos = 0;
 	targetPos = height;
@@ -20,7 +21,7 @@ AutoArm::AutoArm(float height, double speed) {
 
 float AutoArm::GetEncoderValue() {
   //return  Robot::PositioningSystem()->GetArmDistance();
-  return _armMotorEncoder->Get();
+  return _arm->getArmAngle();
 }
 
 // Called just before this Command runs the first time
@@ -38,7 +39,7 @@ void AutoArm::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoArm::Execute() {
-  _armMotor->Set(rate);
+  _arm->setArmMotor(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +53,7 @@ bool AutoArm::IsFinished() {
 
 // Called once after IsFinished returns true
 void AutoArm::End() {
-	  _armMotor->Set(0);
+	  _arm->setArmMotor(0);
 }
 
 // Called when another command which requires one or more of the same
