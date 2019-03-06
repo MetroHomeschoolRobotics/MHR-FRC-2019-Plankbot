@@ -8,8 +8,9 @@
 #include "subsystems/Lift.h"
 #include <cmath>
 
-Lift::Lift(Positioning *positioning) : Subsystem("Lift Subsystem") {
+Lift::Lift(Positioning *positioning, Arm *arm) : Subsystem("Lift Subsystem") {
   _liftMotor = RobotMap::liftMotor.get();
+  _arm = arm;
   _positioning = positioning;
 }
 
@@ -38,15 +39,17 @@ void Lift::setOverride(bool active){
     //_liftMotor->Set(speed);
     int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
   if (!encoderOverride) {
-    if (pos > 28600 && speed > 0){
-      speed = 0;      
+    if (pos > 28000 && speed > 0){
+      speed = 0;
     } else if (speed > 0 && pos > 23000){
       speed /= 2;
+    } else if (speed < 0 && pos < 2000){
+      speed /= 2;
     }
-   if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
+   //if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
     // RobotMap::armMotor.get()->Set(-0.4);
-      speed = 0;
-    }
+    //  speed = 0;
+    //}
   }
   if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
     RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
@@ -55,6 +58,9 @@ void Lift::setOverride(bool active){
       // Bottom Limit Switch Hit -- STOP!!
     speed = 0;
      //RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
+    } else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
+    // Top Limit Switch Hit -- STOP!!
+    speed = 0;
     }
 
   if (pos > 3500 && speed == 0){
@@ -62,10 +68,7 @@ void Lift::setOverride(bool active){
   } else if (speed == 0){
       speed = .05;
     }
-  /* else if (speed > 0 && !RobotMap::manipulatorTopSwitch.get()->Get()){
-    // Top Limit Switch Hit -- STOP!!
-    speed = 0;
-  */
+   
  /*
     if (!RobotMap::manipulatorBottomSwitch.get()->Get()){
 // If the bottom limit switch is pressed, we want to keep the values between 1 and 0
@@ -75,9 +78,18 @@ void Lift::setOverride(bool active){
       speed = fmin(speed, 0);
     }
     */
-    
+  if (_arm->getArmAngle() < 70 && (speed > 0.15 || speed < 0)) {
+    _arm->overrideJoystick(true);
+    if (pos < 3500) {
+      _liftMotor->Set(0.05);
+    } else {
+    _liftMotor->Set(0.15);
+    }
+  } else {
+    _arm->overrideJoystick(false);
     _liftMotor->Set(speed);
   }
+}
 //returns the distance the lifter has risen
   /*float Lift::getLiftDistance()  {
     return 0;

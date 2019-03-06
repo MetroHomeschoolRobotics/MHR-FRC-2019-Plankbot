@@ -10,8 +10,9 @@
 AutoLift::AutoLift(float height, double speed) {
     // Use Requires() here to declare subsystem dependencies
     // eg. Requires(Robot::chassis.get());
-    Requires(Robot::LiftSystem());
-    _liftMotor = RobotMap::liftMotor.get();
+    _lift = Robot::LiftSystem();
+    Requires(_lift);
+    //_liftMotor = RobotMap::liftMotor.get();
     rate = speed;
     startPos = 0;
     targetPos = height;
@@ -35,7 +36,8 @@ void AutoLift::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutoLift::Execute() {
-    _liftMotor->Set(rate);
+    //_liftMotor->Set(rate);
+    _lift->setLiftMotor(rate);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -52,7 +54,8 @@ bool AutoLift::IsFinished() {
 
 // Called once after isFinished returns true
 void AutoLift::End() {
-      _liftMotor->Set(0);
+//      _liftMotor->Set(0);
+    _lift->setLiftMotor(0);
 }
 
 // Called when another command which requires one or more of the same

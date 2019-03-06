@@ -25,6 +25,7 @@ private:
   float startPos, targetPos;
   double rate;
   float GetEncoderValue();
+  Arm* _arm;
   WPI_TalonSRX *_armMotor;
   frc::Encoder *_armMotorEncoder;
 };

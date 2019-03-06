@@ -44,8 +44,8 @@ m_rightAutoCommand = new AutoRight();
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
   m_positioningSystem.reset(new Positioning());
   m_cargoSystem.reset(new CargoSystem(m_positioningSystem.get()));
-  m_lift.reset(new Lift(m_positioningSystem.get()));
   m_arm.reset(new Arm(m_positioningSystem.get()));
+  m_lift.reset(new Lift(m_positioningSystem.get(), m_arm.get()));
 
 	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get()));
 	m_oi.get()->SetupDashboard();

@@ -9,6 +9,7 @@
 
 #include <frc/commands/Subsystem.h>
 #include "subsystems/Positioning.h"
+#include "subsystems/Arm.h"
 #include "RobotMap.h"
 
 class Lift : public frc::Subsystem {
@@ -17,9 +18,10 @@ class Lift : public frc::Subsystem {
   // for methods that implement subsystem capabilities
   WPI_TalonSRX *_liftMotor;
   Positioning *_positioning;
+  Arm *_arm;
 
  public:
-  Lift(Positioning *positioning);
+  Lift(Positioning *positioning, Arm *arm);
   void InitDefaultCommand() override;
   void setOverride(bool active);
   void setLiftMotor(double speed);
