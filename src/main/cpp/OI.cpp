@@ -23,6 +23,7 @@
 #include "commands/ReleaseCargo.h"
 #include "commands/ApproachLoadingHatch.h"
 #include "commands/CollectLoadingHatch.h"
+#include "commands/LoadingCargo.h"
 
 OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, Lift *lift, Arm *arm) {
 
@@ -52,6 +53,9 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
 
     collectLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
     collectLoadingHatchButton->WhenPressed(new CollectLoadingHatch);
+
+    loadingCargoButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 2));
+    loadingCargoButton->WhenPressed(new LoadingCargo);
 
     //lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
     //lowLiftButton->WhenPressed(new AutoLift(2000, 0.4));

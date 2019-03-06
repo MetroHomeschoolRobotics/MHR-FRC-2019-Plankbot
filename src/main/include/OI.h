@@ -37,6 +37,7 @@ private:
 	std::shared_ptr<frc::JoystickButton> liftEncoderOverrideButton;
 	std::shared_ptr<frc::JoystickButton> approachLoadingHatchButton;
 	std::shared_ptr<frc::JoystickButton> collectLoadingHatchButton;
+	std::shared_ptr<frc::JoystickButton> loadingCargoButton;
 
 	DriveSystem *_drive;
 	Positioning *_positioning; 
