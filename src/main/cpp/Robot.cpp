@@ -31,14 +31,14 @@ void Robot::RobotInit() {
   m_mainDrive.reset(new TankDrive());
   //m_defaultAutoCommand = new AutoTest();
 
-m_leftAutoCommand = new AutoLeft();
-m_centerAutoCommand = new AutoCenter();
-m_rightAutoCommand = new AutoRight();
+//m_leftAutoCommand = new AutoLeft();
+//m_centerAutoCommand = new AutoCenter();
+//m_rightAutoCommand = new AutoRight();
 
-  m_chooser.AddOption("Left", m_leftAutoCommand);
-  m_chooser.SetDefaultOption("Center", m_centerAutoCommand);
-  m_chooser.AddOption("Right", m_rightAutoCommand);
-  frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+  //m_chooser.AddOption("Left", m_leftAutoCommand);
+  //m_chooser.SetDefaultOption("Center", m_centerAutoCommand);
+  //m_chooser.AddOption("Right", m_rightAutoCommand);
+  //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
     //Instantiate OI
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
@@ -91,16 +91,19 @@ void Robot::AutonomousInit() {
   //   m_autonomousCommand = &m_defaultAuto;
   // }
 
-  m_autonomousCommand = m_chooser.GetSelected();
+  //m_autonomousCommand = m_chooser.GetSelected();
 
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Start();
-  }
+  //if (m_autonomousCommand != nullptr) {
+    //m_autonomousCommand->Start();
+  //}
 
-  
-  m_oi.get()->DriveCommand()->Cancel();
-  m_oi.get()->LiftJoystick()->Cancel();
-  m_oi.get()->ArmJoystick()->Cancel();
+  m_oi.get()->DriveCommand()->Start();
+  m_oi.get()->LiftJoystick()->Start();
+  m_oi.get()->ArmJoystick()->Start();
+
+  //m_oi.get()->DriveCommand()->Cancel();
+  //m_oi.get()->LiftJoystick()->Cancel();
+  //m_oi.get()->ArmJoystick()->Cancel();
   //added get arm joystick
 }
 
@@ -114,10 +117,10 @@ void Robot::TeleopInit() {
   // teleop starts running. If you want the autonomous to
   // continue until interrupted by another command, remove
   // this line or comment it out.
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Cancel();
-    m_autonomousCommand = nullptr;
-  }
+//  if (m_autonomousCommand != nullptr) {
+//    m_autonomousCommand->Cancel();
+//    m_autonomousCommand = nullptr;
+//  }
 
   m_oi.get()->DriveCommand()->Start();
   m_oi.get()->LiftJoystick()->Start();
