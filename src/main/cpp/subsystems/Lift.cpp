@@ -43,8 +43,14 @@ void Lift::setOverride(bool active){
       speed = 0;
     } else if (speed > 0 && pos > 23000){
       speed /= 2;
-    } else if (speed < 0 && pos < 2000){
-      speed /= 2;
+   // } else if (speed < 0 && pos < 2000){
+    //  speed /= 2;
+    //real will be 7000?
+    } else if (speed < 0 && pos < 12000){
+      speed /= 3;
+    }
+    if (speed < -0.6){
+      speed = -0.6;
     }
    //if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
     // RobotMap::armMotor.get()->Set(-0.4);
@@ -88,6 +94,7 @@ void Lift::setOverride(bool active){
   } else {
     _arm->overrideJoystick(false);
     _liftMotor->Set(speed);
+    frc::SmartDashboard::PutNumber("lift speed", speed);
   }
 }
 //returns the distance the lifter has risen

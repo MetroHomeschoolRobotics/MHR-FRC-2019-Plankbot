@@ -8,6 +8,13 @@
 #include "commands/CollectLoadingHatch.h"
 
 CollectLoadingHatch::CollectLoadingHatch() {
-  AddSequential(new AutoArm(75, 0.6));
-  AddSequential(new AutoLift(5, 0.6));
+  AddSequential(new AutoArm(100, 0.8));
+  //We can slash the speed partway through
+  AddSequential(new AutoArm(75, 0.2));
+  AddSequential(new AutoLift(5, 0.5));
+  //we want it to go to zero, but we wrote 10 for encoder slop
+  AddSequential(new AutoArm(10, 0.2)); 
+  //AddSequential(new AutoArm(85, 0.4));
+  //AddSequential(new AutoLift(5, 0.4));
+  //This one has been broken and might be going down too fast
 }

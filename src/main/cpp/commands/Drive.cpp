@@ -43,7 +43,7 @@ void Drive::Execute() {
 				_driverControl->GetRawAxis(1),
 				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
 	}
-	if (_driverControl->GetRawButton(5)) {
+	else if (_driverControl->GetRawButton(5)) {
 		Robot::MainDrive()->Move(
 				_driverControl->GetRawAxis(0)/4,
 				_driverControl->GetRawAxis(1)/4,

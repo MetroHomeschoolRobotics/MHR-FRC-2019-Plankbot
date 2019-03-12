@@ -8,6 +8,10 @@
 #include "commands/ApproachLoadingHatch.h"
 
 ApproachLoadingHatch::ApproachLoadingHatch() {
-  AddSequential(new AutoArm(737, 0.6));
-  AddSequential(new AutoLift(4950, 0.6));
+  //mary says put it at 85
+  AddSequential(new AutoArm(90, 0.6));
+  // previous was 4950
+  AddSequential(new AutoLift(3420, 0.6));
+  AddSequential(new AutoArm(615, 0.6));
+  //This is working on this test
 }

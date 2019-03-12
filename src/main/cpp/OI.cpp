@@ -62,6 +62,7 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     //low rocket on old gear ratio was 2000
 
 //This is a level 2 hatch panel used for the rocket in sandstorm
+  
     midRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 2));
     midRocketButton->WhenPressed(new AutoLift(10650, 0.6));
     //mid rocket on new gear ratio is 16750

@@ -25,8 +25,8 @@ void SetLiftWithJoystick::Execute() {
   
   if (abs(rate)<_threshold){
     rate = 0;
-  } else if (rate < 0){
-    rate /= 3;
+  //} else if (rate < 0){
+    //rate /= 3;
   } 
   
   _lift->setLiftMotor(rate);
