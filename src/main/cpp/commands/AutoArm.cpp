@@ -44,6 +44,9 @@ void AutoArm::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutoArm::IsFinished() {
+//	if (_arm->setAbort(true)) {
+//		return true;
+//	}
 	if (rate > 0) {
 		return GetEncoderValue() < targetPos;
 	} else {

@@ -28,6 +28,10 @@ void Arm::overrideJoystick(bool ignore){
   }
 }
 
+//void Arm::setAbort(bool stop){
+//  if (frc::SmartDashboard)
+//}
+
 //creates encoder override variable
 void Arm::setOverride(bool active){
 	if (active) {

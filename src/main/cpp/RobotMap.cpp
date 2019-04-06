@@ -35,7 +35,8 @@ void RobotMap::init() {
 
 	cs::UsbCamera cam0 = frc::CameraServer::GetInstance()->StartAutomaticCapture();
 	cam0.SetFPS(30);
-	cam0.SetResolution(640,480);
+	//cam0.SetResolution(640,480);
+    cam0.SetResolution(200, 150);
 
     tankDriveFrontLeft.reset(new rev::CANSparkMax(1, rev::CANSparkMaxLowLevel::MotorType::kBrushless));
    
