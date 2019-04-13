@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "frc/WPILib.h"
 #include <frc/commands/Subsystem.h>
 
 class DriveSystem : public frc::Subsystem {
@@ -18,4 +19,9 @@ class DriveSystem : public frc::Subsystem {
   DriveSystem(const wpi::Twine& name);
   void InitDefaultCommand() override;
 	virtual void Move(double x, double y, double z);
+  void kidSafeMode(bool safe);
+  bool getKidSafe();
+
+private:
+  bool kidSafe = false;
 };

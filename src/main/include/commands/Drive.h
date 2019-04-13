@@ -2,12 +2,13 @@
 #define DRIVE_H
 
 #include "frc/commands/Subsystem.h"
+#include "subsystems/DriveSystem.h"
 #include "../Robot.h"
 
 class Drive: public frc::Command {
 
 public:
-	Drive(frc::Joystick* driverControl, frc::Joystick* manipulatorControl);
+	Drive(frc::Joystick* driverControl, frc::Joystick* manipulatorControl/*, DriveSystem* mainDrive*/);
 	void Initialize() override;
 	void Execute() override;
 	bool IsFinished() override;
@@ -18,6 +19,8 @@ private:
 	double _threshold = 0.025;
 	frc::Joystick* _driverControl;
 	frc::Joystick* _manipulatorControl;
+	DriveSystem* _mainDrive;
+
 };
 
 #endif

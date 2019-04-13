@@ -21,13 +21,17 @@ void Lift::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+void Lift::kidSafeMode(bool safe){
+  kidSafe = safe;
+  frc::SmartDashboard::PutBoolean("Lift SetKidSafe", kidSafe);
+}
 
 int Lift::GetLiftDistance() {
   return _positioning->GetLiftDistance();
 }
 
 void Lift::setOverride(bool active){
-  if (active) {
+  if (active && !kidSafe) {
     encoderOverride = true;
   } else {
     encoderOverride = false;
@@ -38,10 +42,12 @@ void Lift::setOverride(bool active){
   void Lift::setLiftMotor(double speed) {
     //_liftMotor->Set(speed);
     int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
-  if (!encoderOverride) {
+  if (!encoderOverride && !kidSafe) {
     if (pos > 28000 && speed > 0){
       speed = 0;
     } else if (speed > 0 && pos > 23000){
+      speed /= 2;
+    } else if (speed > 0 && pos > 25000){
       speed /= 2;
    // } else if (speed < 0 && pos < 2000){
     //  speed /= 2;
@@ -52,11 +58,33 @@ void Lift::setOverride(bool active){
     if (speed < -0.6){
       speed = -0.6;
     }
+  //if (kidSafe){
+  //  if (pos > )
+  }
+  if (kidSafe) {
+    frc::SmartDashboard::PutBoolean("Lift Kid Safe Reading?", kidSafe);
+    if (pos > 24000 && speed > 0){
+      speed = 0;
+    } else if (speed > 0 && pos > 23000){
+      speed /= 3;
+    } else if (speed > 0 && pos > 25000){
+      speed /= 2;
+    } else if (speed < 0 && pos < 13000){
+      speed /= 4;
+    }
+    if (speed < -0.5){
+      speed = -0.5;
+    }
+  }
+    //frc::SmartDashboard::PutNumber("lift val", val);
    //if (abs(speed) > 0 && RobotMap::armMotorEncoder.get()->Get() < 70){
     // RobotMap::armMotor.get()->Set(-0.4);
     //  speed = 0;
     //}
-  }
+  //}
+
+  //if (kidSafe)
+  
   if (!RobotMap::manipulatorBottomSwitch.get()->Get()) {
     RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
   }
@@ -84,7 +112,8 @@ void Lift::setOverride(bool active){
       speed = fmin(speed, 0);
     }
     */
-  if (_arm->getArmAngle() < 70 && (speed > 0.15 || speed < 0)) {
+   //PREVIOUS WAS 70
+  if (_arm->getArmAngle() < 100 && (speed > 0.15 || speed < 0)) {
     _arm->overrideJoystick(true);
     if (pos < 3500) {
       _liftMotor->Set(0.05);
@@ -93,9 +122,19 @@ void Lift::setOverride(bool active){
     }
   } else {
     _arm->overrideJoystick(false);
+
+    if (!kidSafe){
     _liftMotor->Set(speed);
+    } else if (kidSafe){
+    _liftMotor->Set(speed/2);
+    }
+    //_liftMotor->Set(speed);
     frc::SmartDashboard::PutNumber("lift speed", speed);
   }
+}
+
+bool Lift::getKidSafe() {
+  return kidSafe;
 }
 //returns the distance the lifter has risen
   /*float Lift::getLiftDistance()  {

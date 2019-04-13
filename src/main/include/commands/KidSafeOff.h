@@ -9,20 +9,24 @@
 
 #include <frc/commands/Command.h>
 #include "subsystems/Arm.h"
-#include "OI.h"
-#include "Robot.h"
+#include "subsystems/Lift.h"
+#include "subsystems/DriveSystem.h"
+#include "../Robot.h"
 
-class ArmEncoderOverride : public frc::Command {
+class KidSafeOff : public frc::Command {
  public:
-  ArmEncoderOverride(Arm *arm);
+  KidSafeOff(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
 
- private:
-   Arm *_arm;
-   bool IsKidSafe();
-   //bool kidSafe = _arm->getKidSafe();
+  private:
+  /*Arm *_arm;
+  Lift *_lift;
+  DriveSystem *_mainDrive;*/
+  Arm* _arm;
+  Lift* _lift;
+  DriveSystem* _mainDrive;
 };

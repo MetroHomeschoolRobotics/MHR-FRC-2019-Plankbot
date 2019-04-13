@@ -19,7 +19,9 @@ void LiftEncoderOverride::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void LiftEncoderOverride::Execute() {
-  _lift->setOverride(true);
+  if (!_lift->getKidSafe()) {
+    _lift->setOverride(true);
+  }
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -28,7 +30,9 @@ bool LiftEncoderOverride::IsFinished() { return false; }
 // Called once after isFinished returns true
 void LiftEncoderOverride::End() {
  _lift->setOverride(false);
- RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
+   if (!_lift->getKidSafe()) {
+    RobotMap::liftMotor.get()->SetSelectedSensorPosition(0, 0);
+  }
 }
 
 // Called when another command which requires one or more of the same

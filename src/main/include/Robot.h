@@ -50,6 +50,10 @@ class Robot : public frc::TimedRobot {
   frc::Command* m_leftAutoCommand;
   frc::Command* m_centerAutoCommand;
   frc::Command* m_rightAutoCommand;
+  //frc::Command* m_kidSafeMode;
+  //frc::Command* m_kidSafeOff;
+  frc::Command* m_kidSafeOn;
+  frc::Command* m_kidSafeOff;
 
 	// subsystems
   static std::shared_ptr<DriveSystem> m_mainDrive;

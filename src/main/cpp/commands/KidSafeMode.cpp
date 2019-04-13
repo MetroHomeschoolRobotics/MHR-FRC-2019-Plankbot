@@ -5,49 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ArmEncoderOverride.h"
+#include "commands/KidSafeMode.h"
 
-ArmEncoderOverride::ArmEncoderOverride(Arm *arm) {
+KidSafeMode::KidSafeMode(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  _arm = arm;
-  //_kidSafe = _arm->getKidSafe();
-  //_kidSafe = kidSafe;
-}
-
-bool ArmEncoderOverride::IsKidSafe() {
-  //bool kidSafe = Robot::ArmSystem()->getKidSafe();
-  return Robot::ArmSystem()->getKidSafe();
+  _arm = Robot::ArmSystem();
+  _lift = Robot::LiftSystem();
+  _mainDrive = Robot::MainDrive();
+  //_arm = arm;
+  //_lift = lift;
+  //_mainDrive = mainDrive;
+  //int armAngle = _arm->getArmAngle()
 }
 
 // Called just before this Command runs the first time
-void ArmEncoderOverride::Initialize() {}
+void KidSafeMode::Initialize() {
+  frc::SmartDashboard::PutNumber("Run Kidsafe Start", _arm->getKidSafe());
+}
 
 // Called repeatedly when this Command is scheduled to run
-void ArmEncoderOverride::Execute() {
-  bool kidSafe = ArmEncoderOverride::IsKidSafe();
-  if (!kidSafe){
-  _arm->setOverride(true);
-  }
-  frc::SmartDashboard::PutString("Arm Enc Ov Ex", "Executing");
+void KidSafeMode::Execute() {
+  _arm->kidSafeMode(true);
+  _lift->kidSafeMode(true);
+  _mainDrive->kidSafeMode(true);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ArmEncoderOverride::IsFinished(){ return false; }
+bool KidSafeMode::IsFinished() { return true; }
 
 // Called once after isFinished returns true
-void ArmEncoderOverride::End() {
-bool kidSafe = ArmEncoderOverride::IsKidSafe();
-frc::SmartDashboard::PutNumber("EncOv kid safe", kidSafe);
-  if (!kidSafe){
-  _arm->resetArmEncoder();
-  }
-  _arm->setOverride(false);
-  frc::SmartDashboard::PutString("Arm Enc Ov End", "Ending");
+void KidSafeMode::End() {
+  frc::SmartDashboard::PutNumber("Run KidSafe End", _arm->getKidSafe());
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ArmEncoderOverride::Interrupted() {
+void KidSafeMode::Interrupted() {
   End();
 }

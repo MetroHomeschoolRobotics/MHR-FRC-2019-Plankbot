@@ -22,6 +22,8 @@ class Arm : public frc::Subsystem {
  public:
   Arm(Positioning *positioning);
   void InitDefaultCommand() override;
+  void kidSafeMode(bool safe);
+  bool getKidSafe();
   void overrideJoystick(bool ignore);
   void setOverride(bool active);
   void setArmMotor(double speed);
@@ -30,5 +32,6 @@ class Arm : public frc::Subsystem {
  
  private:
   bool joystickOverride = false;
+  bool kidSafe = false;
   bool encoderOverride = false;
 };

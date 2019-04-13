@@ -20,3 +20,13 @@ void DriveSystem::InitDefaultCommand() {
 void DriveSystem::Move(double x, double y, double z){
   
 }
+
+void DriveSystem::kidSafeMode(bool safe){
+  kidSafe = safe;
+  frc::SmartDashboard::PutBoolean("Drive System SetKidSafe", kidSafe);
+}
+
+bool DriveSystem::getKidSafe(){
+  bool isKidSafe = kidSafe;
+  return isKidSafe; 
+}

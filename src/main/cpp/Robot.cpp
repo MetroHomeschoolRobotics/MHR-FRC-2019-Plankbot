@@ -15,6 +15,8 @@
 #include "commands/AutoCenter.h"
 #include "commands/AutoRight.h"
 #include "subsystems/TankDrive.h"
+#include "commands/KidSafeMode.h"
+#include "commands/KidSafeOff.h"
 
  std::unique_ptr<OI> Robot::m_oi;
 
@@ -40,6 +42,22 @@ void Robot::RobotInit() {
   //m_chooser.AddOption("Right", m_rightAutoCommand);
   //frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
+//Arm *arm, Lift *lift, DriveSystem *mainDrive (subsystems involved in KidSafeMode)
+
+/*m_kidSafeOn = new KidSafeMode();
+m_kidSafeOff = new KidSafeOff();*/
+//m_kidSafeOn = new KidSafeMode(m_arm, m_lift, m_mainDrive);
+//m_kidSafeOn = new KidSafeMode(Arm *_arm, Lift *_lift, DriveSystem *_mainDrive);
+//m_kidSafeOff = new KidSafeOff(_arm, _lift, _mainDrive);
+
+/*m_chooser.AddOption("Kid Safe On", m_kidSafeOn);
+m_chooser.SetDefaultOption("Kid Safe Off", m_kidSafeOff);
+frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);*/
+//frc::SmartDashboard::PutString("Test - reading?", "chooser");
+  //m_chooser.AddOption("On", m_kidSafeMode);
+ // m_chooser.SetDefaultOption("Off", m_kidSafeOff);
+  //frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);
+
     //Instantiate OI
   //m_pneumaticCompressor.reset(new PneumaticCharging(RobotMap::pneumoCharger.get()));
   m_positioningSystem.reset(new Positioning());
@@ -60,7 +78,17 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  
+/*m_chooser.AddOption("Kid Safe On", m_kidSafeMode);
+m_chooser.SetDefaultOption("Kid Safe Off", m_kidSafeOff);
+frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);*/
+//frc::SmartDashboard::PutString("Test - reading?", "chooser");
+m_kidSafeOn = new KidSafeMode();
+m_kidSafeOff = new KidSafeOff();
+frc::SmartDashboard::PutData("Kid Safe On", m_kidSafeOn);
+frc::SmartDashboard::PutData("Kid Safe Off", m_kidSafeOff);
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You

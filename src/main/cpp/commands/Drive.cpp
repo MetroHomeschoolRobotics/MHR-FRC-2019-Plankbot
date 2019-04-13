@@ -4,19 +4,21 @@ Drive::Drive(frc::Joystick* driverControl, frc::Joystick* manipulatorControl) : 
 	Requires(Robot::MainDrive());
 	_driverControl = driverControl;
 	_manipulatorControl = manipulatorControl;
+	//_mainDrive = mainDrive;
+	_mainDrive = Robot::MainDrive();
 }
 
 void Drive::Initialize() {
 }
 
 void Drive::Execute() {
-	double total = abs(_driverControl->GetRawAxis(0)) +
-		abs(_driverControl->GetRawAxis(1)) +
-		abs(_driverControl->GetRawAxis(2)) +
-		abs(_driverControl->GetRawAxis(3));
+	double x = _driverControl->GetRawAxis(0);
+	double y = _driverControl->GetRawAxis(1);
+	double z = _driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3);
+	double total = abs(x) + abs(y) + abs(z);
+	bool kidSafe = _mainDrive->getKidSafe();
+
 	if (total > _threshold*2) {
-		double x = _driverControl->GetRawAxis(0);
-		double y = _driverControl->GetRawAxis(1);
 		if (abs(x) < _threshold){
 			x = 0;
 		} else if (abs(x) < _threshold * 7){
@@ -27,28 +29,27 @@ void Drive::Execute() {
 		} else if (abs(y) < _threshold * 7){
 			y /= 2;
 		}
-		Robot::MainDrive()->Move(
-				x/2,
-				y/2,
-				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
+		// Cut overall speed in half
+		x /= 2;
+		y /= 2;
 	} else {
-		Robot::MainDrive()->Move(
-				_driverControl->GetRawAxis(0)/2,
-				_driverControl->GetRawAxis(1)/2,
-				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
+		x = 0;
+		y = 0;
+		z = 0;
 	}
-	if (_driverControl->GetRawButton(6)) {
-		Robot::MainDrive()->Move(
-				_driverControl->GetRawAxis(0),
-				_driverControl->GetRawAxis(1),
-				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
+	
+	if (kidSafe){
+		x /= 2;
+		y /= 2;
+	} else if (_driverControl->GetRawButton(6)) {
+		x *= 2;
+		y *= 2;
+	} else if (_driverControl->GetRawButton(5)) {
+		x /= 2;
+		y /= 2;
 	}
-	else if (_driverControl->GetRawButton(5)) {
-		Robot::MainDrive()->Move(
-				_driverControl->GetRawAxis(0)/4,
-				_driverControl->GetRawAxis(1)/4,
-				_driverControl->GetRawAxis(2) - _driverControl->GetRawAxis(3));
-	}
+
+	Robot::MainDrive()->Move(x,	y, z);
 }
 
 bool Drive::IsFinished() {

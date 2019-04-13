@@ -35,7 +35,7 @@ void Positioning::UpdateDashboard(){
 //	frc::SmartDashboard::PutNumber("Arm Distance", GetArmDistance());
 	//frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());
 	frc::SmartDashboard::PutNumber("Bottom Limit Switch", !RobotMap::manipulatorBottomSwitch.get()->Get());
-	
+	frc::SmartDashboard::PutNumber("Top Limit Switch", !RobotMap::manipulatorTopSwitch.get()->Get());	
 
 	if (RobotMap::pixySPI != nullptr) {
 		FRCPixyBlock* spiBlock = RobotMap::pixySPI->GetBlocks(0);

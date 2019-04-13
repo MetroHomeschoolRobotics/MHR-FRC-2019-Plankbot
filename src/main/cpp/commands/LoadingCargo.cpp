@@ -8,6 +8,6 @@
 #include "commands/LoadingCargo.h"
 
 LoadingCargo::LoadingCargo() {
-  AddSequential(new AutoArm(100, 0.6));
+  AddSequential(new AutoArm(150, 0.6));
   AddSequential(new AutoLift(12000, 0.6));
 }
