@@ -7,25 +7,27 @@
 
 #include "commands/KidSafeMode.h"
 
-KidSafeMode::KidSafeMode(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/) {
+KidSafeMode::KidSafeMode(Arm *arm, Lift *lift, DriveSystem *mainDrive) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  _arm = Robot::ArmSystem();
-  _lift = Robot::LiftSystem();
-  _mainDrive = Robot::MainDrive();
-  //_arm = arm;
-  //_lift = lift;
-  //_mainDrive = mainDrive;
+  //_arm = Robot::ArmSystem();
+  //_lift = Robot::LiftSystem();
+  //_mainDrive = Robot::MainDrive();
+  _arm = arm;
+  _lift = lift;
+  _mainDrive = mainDrive;
   //int armAngle = _arm->getArmAngle()
 }
 
 // Called just before this Command runs the first time
 void KidSafeMode::Initialize() {
-  frc::SmartDashboard::PutNumber("Run Kidsafe Start", _arm->getKidSafe());
+  //frc::SmartDashboard::PutBoolean("Run Kidsafe Start", _arm->getKidSafe());
 }
 
 // Called repeatedly when this Command is scheduled to run
 void KidSafeMode::Execute() {
+  frc::SmartDashboard::PutString("KidSafe", "On");
+
   _arm->kidSafeMode(true);
   _lift->kidSafeMode(true);
   _mainDrive->kidSafeMode(true);
@@ -36,7 +38,7 @@ bool KidSafeMode::IsFinished() { return true; }
 
 // Called once after isFinished returns true
 void KidSafeMode::End() {
-  frc::SmartDashboard::PutNumber("Run KidSafe End", _arm->getKidSafe());
+  //frc::SmartDashboard::PutBoolean("Run KidSafe End", _arm->getKidSafe());
 }
 
 // Called when another command which requires one or more of the same

@@ -67,7 +67,11 @@ frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);*/
 
 	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get()));
 	m_oi.get()->SetupDashboard();
-  }
+  m_kidSafeOn = new KidSafeMode(m_arm.get(), m_lift.get(), m_mainDrive.get());
+  m_kidSafeOff = new KidSafeOff(m_arm.get(), m_lift.get(), m_mainDrive.get());
+  frc::SmartDashboard::PutData("Kid Safe On", m_kidSafeOn);
+  frc::SmartDashboard::PutData("Kid Safe Off", m_kidSafeOff);
+}
 
 
 /**
@@ -84,10 +88,6 @@ void Robot::RobotPeriodic() {
 m_chooser.SetDefaultOption("Kid Safe Off", m_kidSafeOff);
 frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);*/
 //frc::SmartDashboard::PutString("Test - reading?", "chooser");
-m_kidSafeOn = new KidSafeMode();
-m_kidSafeOff = new KidSafeOff();
-frc::SmartDashboard::PutData("Kid Safe On", m_kidSafeOn);
-frc::SmartDashboard::PutData("Kid Safe Off", m_kidSafeOff);
 }
 
 /**

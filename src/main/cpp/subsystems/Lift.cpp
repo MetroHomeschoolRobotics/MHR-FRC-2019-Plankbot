@@ -23,7 +23,6 @@ void Lift::InitDefaultCommand() {
 // here. Call these from Commands.
 void Lift::kidSafeMode(bool safe){
   kidSafe = safe;
-  frc::SmartDashboard::PutBoolean("Lift SetKidSafe", kidSafe);
 }
 
 int Lift::GetLiftDistance() {
@@ -62,7 +61,6 @@ void Lift::setOverride(bool active){
   //  if (pos > )
   }
   if (kidSafe) {
-    frc::SmartDashboard::PutBoolean("Lift Kid Safe Reading?", kidSafe);
     if (pos > 24000 && speed > 0){
       speed = 0;
     } else if (speed > 0 && pos > 23000){

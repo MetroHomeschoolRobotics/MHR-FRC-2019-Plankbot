@@ -15,7 +15,7 @@
 
 class KidSafeMode : public frc::Command {
  public:
-  KidSafeMode(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/);
+  KidSafeMode(Arm *arm, Lift *lift, DriveSystem *mainDrive);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

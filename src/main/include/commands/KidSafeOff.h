@@ -15,7 +15,7 @@
 
 class KidSafeOff : public frc::Command {
  public:
-  KidSafeOff(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/);
+  KidSafeOff(Arm *arm, Lift *lift, DriveSystem *mainDrive);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

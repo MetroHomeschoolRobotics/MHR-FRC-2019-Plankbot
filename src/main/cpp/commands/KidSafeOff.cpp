@@ -7,15 +7,15 @@
 
 #include "commands/KidSafeOff.h"
 
-KidSafeOff::KidSafeOff(/*Arm *arm, Lift *lift, DriveSystem *mainDrive*/) {
+KidSafeOff::KidSafeOff(Arm *arm, Lift *lift, DriveSystem *mainDrive) {
   // Use Requires() here to declare subsystem dependencies
   // eg. Requires(Robot::chassis.get());
-  //_arm = arm;
-  //_lift = lift;
-  //_mainDrive = mainDrive;
-  _arm = Robot::ArmSystem();
-  _lift = Robot::LiftSystem();
-  _mainDrive = Robot::MainDrive();
+  _arm = arm;
+  _lift = lift;
+  _mainDrive = mainDrive;
+  //_arm = Robot::ArmSystem();
+  //_lift = Robot::LiftSystem();
+  //_mainDrive = Robot::MainDrive();
 }
 
 // Called just before this Command runs the first time
@@ -23,6 +23,7 @@ void KidSafeOff::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void KidSafeOff::Execute() {
+  frc::SmartDashboard::PutString("KidSafe", "Off");
   _arm->kidSafeMode(false);
   _lift->kidSafeMode(false);
   _mainDrive->kidSafeMode(false);
