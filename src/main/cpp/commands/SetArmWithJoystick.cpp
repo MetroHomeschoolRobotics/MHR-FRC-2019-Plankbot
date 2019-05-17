@@ -26,7 +26,9 @@ void SetArmWithJoystick::Execute() {
   if (abs(rate)<_threshold){
     rate = 0;
   }
-
+  if (_manipulatorControl->GetRawButton(3)){
+    rate /= 2;
+  }
    _arm->setArmMotor(rate);
    frc::SmartDashboard::PutString("ArmExec", "Executing");
    frc::SmartDashboard::PutNumber("ArmRate", rate);

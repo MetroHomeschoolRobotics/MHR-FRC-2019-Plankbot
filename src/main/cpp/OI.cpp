@@ -19,13 +19,14 @@
 #include "commands/Drive.h"
 #include "commands/SetLiftWithJoystick.h"
 #include "commands/SetArmWithJoystick.h"
+#include "commands/SetClimb.h"
 #include "commands/CollectCargo.h"
 #include "commands/ReleaseCargo.h"
 #include "commands/ApproachLoadingHatch.h"
 #include "commands/CollectLoadingHatch.h"
 #include "commands/LoadingCargo.h"
 
-OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, Lift *lift, Arm *arm) {
+OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, Lift *lift, Arm *arm, Climb *climb) {
 
 	//Instantiate the Joystick
     driveJoystick.reset(new frc::Joystick(0));
@@ -37,10 +38,13 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
 	_cargoSystem = cargoSystem;
     _lift = lift;
     _arm = arm;
+    _climb = climb;
 
   _setLiftWithJoystick.reset(new SetLiftWithJoystick(_lift, driveJoystick.get()));
 
   _setArmWithJoystick.reset(new SetArmWithJoystick(_arm, manipulatorJoystick.get()));
+
+  _setClimb.reset(new SetClimb(_climb, driveJoystick.get()));
 
     collectButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 5));
     collectButton->WhileHeld(new CollectCargo(_cargoSystem));
@@ -48,28 +52,28 @@ OI::OI(DriveSystem *drive, Positioning *positioning, CargoSystem *cargoSystem, L
     releaseButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 6));
     releaseButton->WhileHeld(new ReleaseCargo(_cargoSystem));
 
-    approachLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 1));
-    approachLoadingHatchButton->WhenPressed(new ApproachLoadingHatch);
+    // approachLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 1));
+    // approachLoadingHatchButton->WhenPressed(new ApproachLoadingHatch);
 
-    collectLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
-    collectLoadingHatchButton->WhenPressed(new CollectLoadingHatch);
+    // collectLoadingHatchButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 3));
+    // collectLoadingHatchButton->WhenPressed(new CollectLoadingHatch);
 
-    loadingCargoButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 2));
-    loadingCargoButton->WhenPressed(new LoadingCargo);
+    // loadingCargoButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 2));
+    // loadingCargoButton->WhenPressed(new LoadingCargo);
 
-    lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
-    lowLiftButton->WhenPressed(new AutoLift(4709, 0.6));
+    // lowLiftButton.reset(new frc::JoystickButton(driveJoystick.get(), 1));
+    // lowLiftButton->WhenPressed(new AutoLift(4709, 0.6));
     //low rocket on old gear ratio was 2000
 
 //This is a level 2 hatch panel used for the rocket in sandstorm
   
-    midRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 2));
-    midRocketButton->WhenPressed(new AutoLift(10650, 0.6));
+    // midRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 2));
+    // midRocketButton->WhenPressed(new AutoLift(10650, 0.6));
     //mid rocket on new gear ratio is 16750
     //old mid rocket value was 15500
 
-    highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
-    highRocketButton->WhenPressed(new AutoLift(28000, 0.6));
+    // highRocketButton.reset(new frc::JoystickButton(driveJoystick.get(), 4));
+    // highRocketButton->WhenPressed(new AutoLift(28000, 0.6));
     //For hatch panels 21900
 
     armEncoderOverrideButton.reset(new frc::JoystickButton(manipulatorJoystick.get(), 8));
@@ -104,4 +108,8 @@ frc::Command* OI::LiftJoystick() {
 
 frc::Command* OI::ArmJoystick() {
     return _setArmWithJoystick.get();
+}
+
+frc::Command* OI::ClimbJoystick() {
+    return _setClimb.get();
 }

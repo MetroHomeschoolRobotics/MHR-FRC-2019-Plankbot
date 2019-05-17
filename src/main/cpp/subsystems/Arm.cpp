@@ -54,17 +54,20 @@ void Arm::setArmMotor(double speed) {
     int angle = getArmAngle();
     frc::SmartDashboard::PutBoolean("Arm::KidSafe", kidSafe);
     //limits run only if encoderOverride is false; by activating encoderOverride, driver circumvents limits
-if(!encoderOverride && !kidSafe){
-  frc::SmartDashboard::PutNumber("Arm::setMotorkidsafe", kidSafe);
-    if (angle < 0 && speed > 0){
+//if(!encoderOverride && !kidSafe){
+ // frc::SmartDashboard::PutNumber("Arm::setMotorkidsafe", kidSafe);
+    /*if (angle < 0 && speed > 0){
       val = 0;
-    }  else if (angle > 800 && speed < 0){
+    // }  else if (angle > 800 && speed < 0){
+    }  else if (angle > 400 && speed < 0){
+
       val = 0;
     }
-    if (angle > 230 && speed == 0){
+    // if (angle > 230 && speed == 0){
+    if (angle > 130 && speed == 0){
       val = .05;
     }
-  }
+  }*/
 if (kidSafe){
   if (angle < 5 && speed > 0){
     val = 0;
@@ -75,14 +78,15 @@ if (kidSafe){
     val = .05;
   }
 }
-  //previous was 70
-  if (joystickOverride && angle < 100) {
+
+  //previous was 70, 100
+  if (joystickOverride && angle < 50) {
       val = -0.4;
   }
   if (!kidSafe){
-  _armMotor->Set(val);
-  } else if (kidSafe){
   _armMotor->Set(val/2);
+  } else if (kidSafe){
+  _armMotor->Set(val/4);
   }
   frc::SmartDashboard::PutNumber("arm val", val);
 }

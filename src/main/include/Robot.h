@@ -19,6 +19,7 @@
 #include "subsystems/CargoSystem.h"
 #include "subsystems/Lift.h"
 #include "subsystems/Arm.h"
+#include "subsystems/Climb.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -30,6 +31,7 @@ class Robot : public frc::TimedRobot {
   static Lift* LiftSystem();
   static CargoSystem* Cargo();
   static Arm* ArmSystem();
+  static Climb* ClimbSystem();
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -62,5 +64,6 @@ class Robot : public frc::TimedRobot {
   static std::shared_ptr<CargoSystem> m_cargoSystem;
   static std::shared_ptr<Lift> m_lift;
   static std::shared_ptr<Arm> m_arm;
+  static std::shared_ptr<Climb> m_climb;
 
 };

@@ -8,6 +8,7 @@ std::shared_ptr<rev::CANSparkMax> RobotMap::tankDriveRearLeft;
 std::shared_ptr<WPI_TalonSRX> RobotMap::liftMotor;
 std::shared_ptr<WPI_TalonSRX> RobotMap::cargoMotor;
 std::shared_ptr<WPI_TalonSRX> RobotMap::armMotor;
+std::shared_ptr<WPI_TalonSRX> RobotMap::climbMotor;
 
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::octoDriveSwitchSol1;
 std::shared_ptr<frc::DoubleSolenoid> RobotMap::liftGrabSol1;
@@ -16,8 +17,10 @@ std::shared_ptr<frc::DoubleSolenoid> RobotMap::pusherSol2;
 
 std::shared_ptr<frc::Encoder> RobotMap::liftMotorEncoder;
 std::shared_ptr<frc::Encoder> RobotMap::armMotorEncoder;
+std::shared_ptr<frc::Encoder> RobotMap::climbMotorEncoder;
 std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorTopSwitch;
 std::shared_ptr<frc::DigitalInput> RobotMap::manipulatorBottomSwitch;
+//std::shared_ptr<frc::AnalogPotentiometer> RobotMap::armPot;
 
 std::shared_ptr<frc::ADXRS450_Gyro> RobotMap::gyro;
 std::shared_ptr<FRCPixy2> RobotMap::pixySPI;
@@ -57,9 +60,11 @@ void RobotMap::init() {
     liftMotor.reset(new WPI_TalonSRX(4));
     cargoMotor.reset(new WPI_TalonSRX(2));
     armMotor.reset(new WPI_TalonSRX(1));
+    climbMotor.reset(new WPI_TalonSRX(3));
 
     manipulatorBottomSwitch.reset(new DigitalInput(1));
-     manipulatorTopSwitch.reset(new DigitalInput(2));
+    manipulatorTopSwitch.reset(new DigitalInput(2));
+
     
     navGyro.reset(new AHRS(SPI::kMXP));
     //navGyro.reset(new AHRS(SerialPort::kMXP));

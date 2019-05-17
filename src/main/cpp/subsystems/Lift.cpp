@@ -42,24 +42,24 @@ void Lift::setOverride(bool active){
     //_liftMotor->Set(speed);
     int pos = RobotMap::liftMotor.get()->GetSelectedSensorPosition(0);
   if (!encoderOverride && !kidSafe) {
-    if (pos > 28000 && speed > 0){
+    if (pos > 29000 && speed > 0){
       speed = 0;
-    } else if (speed > 0 && pos > 23000){
+    } else if (speed > 0 && pos > 24000){
       speed /= 2;
-    } else if (speed > 0 && pos > 25000){
-      speed /= 2;
-   // } else if (speed < 0 && pos < 2000){
-    //  speed /= 2;
+/*    } else if (speed > 0 && pos > 26000){
+       speed /= 2;*/
+    } else if (speed < 0 && pos < 2000){
+        speed /= 2;
     //real will be 7000?
-    } else if (speed < 0 && pos < 12000){
+    } else if (speed < 0 && pos < 5100){
       speed /= 3;
     }
     if (speed < -0.6){
       speed = -0.6;
     }
+  }
   //if (kidSafe){
   //  if (pos > )
-  }
   if (kidSafe) {
     if (pos > 24000 && speed > 0){
       speed = 0;
@@ -110,8 +110,8 @@ void Lift::setOverride(bool active){
       speed = fmin(speed, 0);
     }
     */
-   //PREVIOUS WAS 70
-  if (_arm->getArmAngle() < 100 && (speed > 0.15 || speed < 0)) {
+   //PREVIOUS WAS 70, 100
+  if (_arm->getArmAngle() < 50 && (speed > 0.15 || speed < 0)) {
     _arm->overrideJoystick(true);
     if (pos < 3500) {
       _liftMotor->Set(0.05);
@@ -138,9 +138,9 @@ bool Lift::getKidSafe() {
   /*float Lift::getLiftDistance()  {
     return 0;
     //return lift encoder distance
-  }
+  }*/
 
 //resets the lift encoder
-  void Lift::resetLiftEncoder() {
+  //void Lift::resetLiftEncoder() {
     //_liftMotor->(reset)
-  }*/
+  //}

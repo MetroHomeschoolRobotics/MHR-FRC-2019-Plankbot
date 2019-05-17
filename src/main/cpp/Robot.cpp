@@ -26,6 +26,7 @@ std::shared_ptr<PneumaticCharging> Robot::m_pneumaticCompressor;
 std::shared_ptr<CargoSystem> Robot::m_cargoSystem;
 std::shared_ptr<Lift> Robot::m_lift;
 std::shared_ptr<Arm> Robot::m_arm;
+std::shared_ptr<Climb> Robot::m_climb;
 
 void Robot::RobotInit() {
   RobotMap::init();
@@ -64,8 +65,9 @@ frc::SmartDashboard::PutData("Kid Safe Mode", &m_chooser);*/
   m_cargoSystem.reset(new CargoSystem(m_positioningSystem.get()));
   m_arm.reset(new Arm(m_positioningSystem.get()));
   m_lift.reset(new Lift(m_positioningSystem.get(), m_arm.get()));
+  m_climb.reset(new Climb());
 
-	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get()));
+	m_oi.reset(new OI(m_mainDrive.get(), m_positioningSystem.get(), m_cargoSystem.get(), m_lift.get(), m_arm.get(), m_climb.get()));
 	m_oi.get()->SetupDashboard();
   m_kidSafeOn = new KidSafeMode(m_arm.get(), m_lift.get(), m_mainDrive.get());
   m_kidSafeOff = new KidSafeOff(m_arm.get(), m_lift.get(), m_mainDrive.get());
@@ -128,6 +130,7 @@ void Robot::AutonomousInit() {
   m_oi.get()->DriveCommand()->Start();
   m_oi.get()->LiftJoystick()->Start();
   m_oi.get()->ArmJoystick()->Start();
+  m_oi.get()->ClimbJoystick()->Start();
 
   //m_oi.get()->DriveCommand()->Cancel();
   //m_oi.get()->LiftJoystick()->Cancel();
@@ -153,6 +156,7 @@ void Robot::TeleopInit() {
   m_oi.get()->DriveCommand()->Start();
   m_oi.get()->LiftJoystick()->Start();
   m_oi.get()->ArmJoystick()->Start();
+  m_oi.get()->ClimbJoystick()->Start();
   //added arm joystick
 }
 
@@ -186,6 +190,10 @@ CargoSystem* Robot::Cargo(){
 
 Arm* Robot::ArmSystem(){
     return m_arm.get();
+}
+
+Climb* Robot::ClimbSystem(){
+  return m_climb.get();
 }
 
 #ifndef RUNNING_FRC_TESTS
